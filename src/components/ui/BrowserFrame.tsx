@@ -48,10 +48,13 @@ export function BrowserFrame({
       >
         {/* chrome */}
         <div className="flex items-center gap-2 border-b border-line/80 bg-surface-2 px-4 py-2.5">
+          {/* macOS traffic lights — authentic hex, the one place the site
+              steps outside its single-accent palette, because the colours
+              are what make the chrome read instantly as a window. */}
           <span className="flex gap-1.5" aria-hidden="true">
-            <i className="h-2 w-2 rounded-full bg-ink-faint/30" />
-            <i className="h-2 w-2 rounded-full bg-ink-faint/20" />
-            <i className="h-2 w-2 rounded-full bg-ink-faint/15" />
+            <i className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+            <i className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+            <i className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
           </span>
           {url ? (
             <span className="ml-2 truncate font-mono text-[10px] tracking-tight text-ink-faint">
