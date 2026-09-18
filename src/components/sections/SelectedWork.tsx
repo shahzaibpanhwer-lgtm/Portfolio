@@ -6,7 +6,7 @@ import { BrowserFrame } from "@/components/ui/BrowserFrame";
 import { Arrow, ArrowOut } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
-export function SelectedWork() {
+export function SelectedWork({ showAllLink = true }: { showAllLink?: boolean } = {}) {
   const featured = projects.filter((p) => p.tier === "featured");
   const secondary = projects.filter((p) => p.tier === "secondary");
 
@@ -18,13 +18,15 @@ export function SelectedWork() {
           title="Selected Work"
           lead="Real products, websites and digital experiences I've worked on."
           aside={
-            <Link
-              href="/work"
-              className="group/btn inline-flex items-center gap-2 text-sm text-ink-dim transition-colors duration-300 hover:text-accent"
-            >
-              All projects
-              <Arrow />
-            </Link>
+            showAllLink ? (
+              <Link
+                href="/work"
+                className="group/btn inline-flex items-center gap-2 text-sm text-ink-dim transition-colors duration-300 hover:text-accent"
+              >
+                All projects
+                <Arrow />
+              </Link>
+            ) : null
           }
         />
 
