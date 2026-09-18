@@ -1,0 +1,32 @@
+/**
+ * Site-wide constants.
+ * Contact details are placeholders until real values are supplied —
+ * nothing here is invented.
+ */
+
+export const site = {
+  name: "Shahzaib Panhwer",
+  shortName: "SP",
+  role: "UI/UX Designer & WordPress Developer",
+  secondaryRole: "Full-Stack Developer",
+  title: "Shahzaib Panhwer — UI/UX Designer & WordPress Developer",
+  description:
+    "Portfolio of Shahzaib Panhwer, a UI/UX Designer and WordPress Developer working across digital products, websites and WordPress development.",
+  url: "https://shahzaibpanhwer.vercel.app",
+  availability: "Open to opportunities & freelance projects",
+} as const;
+
+/** Placeholders — replace with real values before launch. */
+export const contact = {
+  email: "YOUR_EMAIL",
+  linkedin: "YOUR_LINKEDIN",
+  github: "YOUR_GITHUB",
+} as const;
+
+export const navLinks = [
+  { label: "Work", href: "/#work" },
+  { label: "About", href: "/#about" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Skills", href: "/#skills" },
+  { label: "Contact", href: "/#contact" },
+] as const;
