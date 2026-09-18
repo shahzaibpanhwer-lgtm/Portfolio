@@ -11,7 +11,10 @@ export function About({
   const [lead, ...rest] = about.paragraphs;
 
   return (
-    <section id="about" className="section-y">
+    <section
+      id="about"
+      className={showHeading ? "section-y" : "pb-24 pt-12 md:pb-32 md:pt-14"}
+    >
       <div className="container-edge">
         {showHeading ? (
           <SectionHeading eyebrow="Profile" title="About" />

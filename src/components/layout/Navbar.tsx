@@ -32,12 +32,35 @@ export function Navbar() {
 
     if (sections.length === 0) return;
 
+    /* Track what is currently in the band rather than latching onto the
+       last match — otherwise scrolling back to the hero leaves Contact
+       highlighted. */
+    const inBand = new Map<string, number>();
+
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActive(visible.target.id);
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            inBand.set(entry.target.id, entry.intersectionRatio);
+          } else {
+            inBand.delete(entry.target.id);
+          }
+        }
+
+        if (inBand.size === 0) {
+          setActive("");
+          return;
+        }
+
+        let best = "";
+        let bestRatio = -1;
+        for (const [id, ratio] of inBand) {
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            best = id;
+          }
+        }
+        setActive(best);
       },
       { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] },
     );
@@ -128,14 +151,16 @@ export function Navbar() {
           </ul>
 
           <div className="flex items-center gap-2">
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden h-10 items-center rounded-full border border-line px-5 text-sm text-ink transition-colors duration-300 hover:border-accent hover:text-accent md:inline-flex"
-            >
-              Resume
-            </a>
+            {site.resumeUrl ? (
+              <a
+                href={site.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden h-10 items-center rounded-full border border-line px-5 text-sm text-ink transition-colors duration-300 hover:border-accent hover:text-accent md:inline-flex"
+              >
+                Resume
+              </a>
+            ) : null}
 
             {/* Mobile toggle */}
             <button
@@ -205,14 +230,16 @@ export function Navbar() {
               </ul>
 
               <div className="space-y-6">
-                <a
-                  href="/resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-12 items-center rounded-full border border-line px-6 text-sm text-ink"
-                >
-                  Resume
-                </a>
+                {site.resumeUrl ? (
+                  <a
+                    href={site.resumeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-12 items-center rounded-full border border-line px-6 text-sm text-ink"
+                  >
+                    Resume
+                  </a>
+                ) : null}
                 <p className="label">{site.role}</p>
               </div>
             </div>

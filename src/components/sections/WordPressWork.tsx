@@ -25,9 +25,15 @@ export function WordPressWork({
 } = {}) {
   const lead = wordpressProjects.find((p) => p.tier === "lead");
   const rest = wordpressProjects.filter((p) => p.tier !== "lead");
+  const titleAs = showHeading ? "h3" : "h2";
 
   return (
-    <section id="wordpress" className="section-y">
+    <section
+      id="wordpress"
+      className={
+        showHeading ? "section-y" : "pb-24 pt-12 md:pb-32 md:pt-14"
+      }
+    >
       <div className="container-edge">
         {showHeading ? (
         <SectionHeading
@@ -48,7 +54,7 @@ export function WordPressWork({
         />
         ) : null}
 
-        {lead ? <LeadProject project={lead} /> : null}
+        {lead ? <LeadProject project={lead} titleAs={titleAs} /> : null}
 
         {/* Trio */}
         <div className="mt-16 grid gap-10 md:mt-20 md:grid-cols-3 md:gap-8">
@@ -57,6 +63,7 @@ export function WordPressWork({
               key={project.slug}
               project={project}
               delay={i * 0.07}
+              titleAs={titleAs}
             />
           ))}
         </div>
@@ -82,7 +89,13 @@ export function WordPressWork({
 
 /* ------------------------------------------------------------------ */
 
-function LeadProject({ project }: { project: WordPressProject }) {
+function LeadProject({
+  project,
+  titleAs: Title,
+}: {
+  project: WordPressProject;
+  titleAs: "h2" | "h3";
+}) {
   return (
     <Reveal
       as="article"
@@ -117,9 +130,9 @@ function LeadProject({ project }: { project: WordPressProject }) {
           <span className="h-px flex-1 bg-line" aria-hidden="true" />
         </div>
 
-        <h3 className="mt-6 font-display text-[clamp(1.6rem,3vw,2.25rem)] font-semibold leading-tight tracking-[-0.025em]">
+        <Title className="mt-6 font-display text-[clamp(1.6rem,3vw,2.25rem)] font-semibold leading-tight tracking-[-0.025em]">
           {project.title}
-        </h3>
+        </Title>
 
         <p className="mt-2 text-sm text-ink-faint">{project.category}</p>
 
@@ -158,9 +171,11 @@ function LeadProject({ project }: { project: WordPressProject }) {
 function CompactWordPress({
   project,
   delay,
+  titleAs: Title,
 }: {
   project: WordPressProject;
   delay: number;
+  titleAs: "h2" | "h3";
 }) {
   return (
     <Reveal as="article" delay={delay} className="group/card flex flex-col">
@@ -191,9 +206,9 @@ function CompactWordPress({
           <span className="h-px flex-1 bg-line" aria-hidden="true" />
         </div>
 
-        <h3 className="mt-4 font-display text-xl font-semibold tracking-tight">
+        <Title className="mt-4 font-display text-xl font-semibold tracking-tight">
           {project.title}
-        </h3>
+        </Title>
 
         <p className="mt-1.5 text-xs text-ink-faint">{project.category}</p>
 

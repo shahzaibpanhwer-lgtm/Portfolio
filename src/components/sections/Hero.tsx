@@ -26,7 +26,7 @@ export function Hero() {
       <HeroBackdrop />
 
       <div className="container-edge relative z-10 w-full">
-        <div className="max-w-5xl">
+        <div>
           {/* Eyebrow */}
           <motion.p
             {...line(0)}
@@ -42,7 +42,7 @@ export function Hero() {
           {/* Headline */}
           <h1
             id="hero-heading"
-            className="mt-6 font-display text-[clamp(2.6rem,8.5vw,6.5rem)] font-semibold leading-[0.98] tracking-[-0.035em] md:mt-8"
+            className="mt-6 font-display text-[clamp(2.25rem,8vw,6.25rem)] font-semibold leading-[0.98] tracking-[-0.035em] md:mt-8"
           >
             <motion.span {...line(1)} className="block">
               UI/UX Designer
@@ -55,11 +55,11 @@ export function Hero() {
           {/* Supporting copy */}
           <motion.p
             {...line(3)}
-            className="mt-8 max-w-xl text-base leading-relaxed text-ink-dim md:mt-10 md:text-lg"
+            className="mt-8 max-w-[36rem] text-base leading-relaxed text-ink-dim md:mt-10 md:text-lg"
           >
             I design thoughtful digital experiences and build responsive
-            WordPress websites, with a growing focus on full-stack
-            development.
+            WordPress websites, with a growing focus on{" "}
+            <span className="whitespace-nowrap">full-stack</span> development.
           </motion.p>
 
           {/* Actions */}

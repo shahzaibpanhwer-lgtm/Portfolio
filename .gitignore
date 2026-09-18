@@ -43,3 +43,6 @@ next-env.d.ts
 # OS / editor
 Thumbs.db
 .DS_Store
+
+# QA artifacts
+.qa-screenshots/

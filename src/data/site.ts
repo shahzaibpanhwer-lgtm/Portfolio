@@ -14,6 +14,12 @@ export const site = {
     "Portfolio of Shahzaib Panhwer, a UI/UX Designer and WordPress Developer working across digital products, websites and WordPress development.",
   url: "https://shahzaibpanhwer.vercel.app",
   availability: "Open to opportunities & freelance projects",
+  /**
+   * Set to "/resume.pdf" once the file exists in /public — the Resume
+   * button in the navbar renders only when this is non-null, so a
+   * recruiter can never click through to a 404.
+   */
+  resumeUrl: null as string | null,
 } as const;
 
 /** Placeholders — replace with real values before launch. */
