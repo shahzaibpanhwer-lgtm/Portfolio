@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { contact, navLinks, site } from "@/data/site";
 import { ArrowOut } from "@/components/ui/Button";
+import { LogoMark } from "@/components/ui/Logo";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -11,10 +12,13 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-[1.5fr_1fr_1fr] md:gap-8">
           {/* Identity */}
           <div>
-            <p className="font-display text-lg font-semibold uppercase tracking-[0.18em]">
-              Shahzaib Panhwer
-            </p>
-            <p className="mt-3 text-sm text-ink-dim">
+            <div className="flex items-center gap-3">
+              <LogoMark className="h-10 w-10 shrink-0" />
+              <p className="font-display text-base font-semibold uppercase tracking-[0.18em]">
+                Shahzaib Panhwer
+              </p>
+            </div>
+            <p className="mt-4 text-sm text-ink-dim">
               UI/UX Designer · WordPress Developer
             </p>
           </div>

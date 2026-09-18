@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { navLinks, site } from "@/data/site";
+import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/cn";
 
 export function Navbar() {
@@ -109,15 +110,10 @@ export function Navbar() {
           {/* Wordmark */}
           <Link
             href="/"
-            className="group/btn shrink-0"
+            className="group/logo shrink-0 rounded-xl"
             aria-label={`${site.name} — home`}
           >
-            <span className="hidden text-[11px] font-semibold uppercase tracking-[0.22em] text-ink transition-colors duration-300 group-hover/btn:text-accent sm:inline">
-              Shahzaib Panhwer
-            </span>
-            <span className="text-sm font-semibold uppercase tracking-[0.2em] text-ink transition-colors duration-300 group-hover/btn:text-accent sm:hidden">
-              SP
-            </span>
+            <Logo />
           </Link>
 
           {/* Desktop links */}

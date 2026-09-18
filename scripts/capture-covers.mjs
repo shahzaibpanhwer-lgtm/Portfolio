@@ -17,7 +17,9 @@ const TARGETS = [
   // book.onlineguru.ai is behind a login wall — an automated capture
   // only yields the sign-in form. Screenshot that one manually.
   { url: "https://devflow-pink-nu.vercel.app/", out: "public/work/devflow/cover.jpg" },
-  { url: "https://drgmpanhwarinstitute.org/", out: "public/wordpress/drgm/cover.jpg" },
+  // Dr. G.M. Panhwar Institute uses a rotating hero; the cover in /public
+  // was chosen by hand from a better slide. Re-enable only to replace it.
+  // { url: "https://drgmpanhwarinstitute.org/", out: "public/wordpress/drgm/cover.jpg" },
   { url: "https://parix.ai/", out: "public/wordpress/parix/cover.jpg" },
   { url: "https://www.itmen.pk/", out: "public/wordpress/itmen/cover.jpg" },
   { url: "https://discountled.us/", out: "public/wordpress/discountled/cover.jpg" },

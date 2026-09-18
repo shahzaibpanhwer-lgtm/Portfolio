@@ -269,7 +269,7 @@ export const projects: Project[] = [
     title: "Book Scraper",
     tagline: "Web Product / Data Interface",
     description:
-      "Designing a focused digital experience for discovering and working with book data.",
+      "Designing a focused interface for comparing book prices across marketplaces and exporting the results.",
     categories: ["Web Product", "UI", "Web Design"],
     role: "UI/UX Designer",
     type: "Web Product",
@@ -277,17 +277,16 @@ export const projects: Project[] = [
     year: "2026",
     liveUrl: "https://book.onlineguru.ai/",
     tier: "secondary",
-    // The public URL is a login wall, so an automated capture shows only
-    // the sign-in form. Export a screenshot of the real interface and
-    // uncomment this line:
-    // cover: "/work/book-scraper/cover.jpg",
+    // Supplied manually — the public URL is a login wall, so this screen
+    // cannot be captured by scripts/capture-covers.mjs.
+    cover: "/work/book-scraper/cover.jpg",
     contributions: ["UI design", "Web design", "Responsive layouts"],
     caseStudy: [
       {
         kind: "text",
         heading: "Project Overview",
         body: [
-          "Book Scraper is a web product for discovering and working with book data. The design problem here was density: a lot of structured information that has to stay readable.",
+          "Book Scraper is a web product that compares book prices across multiple marketplaces from a list of ISBN or ASIN codes and returns a formatted report. The design problem here was density: a lot of structured information that has to stay readable.",
         ],
       },
       {
