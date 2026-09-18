@@ -63,7 +63,7 @@ export default function OpengraphImage() {
               display: "flex",
             }}
           >
-            UI/UX Designer
+            Full-Stack Developer
           </div>
           <div
             style={{
@@ -76,7 +76,7 @@ export default function OpengraphImage() {
             }}
           >
             <span style={{ color: "#e8a75c" }}>&</span>
-            <span style={{ marginLeft: 20 }}>WordPress Developer</span>
+            <span style={{ marginLeft: 20 }}>UI/UX Designer</span>
           </div>
         </div>
 
@@ -101,7 +101,7 @@ export default function OpengraphImage() {
             {site.name}
           </div>
           <div style={{ color: "#6b6b74", fontSize: 22 }}>
-            Design · WordPress · Development
+            Development · Design · WordPress
           </div>
         </div>
       </div>

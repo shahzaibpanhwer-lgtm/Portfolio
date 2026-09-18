@@ -55,8 +55,86 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "yemo",
+    slug: "devflow",
     number: "01",
+    title: "DevFlow",
+    tagline: "Developer Project, API & Deployment Management Platform",
+    description:
+      "A unified command center for managing projects, repositories, APIs, deployments, analytics, documentation and developer workflows.",
+    categories: ["Full-Stack", "Product Design", "Web App"],
+    role: "Designer & Developer",
+    type: "Full-Stack Web Application",
+    tools: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    year: "2026",
+    liveUrl: "https://devflow-pink-nu.vercel.app/",
+    tier: "featured",
+    cover: "/work/devflow/cover.jpg",
+    contributions: [
+      "Product design",
+      "UI design",
+      "Frontend development",
+      "Backend development",
+      "Deployment",
+    ],
+    caseStudy: [
+      {
+        kind: "text",
+        heading: "Project Overview",
+        body: [
+          "DevFlow is a developer platform that brings projects, repositories, APIs, deployments, analytics and documentation into one command center.",
+          "It is the project where I designed and built the whole thing — the interface and the application behind it.",
+        ],
+      },
+      {
+        kind: "list",
+        heading: "My Role",
+        body: [
+          "End to end: I designed the product and built it as a working application.",
+        ],
+        items: [
+          "Product design",
+          "UI design",
+          "Frontend development",
+          "Backend development",
+          "Deployment",
+        ],
+      },
+      {
+        kind: "text",
+        heading: "Challenge",
+        body: [
+          "A command center has a breadth problem: many distinct areas that each need their own space without the navigation collapsing under the weight.",
+          "The work was in giving each area a consistent structure so moving between them feels like one product rather than several stitched together.",
+        ],
+      },
+      {
+        kind: "list",
+        heading: "What It Manages",
+        items: [
+          "Projects",
+          "Repositories",
+          "APIs",
+          "Deployments",
+          "Analytics",
+          "Documentation",
+          "Developer workflows",
+        ],
+      },
+      {
+        kind: "gallery",
+        heading: "Key Screens",
+        shots: [
+          { label: "Dashboard", ratio: "16/10" },
+          { label: "Projects", ratio: "16/10" },
+          { label: "Deployments", ratio: "16/10" },
+        ],
+      },
+    ],
+  },
+
+  {
+    slug: "yemo",
+    number: "02",
     title: "Yemo",
     tagline: "Restaurant Technology / Product Experience",
     description:
@@ -165,7 +243,7 @@ export const projects: Project[] = [
 
   {
     slug: "parix",
-    number: "02",
+    number: "03",
     title: "Parix.ai",
     tagline: "AI Automation / Website & Web Design",
     description:
@@ -265,7 +343,7 @@ export const projects: Project[] = [
 
   {
     slug: "book-scraper",
-    number: "03",
+    number: "04",
     title: "Book Scraper",
     tagline: "Web Product / Data Interface",
     description:
@@ -315,84 +393,6 @@ export const projects: Project[] = [
         shots: [
           { label: "Desktop", ratio: "16/10" },
           { label: "Mobile", ratio: "9/16" },
-        ],
-      },
-    ],
-  },
-
-  {
-    slug: "devflow",
-    number: "04",
-    title: "DevFlow",
-    tagline: "Developer Project, API & Deployment Management Platform",
-    description:
-      "A unified command center for managing projects, repositories, APIs, deployments, analytics, documentation and developer workflows.",
-    categories: ["Full-Stack", "Product Design", "Web App"],
-    role: "Designer & Developer",
-    type: "Full-Stack Web Application",
-    tools: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
-    year: "2026",
-    liveUrl: "https://devflow-pink-nu.vercel.app/",
-    tier: "secondary",
-    cover: "/work/devflow/cover.jpg",
-    contributions: [
-      "Product design",
-      "UI design",
-      "Frontend development",
-      "Backend development",
-      "Deployment",
-    ],
-    caseStudy: [
-      {
-        kind: "text",
-        heading: "Project Overview",
-        body: [
-          "DevFlow is a developer platform that brings projects, repositories, APIs, deployments, analytics and documentation into one command center.",
-          "It is the project where I designed and built the whole thing — the interface and the application behind it.",
-        ],
-      },
-      {
-        kind: "list",
-        heading: "My Role",
-        body: [
-          "End to end: I designed the product and built it as a working application.",
-        ],
-        items: [
-          "Product design",
-          "UI design",
-          "Frontend development",
-          "Backend development",
-          "Deployment",
-        ],
-      },
-      {
-        kind: "text",
-        heading: "Challenge",
-        body: [
-          "A command center has a breadth problem: many distinct areas that each need their own space without the navigation collapsing under the weight.",
-          "The work was in giving each area a consistent structure so moving between them feels like one product rather than several stitched together.",
-        ],
-      },
-      {
-        kind: "list",
-        heading: "What It Manages",
-        items: [
-          "Projects",
-          "Repositories",
-          "APIs",
-          "Deployments",
-          "Analytics",
-          "Documentation",
-          "Developer workflows",
-        ],
-      },
-      {
-        kind: "gallery",
-        heading: "Key Screens",
-        shots: [
-          { label: "Dashboard", ratio: "16/10" },
-          { label: "Projects", ratio: "16/10" },
-          { label: "Deployments", ratio: "16/10" },
         ],
       },
     ],

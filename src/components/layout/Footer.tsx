@@ -19,7 +19,7 @@ export function Footer() {
               </p>
             </div>
             <p className="mt-4 text-sm text-ink-dim">
-              UI/UX Designer · WordPress Developer
+              Full-Stack Developer · UI/UX Designer
             </p>
           </div>
 

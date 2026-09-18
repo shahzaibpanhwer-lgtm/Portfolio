@@ -5,11 +5,11 @@
 export const site = {
   name: "Shahzaib Panhwer",
   shortName: "SP",
-  role: "UI/UX Designer & WordPress Developer",
-  secondaryRole: "Full-Stack Developer",
-  title: "Shahzaib Panhwer — UI/UX Designer & WordPress Developer",
+  role: "Full-Stack Developer & UI/UX Designer",
+  secondaryRole: "WordPress Developer",
+  title: "Shahzaib Panhwer — Full-Stack Developer & UI/UX Designer",
   description:
-    "Portfolio of Shahzaib Panhwer, a UI/UX Designer and WordPress Developer working across digital products, websites and WordPress development.",
+    "Portfolio of Shahzaib Panhwer, a Full-Stack Developer and UI/UX Designer building complete web applications, digital products and WordPress websites.",
   url: "https://shahzaibpanhwer.vercel.app",
   availability: "Open to opportunities & freelance projects",
   /**

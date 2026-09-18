@@ -45,10 +45,10 @@ export function Hero() {
             className="mt-6 font-display text-[clamp(2.25rem,8vw,6.25rem)] font-semibold leading-[0.98] tracking-[-0.035em] md:mt-8"
           >
             <motion.span {...line(1)} className="block">
-              UI/UX Designer
+              Full-Stack Developer
             </motion.span>
             <motion.span {...line(2)} className="block text-ink-dim">
-              <span className="text-accent">&amp;</span> WordPress Developer
+              <span className="text-accent">&amp;</span> UI/UX Designer
             </motion.span>
           </h1>
 
@@ -57,9 +57,9 @@ export function Hero() {
             {...line(3)}
             className="mt-8 max-w-[36rem] text-base leading-relaxed text-ink-dim md:mt-10 md:text-lg"
           >
-            I design thoughtful digital experiences and build responsive
-            WordPress websites, with a growing focus on{" "}
-            <span className="whitespace-nowrap">full-stack</span> development.
+            I build complete web applications and design the interfaces
+            that carry them — with production experience across WordPress
+            and real client websites.
           </motion.p>
 
           {/* Actions */}

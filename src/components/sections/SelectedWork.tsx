@@ -39,7 +39,14 @@ export function SelectedWork({ showAllLink = true }: { showAllLink?: boolean } =
 
         {/* Secondary — paired, still substantial */}
         {secondary.length > 0 ? (
-          <div className="mt-24 grid gap-12 md:mt-36 md:grid-cols-2 md:gap-10">
+          <div
+            className={cn(
+              "mt-24 grid gap-12 md:mt-36 md:gap-10",
+              secondary.length === 1
+                ? "md:max-w-3xl"
+                : "md:grid-cols-2",
+            )}
+          >
             {secondary.map((project) => (
               <CompactProject key={project.slug} project={project} />
             ))}

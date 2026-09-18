@@ -4,7 +4,6 @@ import { About } from "@/components/sections/About";
 import { Experience } from "@/components/sections/Experience";
 import { Skills } from "@/components/sections/Skills";
 import { Process } from "@/components/sections/Process";
-import { BeyondDesign } from "@/components/sections/BeyondDesign";
 import { Contact } from "@/components/sections/Contact";
 
 export const metadata: Metadata = {
@@ -25,7 +24,6 @@ export default function AboutPage() {
       <Experience />
       <Skills />
       <Process />
-      <BeyondDesign />
       <Contact />
     </>
   );

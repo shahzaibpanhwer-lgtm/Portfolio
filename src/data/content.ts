@@ -15,24 +15,24 @@ export type Capability = {
 export const capabilities: Capability[] = [
   {
     number: "01",
+    title: "Full-Stack Development",
+    body: "Building complete web applications end to end — frontend, backend, APIs and deployment.",
+    weight: "primary",
+    keywords: ["Frontend", "Backend", "APIs", "Git"],
+  },
+  {
+    number: "02",
     title: "UI/UX Design",
     body: "Wireframes, prototypes, user interfaces, design systems and responsive experiences.",
     weight: "primary",
     keywords: ["Wireframing", "Prototyping", "Design Systems", "Figma"],
   },
   {
-    number: "02",
+    number: "03",
     title: "WordPress Development",
     body: "Professional responsive websites using WordPress, Elementor, themes, plugins and custom UI adjustments.",
-    weight: "primary",
-    keywords: ["WordPress", "Elementor", "Themes", "Responsive"],
-  },
-  {
-    number: "03",
-    title: "Full-Stack Development",
-    body: "Building functional web applications and working across frontend and backend technologies.",
     weight: "secondary",
-    keywords: ["Frontend", "Backend", "APIs", "Git"],
+    keywords: ["WordPress", "Elementor", "Themes", "Responsive"],
   },
 ];
 
@@ -45,6 +45,7 @@ export type ExperienceEntry = {
   work: string[];
 };
 
+/* Describes work actually performed — not restated to match positioning. */
 export const experience: ExperienceEntry[] = [
   {
     role: "UI/UX & WordPress Intern",
@@ -71,6 +72,20 @@ export type SkillGroup = {
 
 export const skillGroups: SkillGroup[] = [
   {
+    title: "Full-Stack Development",
+    tier: "primary",
+    items: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Frontend Development",
+      "Backend Development",
+      "APIs",
+      "Git & GitHub",
+    ],
+  },
+  {
     title: "UI/UX Design",
     tier: "primary",
     items: [
@@ -86,7 +101,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     title: "WordPress",
-    tier: "primary",
+    tier: "secondary",
     items: [
       "WordPress",
       "Elementor",
@@ -94,20 +109,6 @@ export const skillGroups: SkillGroup[] = [
       "Plugin Configuration",
       "Responsive Websites",
       "Website UI Implementation",
-    ],
-  },
-  {
-    title: "Full-Stack Development",
-    tier: "secondary",
-    items: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Frontend Development",
-      "Backend Development",
-      "APIs",
-      "Git",
-      "GitHub",
     ],
   },
 ];
@@ -148,19 +149,8 @@ export const processSteps: ProcessStep[] = [
 export const about = {
   heading: "About",
   paragraphs: [
-    "I'm Shahzaib Panhwer, a UI/UX designer and WordPress developer focused on creating clean, practical and engaging digital experiences.",
+    "I'm Shahzaib Panhwer, a full-stack developer and UI/UX designer who builds complete digital products — from the interface through to the application behind it.",
     "I've worked on real-world product and website projects, from restaurant technology and web products to business and WordPress websites.",
-    "Alongside design and WordPress, I'm also developing my full-stack development skills to better understand and build complete digital products.",
-  ],
-};
-
-export const beyondDesign = {
-  heading: "Beyond Design",
-  body: "Alongside UI/UX and WordPress, I'm expanding my development skills to build complete web applications.",
-  areas: [
-    { title: "Frontend", items: ["HTML", "CSS", "JavaScript", "React"] },
-    { title: "Backend", items: ["Server logic", "Data handling"] },
-    { title: "APIs", items: ["REST", "Integration"] },
-    { title: "Version Control", items: ["Git", "GitHub"] },
+    "Designing an interface and building it are the same job to me, which is why I work across both rather than handing off between them.",
   ],
 };

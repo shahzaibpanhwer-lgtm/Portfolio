@@ -10,7 +10,7 @@ export function Process() {
         <SectionHeading
           eyebrow="Method"
           title="How I Work"
-          lead="The same four steps whether the outcome is a Figma file or a live WordPress site."
+          lead="The same four steps whether the outcome is a deployed application, a Figma file or a live WordPress site."
         />
 
         <Stagger className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:mt-20 md:grid-cols-2 lg:grid-cols-4">
