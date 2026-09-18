@@ -24,6 +24,12 @@ npm run qa:responsive   # horizontal overflow across 6 breakpoints + screenshots
 npm run qa:a11y         # alt text, accessible names, heading order, reduced motion
 ```
 
+To refresh the project cover images from the live sites:
+
+```bash
+node scripts/capture-covers.mjs
+```
+
 `qa:responsive` checks 1440 / 1280 / 1024 / 768 / 390 / 375 and writes screenshots
 to `.qa-screenshots/`. Point either script at another origin with `BASE=...`.
 
@@ -62,24 +68,37 @@ The `caseStudy` field is an array of typed blocks:
 | `gallery` | full-width heading, then a grid of framed shots  |
 | `compare` | side-by-side Before / After                      |
 
-### Adding screenshots
+### Screenshots
 
-Every project renders a typographic placeholder plate until a real image
-exists. To swap one in:
+Project covers in `public/` are automated captures of the live sites,
+produced by `scripts/capture-covers.mjs`.
 
-1. Drop the image at e.g. `public/work/yemo/cover.png`
+Anything without an image renders a typographic placeholder plate instead.
+To add one:
+
+1. Drop the image at e.g. `public/work/yemo/cover.jpg`
 2. Uncomment the matching `cover:` line in `src/data/projects.ts`
 
 Case-study gallery shots work the same way via each `Shot`'s `src` field.
+
+Two kinds of imagery cannot be captured automatically and have to be
+exported by hand:
+
+- **Book Scraper** — the public URL is a login wall, so a capture only
+  yields the sign-in form
+- **Design-process imagery** — wireframes, Figma exploration and
+  before/after comparisons, which only exist in the source files
 
 ---
 
 ## Before going live
 
-- [ ] Replace `YOUR_EMAIL`, `YOUR_LINKEDIN`, `YOUR_GITHUB` in `src/data/site.ts`
+- [x] Contact details wired up in `src/data/site.ts`
 - [ ] Set `site.url` to the real deployed domain (used by OG tags and the sitemap)
 - [ ] Add `public/resume.pdf`, then set `site.resumeUrl` to `"/resume.pdf"` —
       the navbar Resume button stays hidden until this is set, so it can never 404
+- [ ] Add a Book Scraper screenshot (see **Screenshots** above)
+- [ ] Add wireframe / UI-exploration imagery to the case studies
 - [ ] Review each project's `contributions` array and correct anything not
       personally performed
 

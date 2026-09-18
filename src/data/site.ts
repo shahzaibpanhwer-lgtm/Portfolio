@@ -1,7 +1,5 @@
 /**
  * Site-wide constants.
- * Contact details are placeholders until real values are supplied —
- * nothing here is invented.
  */
 
 export const site = {
@@ -22,11 +20,10 @@ export const site = {
   resumeUrl: null as string | null,
 } as const;
 
-/** Placeholders — replace with real values before launch. */
 export const contact = {
-  email: "YOUR_EMAIL",
-  linkedin: "YOUR_LINKEDIN",
-  github: "YOUR_GITHUB",
+  email: "shahzaibpanhwer446@gmail.com",
+  linkedin: "https://www.linkedin.com/in/shahzaib-panhwer-063912285/",
+  github: "https://github.com/shahzaibpanhwer-lgtm",
 } as const;
 
 export const navLinks = [

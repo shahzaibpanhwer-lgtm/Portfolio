@@ -68,7 +68,7 @@ export const projects: Project[] = [
     year: "2026",
     liveUrl: "https://yemo.app/welcome/",
     tier: "featured",
-    // cover: "/work/yemo/cover.png",  // add screenshot here to replace the placeholder plate
+    cover: "/work/yemo/cover.jpg",
     contributions: [
       "UI design",
       "UX structure & user flows",
@@ -177,7 +177,7 @@ export const projects: Project[] = [
     year: "2026",
     liveUrl: "https://parix.ai/",
     tier: "featured",
-    // cover: "/work/parix/cover.png",  // add screenshot here to replace the placeholder plate
+    cover: "/work/parix/cover.jpg",
     contributions: [
       "UI/UX design",
       "Web design",
@@ -277,7 +277,10 @@ export const projects: Project[] = [
     year: "2026",
     liveUrl: "https://book.onlineguru.ai/",
     tier: "secondary",
-    // cover: "/work/book-scraper/cover.png",  // add screenshot here to replace the placeholder plate
+    // The public URL is a login wall, so an automated capture shows only
+    // the sign-in form. Export a screenshot of the real interface and
+    // uncomment this line:
+    // cover: "/work/book-scraper/cover.jpg",
     contributions: ["UI design", "Web design", "Responsive layouts"],
     caseStudy: [
       {
@@ -332,7 +335,7 @@ export const projects: Project[] = [
     year: "2026",
     liveUrl: "https://devflow-pink-nu.vercel.app/",
     tier: "secondary",
-    // cover: "/work/devflow/cover.png",  // add screenshot here to replace the placeholder plate
+    cover: "/work/devflow/cover.jpg",
     contributions: [
       "Product design",
       "UI design",
@@ -432,7 +435,7 @@ export const wordpressProjects: WordPressProject[] = [
       "Content sections",
     ],
     tier: "lead",
-    // cover: "/wordpress/drgm/cover.png",  // add screenshot here to replace the placeholder plate
+    cover: "/wordpress/drgm/cover.jpg",
   },
   {
     slug: "parix-wp",
@@ -450,7 +453,7 @@ export const wordpressProjects: WordPressProject[] = [
       "UI improvements",
     ],
     tier: "standard",
-    // cover: "/wordpress/parix/cover.png",  // add screenshot here to replace the placeholder plate
+    cover: "/wordpress/parix/cover.jpg",
   },
   {
     slug: "it-men",
@@ -468,7 +471,7 @@ export const wordpressProjects: WordPressProject[] = [
       "Website maintenance",
     ],
     tier: "standard",
-    // cover: "/wordpress/itmen/cover.png",  // add screenshot here to replace the placeholder plate
+    cover: "/wordpress/itmen/cover.jpg",
   },
   {
     slug: "discounted-led",
@@ -486,7 +489,7 @@ export const wordpressProjects: WordPressProject[] = [
       "UI improvements",
     ],
     tier: "standard",
-    // cover: "/wordpress/discountled/cover.png",  // add screenshot here to replace the placeholder plate
+    cover: "/wordpress/discountled/cover.jpg",
   },
 ];
 
