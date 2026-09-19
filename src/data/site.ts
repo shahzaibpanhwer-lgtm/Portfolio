@@ -18,6 +18,16 @@ export const site = {
    * recruiter can never click through to a 404.
    */
   resumeUrl: null as string | null,
+  /**
+   * Where the contact form POSTs. Leave null and the form composes the
+   * message into the visitor's own mail client instead, which needs no
+   * account and cannot silently drop a message.
+   *
+   * To have messages land in an inbox directly, set this to a form
+   * endpoint (Web3Forms and Formspree both have a free tier):
+   *   contactEndpoint: "https://api.web3forms.com/submit",
+   */
+  contactEndpoint: null as string | null,
 } as const;
 
 export const contact = {

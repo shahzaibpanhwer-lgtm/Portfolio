@@ -1,6 +1,7 @@
 import { contact, site } from "@/data/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink, Arrow, ArrowOut } from "@/components/ui/Button";
+import { ContactForm } from "@/components/sections/ContactForm";
 
 /**
  * Placeholder-safe: until real details are supplied, contact.email is
@@ -30,7 +31,9 @@ export function Contact({
       />
 
       <div className="container-edge relative">
-        <Reveal className="border-t border-line pt-12">
+        <div className="grid gap-12 border-t border-line pt-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-7">
+        <Reveal>
           <p className="label">Contact</p>
 
           <Heading className="mt-6 max-w-3xl font-display text-[clamp(2.2rem,6.5vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.035em]">
@@ -80,6 +83,12 @@ export function Contact({
             {site.availability}
           </p>
         </Reveal>
+          </div>
+
+          <Reveal delay={0.1} className="lg:col-span-5">
+            <ContactForm />
+          </Reveal>
+        </div>
       </div>
     </section>
   );
