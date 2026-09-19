@@ -42,8 +42,6 @@ export type Project = {
   tools: string[];
   year: string;
   liveUrl: string;
-  /** featured = large editorial treatment; secondary = compact card. */
-  tier: "featured" | "secondary";
   cover?: string;
   contributions: string[];
   caseStudy: CaseStudyBlock[];
@@ -67,7 +65,6 @@ export const projects: Project[] = [
     tools: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     year: "2026",
     liveUrl: "https://devflow-pink-nu.vercel.app/",
-    tier: "featured",
     cover: "/work/devflow/cover.jpg",
     contributions: [
       "Product design",
@@ -145,7 +142,6 @@ export const projects: Project[] = [
     tools: ["Figma", "Wireframing", "Prototyping"],
     year: "2026",
     liveUrl: "https://yemo.app/welcome/",
-    tier: "featured",
     cover: "/work/yemo/cover.jpg",
     contributions: [
       "UI design",
@@ -291,7 +287,6 @@ export const projects: Project[] = [
     tools: ["Figma", "WordPress", "Elementor"],
     year: "2026",
     liveUrl: "https://parix.ai/",
-    tier: "featured",
     cover: "/work/parix/cover.jpg",
     contributions: [
       "UI/UX design",
@@ -414,7 +409,6 @@ export const projects: Project[] = [
     tools: ["Figma", "UI Design"],
     year: "2026",
     liveUrl: "https://book.onlineguru.ai/",
-    tier: "secondary",
     // Supplied manually — the public URL is a login wall, so this screen
     // cannot be captured by scripts/capture-covers.mjs.
     cover: "/work/book-scraper/cover.jpg",

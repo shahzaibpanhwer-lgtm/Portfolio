@@ -7,8 +7,6 @@ import { Arrow, ArrowOut } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
 export function SelectedWork({ showAllLink = true }: { showAllLink?: boolean } = {}) {
-  const featured = projects.filter((p) => p.tier === "featured");
-  const secondary = projects.filter((p) => p.tier === "secondary");
 
   return (
     <section id="work" className="section-y">
@@ -30,28 +28,13 @@ export function SelectedWork({ showAllLink = true }: { showAllLink?: boolean } =
           }
         />
 
-        {/* Featured — full-bleed editorial rows */}
+        {/* Every project gets the same editorial row, alternating sides */}
         <div className="mt-20 space-y-24 md:mt-28 md:space-y-36">
-          {featured.map((project, i) => (
+          {projects.map((project, i) => (
             <FeaturedProject key={project.slug} project={project} index={i} />
           ))}
         </div>
 
-        {/* Secondary — paired, still substantial */}
-        {secondary.length > 0 ? (
-          <div
-            className={cn(
-              "mt-24 grid gap-12 md:mt-36 md:gap-10",
-              secondary.length === 1
-                ? "md:max-w-3xl"
-                : "md:grid-cols-2",
-            )}
-          >
-            {secondary.map((project) => (
-              <CompactProject key={project.slug} project={project} />
-            ))}
-          </div>
-        ) : null}
       </div>
     </section>
   );
@@ -139,87 +122,6 @@ function FeaturedProject({
         </ul>
 
         <div className="mt-9 flex flex-wrap items-center gap-6">
-          <Link
-            href={`/work/${project.slug}`}
-            className="group/btn inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors duration-300 hover:text-accent"
-          >
-            View Case Study
-            <Arrow />
-          </Link>
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/btn inline-flex items-center gap-2 text-sm text-ink-dim transition-colors duration-300 hover:text-ink"
-          >
-            Live site
-            <ArrowOut />
-          </a>
-        </div>
-      </div>
-    </Reveal>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-
-function CompactProject({ project }: { project: Project }) {
-  return (
-    <Reveal as="article" className="group/card">
-      <Link
-        href={`/work/${project.slug}`}
-        aria-label={`${project.title} — view case study`}
-        className="block"
-      >
-        <BrowserFrame
-          src={project.cover}
-          alt={`${project.title} — ${project.tagline}`}
-          url={project.liveUrl}
-          label={project.title}
-          fit="contain"
-          sizes="(max-width: 768px) 100vw, 48vw"
-          ratio="16/10"
-        />
-      </Link>
-
-      <div className="mt-7">
-        <div className="flex items-center gap-4">
-          <span
-            className="font-mono text-xs tracking-widest text-accent"
-            aria-hidden="true"
-          >
-            {project.number}
-          </span>
-          <span className="h-px flex-1 bg-line" aria-hidden="true" />
-        </div>
-
-        <h3 className="mt-5 font-display text-2xl font-semibold tracking-tight md:text-[1.75rem]">
-          <Link
-            href={`/work/${project.slug}`}
-            className="transition-colors duration-300 hover:text-accent"
-          >
-            {project.title}
-          </Link>
-        </h3>
-
-        <p className="mt-2 text-sm text-ink-faint">{project.tagline}</p>
-
-        <p className="mt-4 max-w-md text-sm leading-relaxed text-ink-dim">
-          {project.description}
-        </p>
-
-        <ul className="mt-6 flex flex-wrap gap-2">
-          {project.categories.map((c) => (
-            <li
-              key={c}
-              className="rounded-full border border-line px-3 py-1 text-xs text-ink-faint"
-            >
-              {c}
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-7 flex flex-wrap items-center gap-6">
           <Link
             href={`/work/${project.slug}`}
             className="group/btn inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors duration-300 hover:text-accent"
