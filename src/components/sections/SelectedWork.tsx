@@ -12,7 +12,6 @@ export function SelectedWork({ showAllLink = true }: { showAllLink?: boolean } =
     <section id="work" className="section-y">
       <div className="container-edge">
         <SectionHeading
-          eyebrow="Selected Work"
           title="Selected Work"
           lead="Real products, websites and digital experiences I've worked on."
           aside={

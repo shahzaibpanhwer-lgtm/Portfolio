@@ -10,6 +10,9 @@
   --color-bg: #0b0b0c;
   --color-surface: #111114;
   --color-surface-2: #151519;
+  /* One step off the base, used to band alternate sections so a long
+     scroll has rhythm instead of reading as one continuous slab. */
+  --color-band: #0e0e11;
   --color-line: #242428;
   --color-line-soft: #1a1a1e;
 
@@ -115,6 +118,13 @@
   @media (width >= 1280px) {
     padding-block: 11rem;
   }
+}
+
+/* Alternate section band. Hairlines top and bottom do the separating;
+   the tone shift alone is too quiet to register as a boundary. */
+@utility band {
+  background-color: var(--color-band);
+  border-block: 1px solid var(--color-line-soft);
 }
 
 /* Fine-grain noise — sits above flat black, almost invisible */

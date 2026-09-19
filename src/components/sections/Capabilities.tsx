@@ -13,9 +13,9 @@ export function Capabilities() {
   const secondary = capabilities.filter((c) => c.weight === "secondary");
 
   return (
-    <section id="what-i-do" className="section-y">
+    <section id="what-i-do" className="section-y band">
       <div className="container-edge">
-        <SectionHeading eyebrow="Capabilities" title="What I Do" />
+        <SectionHeading title="What I Do" />
 
         {/* Primary — UI/UX + WordPress */}
         <div className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:mt-20 md:grid-cols-2">

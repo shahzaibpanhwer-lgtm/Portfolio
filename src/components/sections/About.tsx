@@ -13,11 +13,13 @@ export function About({
   return (
     <section
       id="about"
-      className={showHeading ? "section-y" : "pb-24 pt-12 md:pb-32 md:pt-14"}
+      className={
+        showHeading ? "section-y band" : "band pb-24 pt-12 md:pb-32 md:pt-14"
+      }
     >
       <div className="container-edge">
         {showHeading ? (
-          <SectionHeading eyebrow="Profile" title="About" />
+          <SectionHeading title="About" />
         ) : null}
 
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12 data-[spaced=true]:mt-16 md:data-[spaced=true]:mt-20" data-spaced={showHeading}>

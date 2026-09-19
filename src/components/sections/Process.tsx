@@ -8,7 +8,6 @@ export function Process() {
     <section id="process" className="section-y">
       <div className="container-edge">
         <SectionHeading
-          eyebrow="Method"
           title="How I Work"
           lead="The same four steps whether the outcome is a deployed application, a Figma file or a live WordPress site."
         />

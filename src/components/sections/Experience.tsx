@@ -23,37 +23,32 @@ export function Experience() {
   return (
     <section id="experience" className="section-y">
       <div className="container-edge">
-        <SectionHeading eyebrow="Background" title="Experience" />
+        <SectionHeading title="Experience" />
 
         <ol className="mt-16 md:mt-20">
           {experience.map((entry) => (
             <li key={entry.role} className="relative">
-              <Reveal className="grid gap-8 lg:grid-cols-12 lg:gap-12">
-                {/* Period rail */}
-                <div className="lg:col-span-3">
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="h-1.5 w-1.5 rounded-full bg-accent"
-                      aria-hidden="true"
-                    />
-                    <span className="font-mono text-sm tracking-widest text-accent">
-                      {entry.period}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Entry */}
-                <div className="border-l border-line pl-6 lg:col-span-9 lg:pl-10">
-                  <h3 className="font-display text-[clamp(1.5rem,3vw,2.15rem)] font-semibold leading-tight tracking-[-0.025em]">
+              <Reveal>
+                {/* Role and period share a line — a three-column rail
+                    holding a single year was mostly empty space. */}
+                <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-t border-line pt-8">
+                  <h3 className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-semibold leading-tight tracking-[-0.03em]">
                     {entry.role}
                   </h3>
+                  <span className="text-lg text-accent md:text-xl">
+                    {entry.period}
+                  </span>
+                </div>
 
-                  <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-dim md:text-lg md:leading-relaxed">
+                <div>
+                  <p className="mt-6 max-w-2xl text-base leading-relaxed text-ink-dim md:text-lg md:leading-relaxed">
                     {entry.body}
                   </p>
 
                   <div className="mt-10">
-                    <p className="label mb-5">Selected work</p>
+                    <p className="mb-5 text-sm text-ink-faint">
+                      Six projects from this work
+                    </p>
                     <ul className="grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
                       {entry.work.map((name) => {
                         const target = resolveWork(name);

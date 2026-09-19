@@ -36,13 +36,14 @@ export function WordPressWork({
     <section
       id="wordpress"
       className={
-        showHeading ? "section-y" : "pb-24 pt-12 md:pb-32 md:pt-14"
+        showHeading
+          ? "section-y band"
+          : "band pb-24 pt-12 md:pb-32 md:pt-14"
       }
     >
       <div className="container-edge">
         {showHeading ? (
         <SectionHeading
-          eyebrow="WordPress"
           title="WordPress Work"
           lead="Real-world websites I contributed to during my internship."
           aside={
