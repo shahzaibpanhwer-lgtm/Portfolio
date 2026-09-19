@@ -155,7 +155,7 @@ function SectionLabel({
 
 /* ------------------------------------------------------------------ */
 
-function Gallery({ shots, url }: { shots: Shot[]; url: string }) {
+function Gallery({ shots }: { shots: Shot[]; url: string }) {
   const cols =
     shots.length === 1
       ? "md:grid-cols-1"
@@ -166,7 +166,7 @@ function Gallery({ shots, url }: { shots: Shot[]; url: string }) {
   return (
     <div className={cn("grid items-start gap-6 md:gap-8", cols)}>
       {shots.map((shot) => (
-        <ShotFrame key={shot.label} shot={shot} url={url} />
+        <ShotFrame key={shot.label} shot={shot} />
       ))}
     </div>
   );
@@ -185,29 +185,33 @@ function Compare({
     <div className="grid items-start gap-8 md:grid-cols-2">
       <div>
         <p className="label mb-4 text-ink-faint">Before</p>
-        <ShotFrame shot={before} url={url} />
+        <ShotFrame shot={before} />
       </div>
       <div>
         <p className="label mb-4 text-accent">After</p>
-        <ShotFrame shot={after} url={url} />
+        <ShotFrame shot={after} />
       </div>
     </div>
   );
 }
 
-/** Portrait shots are capped so they do not tower over their neighbours. */
-function ShotFrame({ shot, url }: { shot: Shot; url: string }) {
+/**
+ * Portrait shots are capped so they do not tower over their neighbours.
+ * No URL in the chrome: these are app surfaces, and labelling every one
+ * with the marketing URL would say they are a page they are not.
+ */
+function ShotFrame({ shot }: { shot: Shot }) {
   const portrait = shot.ratio === "9/16";
 
   return (
-    <div className={cn("group/card", portrait && "mx-auto w-full max-w-[300px]")}>
+    <div className={cn("group/card", portrait && "mx-auto w-full max-w-[360px]")}>
       <BrowserFrame
         src={shot.src}
         alt={shot.caption ?? shot.label}
-        url={portrait ? undefined : url}
         label={shot.label}
         caption={shot.caption ?? shot.label}
         ratio={shot.ratio ?? "16/10"}
+        fit="contain"
       />
     </div>
   );

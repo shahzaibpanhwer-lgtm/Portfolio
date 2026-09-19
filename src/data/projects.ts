@@ -138,7 +138,7 @@ export const projects: Project[] = [
     title: "Yemo",
     tagline: "Restaurant Technology / Product Experience",
     description:
-      "Designing a modern digital experience for restaurant technology.",
+      "Designing four connected surfaces — guest, server, kitchen and management — for a restaurant operating system.",
     categories: ["UI/UX Design", "Product Design", "Web"],
     role: "UI/UX Designer",
     type: "Product / Web",
@@ -159,8 +159,8 @@ export const projects: Project[] = [
         kind: "text",
         heading: "Project Overview",
         body: [
-          "Yemo is a restaurant technology product. The work centred on shaping a digital experience that communicates the product clearly and makes its core flows easy to move through.",
-          "The goal was an interface that reads as credible to restaurant operators — organised, legible and quick to scan — rather than decorative.",
+          "Yemo is a restaurant operating system. It is not one screen but four, each built for a different person in the same service: the guest at the table, the server on the floor, the cook on the line, and the owner watching the whole room.",
+          "The design work was making those four surfaces read as one product, when each is used at a different distance, at a different speed, and under very different pressure.",
         ],
       },
       {
@@ -168,74 +168,111 @@ export const projects: Project[] = [
         heading: "My Role",
         body: ["I worked as the UI/UX designer on this project."],
         items: [
-          "UI design",
+          "UI design across all four surfaces",
           "UX structure and user flows",
           "Wireframing",
           "Prototyping",
           "Responsive layout design",
+          "Bilingual layouts, English and Spanish",
         ],
       },
       {
         kind: "text",
         heading: "Challenge",
         body: [
-          "Restaurant technology has to present a lot at once — features, workflows and value — without overwhelming the person reading it.",
-          "The challenge was building a hierarchy that lets someone understand what the product does quickly, then go deeper only if they want to.",
+          "A guest browsing a menu has time. A cook on the line during a dinner rush has none. One system had to serve a relaxed, photographic reading experience and a glanceable, high-contrast production display without splitting into two products.",
+          "Every surface also had to hold up in English and Spanish, so no layout could depend on a label staying a particular length.",
         ],
       },
       {
         kind: "list",
         heading: "Design Process",
         items: [
-          "Understand the product and what it needs to communicate",
-          "Structure the information and map the flows",
+          "Map who uses each surface, and under what pressure",
+          "Structure the information per surface before styling anything",
           "Wireframe the layouts at low fidelity",
-          "Build the UI and type hierarchy in Figma",
-          "Prototype the key interactions",
-          "Adapt every layout across breakpoints",
+          "Build one dark UI system — type scale, spacing, status colour",
+          "Prototype the order flow end to end",
+          "Adapt every layout across breakpoints and both languages",
         ],
       },
       {
         kind: "gallery",
-        heading: "Wireframes",
+        heading: "Guest — The Menu",
         body: [
-          "Low-fidelity layouts used to settle structure and hierarchy before any visual design.",
+          "The guest surface is the only one meant to be browsed rather than scanned. Dishes lead with photography and video, and carry what a diner actually asks about: price, rating, prep time and calories.",
+          "It is phone-first, because it is read at the table.",
         ],
         shots: [
-          { label: "Structure — home", ratio: "4/3" },
-          { label: "Structure — product", ratio: "4/3" },
-          { label: "Structure — detail", ratio: "4/3" },
+          {
+            src: "/work/yemo/guest-menu.png",
+            label: "Guest menu",
+            caption: "Guest — menu and dish detail, mobile",
+            ratio: "9/16",
+          },
         ],
       },
       {
         kind: "gallery",
-        heading: "UI Exploration",
+        heading: "Server — Floor & Requests",
         body: [
-          "Type scale, spacing system and component treatment explored in Figma.",
+          "The server surface inverts the priority: requests first, ordered by how long a table has been waiting, with urgency carried in colour and a waiting timer on every row.",
+          "A compact tile block answers what a server checks between tables — how many covers are seated, what is ready to run, what is still outstanding.",
         ],
         shots: [
-          { label: "Type & colour direction", ratio: "16/10" },
-          { label: "Component treatment", ratio: "16/10" },
+          {
+            src: "/work/yemo/server-app.png",
+            label: "Server app",
+            caption: "Server — request queue and floor summary",
+            ratio: "16/9",
+          },
         ],
       },
       {
         kind: "gallery",
-        heading: "Key Screens",
-        shots: [
-          { label: "Welcome", ratio: "16/10" },
-          { label: "Product overview", ratio: "16/10" },
-          { label: "Detail view", ratio: "16/10" },
-        ],
-      },
-      {
-        kind: "gallery",
-        heading: "Responsive Experience",
+        heading: "Kitchen — Line Display",
         body: [
-          "Layouts were redesigned per breakpoint rather than scaled down — spacing, type size and stacking order all shift.",
+          "The kitchen display is read across a pass, at distance, mid-service. Orders move left to right through New, Preparing and Ready, and each column carries its own status colour so the state of the line is legible before a single word is read.",
+          "Every ticket shows elapsed time, table, cover count and station. Allergy warnings are lifted out of the item list into their own red band, because that is the one thing that must never be skimmed past.",
         ],
         shots: [
-          { label: "Desktop — 1440", ratio: "16/10" },
-          { label: "Mobile — 390", ratio: "9/16" },
+          {
+            src: "/work/yemo/kitchen-display.png",
+            label: "Kitchen display",
+            caption: "Kitchen — line display, orders by station",
+            ratio: "16/9",
+          },
+        ],
+      },
+      {
+        kind: "gallery",
+        heading: "HQ — Owner Dashboard",
+        body: [
+          "The owner surface summarises rather than instructs. Service metrics sit in a scannable tile grid, and problem states — kitchen delays, open server requests — are pulled into red so they surface ahead of the healthy numbers.",
+          "A restaurant health score, a live activity feed and the floor plan sit alongside them, so the state of the room is readable without opening another screen.",
+        ],
+        shots: [
+          {
+            src: "/work/yemo/hq-dashboard.png",
+            label: "HQ dashboard",
+            caption: "HQ — service overview, health score and activity feed",
+            ratio: "16/9",
+          },
+        ],
+      },
+      {
+        kind: "list",
+        heading: "What Holds It Together",
+        body: [
+          "Four surfaces, one system. These are the rules that keep them recognisable as the same product:",
+        ],
+        items: [
+          "One dark palette, readable in a dim dining room and a bright kitchen alike",
+          "Status carried by colour, consistently — new, preparing, ready, delayed",
+          "An elapsed timer on anything a person is waiting for",
+          "Warnings given their own container rather than another line of text",
+          "One type scale, resized per surface rather than redrawn",
+          "English and Spanish on every surface",
         ],
       },
     ],

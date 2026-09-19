@@ -19,6 +19,12 @@ type BrowserFrameProps = {
   label: string;
   caption?: string;
   ratio?: keyof typeof ratioClass;
+  /**
+   * "cover" fills the frame and may crop — right for a site cover.
+   * "contain" fits the whole image — right for UI screenshots, where a
+   * cropped edge means lost interface.
+   */
+  fit?: "cover" | "contain";
   priority?: boolean;
   className?: string;
 };
@@ -35,6 +41,7 @@ export function BrowserFrame({
   label,
   caption,
   ratio = "16/10",
+  fit = "cover",
   priority = false,
   className,
 }: BrowserFrameProps) {
@@ -73,7 +80,12 @@ export function BrowserFrame({
               priority={priority}
               loading={priority ? undefined : "lazy"}
               sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 1200px"
-              className="object-cover object-top transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/card:scale-[1.03]"
+              className={cn(
+                "transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/card:scale-[1.03]",
+                fit === "contain"
+                  ? "object-contain object-center"
+                  : "object-cover object-top",
+              )}
             />
           ) : (
             <Plate label={label} />
