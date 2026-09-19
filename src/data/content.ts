@@ -66,14 +66,12 @@ export const experience: ExperienceEntry[] = [
 
 export type SkillGroup = {
   title: string;
-  tier: "primary" | "secondary";
   items: string[];
 };
 
 export const skillGroups: SkillGroup[] = [
   {
     title: "Full-Stack Development",
-    tier: "primary",
     items: [
       "HTML",
       "CSS",
@@ -87,7 +85,6 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     title: "UI/UX Design",
-    tier: "primary",
     items: [
       "UI Design",
       "UX Design",
@@ -101,7 +98,6 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     title: "WordPress",
-    tier: "secondary",
     items: [
       "WordPress",
       "Elementor",
