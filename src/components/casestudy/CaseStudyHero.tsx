@@ -84,6 +84,7 @@ export function CaseStudyHero({ project }: { project: Project }) {
             alt={`${project.title} — ${project.tagline}`}
             url={project.liveUrl}
             label={project.title}
+          fit="contain"
             ratio="16/9"
             priority
           />

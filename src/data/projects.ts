@@ -327,47 +327,70 @@ export const projects: Project[] = [
         heading: "Challenge",
         body: [
           "AI companies tend to look alike — the same gradients, the same abstract visuals. The site needed to feel modern without falling into that template.",
-          "It also had to hold up across a long page of sections without the hierarchy flattening out.",
+          "It also had to hold a long page together. Parix sells several different things, and each section had to read as distinct without the hierarchy flattening out by the third scroll.",
         ],
       },
       {
         kind: "text",
         heading: "Design Direction",
         body: [
-          "The direction leaned on spacing, type hierarchy and restraint rather than heavy visual effects, so the content stays the focus and each section reads as distinct.",
-        ],
-      },
-      {
-        kind: "gallery",
-        heading: "UI Exploration",
-        shots: [
-          { label: "Direction — type & spacing", ratio: "16/10" },
-          { label: "Section treatments", ratio: "16/10" },
+          "The direction leans on spacing, type hierarchy and restraint rather than heavy visual effects. A serif display face carries the section headings against a plain sans for body copy, which gives each section a clear entry point without adding colour or ornament.",
+          "One warm accent does the emphasis work throughout, so a reader's eye is pulled to the same kind of thing every time.",
         ],
       },
       {
         kind: "gallery",
         heading: "Website Sections",
+        body: [
+          "Each section states one idea and shows the evidence for it. The page moves from what the product does, to proof it works, to the tools and writing that support it.",
+        ],
         shots: [
-          { label: "Hero", ratio: "16/10" },
-          { label: "Services", ratio: "16/10" },
-          { label: "Process", ratio: "16/10" },
-          { label: "Contact", ratio: "16/10" },
+          {
+            src: "/work/parix/section-1.jpg",
+            label: "Case studies",
+            caption: "Case studies — proof section",
+            ratio: "16/10",
+          },
+          {
+            src: "/work/parix/section-2.jpg",
+            label: "Free tools",
+            caption: "Free tools — utility section",
+            ratio: "16/10",
+          },
+          {
+            src: "/work/parix/section-3.jpg",
+            label: "Editorial",
+            caption: "Editorial — article listing",
+            ratio: "16/10",
+          },
         ],
       },
       {
         kind: "gallery",
         heading: "Responsive Design",
+        body: [
+          "The same section at desktop and phone width. The mobile layout is restacked rather than scaled: the navigation collapses, the headline drops to a tighter measure, and the two calls to action go full width so they stay thumb-reachable.",
+        ],
         shots: [
-          { label: "Desktop", ratio: "16/10" },
-          { label: "Mobile", ratio: "9/16" },
+          {
+            src: "/work/parix/cover.jpg",
+            label: "Desktop",
+            caption: "Desktop — 1440",
+            ratio: "16/10",
+          },
+          {
+            src: "/work/parix/mobile.jpg",
+            label: "Mobile",
+            caption: "Mobile — 390",
+            ratio: "9/16",
+          },
         ],
       },
       {
         kind: "list",
         heading: "Animation & Interaction",
         body: [
-          "Motion was kept purposeful — used to guide attention through the page rather than to decorate it.",
+          "Motion was kept purposeful — used to guide attention through a long page rather than to decorate it.",
         ],
         items: [
           "Section reveal on scroll",
@@ -451,6 +474,8 @@ export type WordPressProject = {
   contributions: string[];
   tier: "lead" | "standard";
   cover?: string;
+  /** Extra screens, shown on the /wordpress route. */
+  gallery?: Shot[];
 };
 
 export const wordpressProjects: WordPressProject[] = [
@@ -472,6 +497,26 @@ export const wordpressProjects: WordPressProject[] = [
     ],
     tier: "lead",
     cover: "/wordpress/drgm/cover.jpg",
+    gallery: [
+      {
+        src: "/wordpress/drgm/section-1.jpg",
+        label: "Desktop",
+        caption: "About and programme sections",
+        ratio: "16/10",
+      },
+      {
+        src: "/wordpress/drgm/section-2.jpg",
+        label: "Desktop",
+        caption: "Activities and events",
+        ratio: "16/10",
+      },
+      {
+        src: "/wordpress/drgm/mobile.jpg",
+        label: "Mobile",
+        caption: "Responsive — 390",
+        ratio: "9/16",
+      },
+    ],
   },
   {
     slug: "parix-wp",
@@ -490,6 +535,26 @@ export const wordpressProjects: WordPressProject[] = [
     ],
     tier: "standard",
     cover: "/wordpress/parix/cover.jpg",
+    gallery: [
+      {
+        src: "/work/parix/section-1.jpg",
+        label: "Desktop",
+        caption: "Case studies section",
+        ratio: "16/10",
+      },
+      {
+        src: "/work/parix/section-2.jpg",
+        label: "Desktop",
+        caption: "Free tools section",
+        ratio: "16/10",
+      },
+      {
+        src: "/work/parix/mobile.jpg",
+        label: "Mobile",
+        caption: "Responsive — 390",
+        ratio: "9/16",
+      },
+    ],
   },
   {
     slug: "it-men",
@@ -508,6 +573,26 @@ export const wordpressProjects: WordPressProject[] = [
     ],
     tier: "standard",
     cover: "/wordpress/itmen/cover.jpg",
+    gallery: [
+      {
+        src: "/wordpress/itmen/section-1.jpg",
+        label: "Desktop",
+        caption: "Services overview",
+        ratio: "16/10",
+      },
+      {
+        src: "/wordpress/itmen/section-2.jpg",
+        label: "Desktop",
+        caption: "Insights listing",
+        ratio: "16/10",
+      },
+      {
+        src: "/wordpress/itmen/mobile.jpg",
+        label: "Mobile",
+        caption: "Responsive — 390",
+        ratio: "9/16",
+      },
+    ],
   },
   {
     slug: "discounted-led",
@@ -526,6 +611,26 @@ export const wordpressProjects: WordPressProject[] = [
     ],
     tier: "standard",
     cover: "/wordpress/discountled/cover.jpg",
+    gallery: [
+      {
+        src: "/wordpress/discountled/section-1.jpg",
+        label: "Desktop",
+        caption: "Solutions overview",
+        ratio: "16/10",
+      },
+      {
+        src: "/wordpress/discountled/section-2.jpg",
+        label: "Desktop",
+        caption: "LED display range",
+        ratio: "16/10",
+      },
+      {
+        src: "/wordpress/discountled/mobile.jpg",
+        label: "Mobile",
+        caption: "Responsive — 390",
+        ratio: "9/16",
+      },
+    ],
   },
 ];
 

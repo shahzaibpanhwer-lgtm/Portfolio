@@ -16,7 +16,7 @@ export default function WordPressPage() {
         title="WordPress Work"
         lead="Real-world websites I contributed to during my internship, built with WordPress, Elementor and responsive layouts."
       />
-      <WordPressWork showAllLink={false} showHeading={false} />
+      <WordPressWork showAllLink={false} showHeading={false} detailed />
     </>
   );
 }

@@ -2,12 +2,14 @@ import Link from "next/link";
 import {
   wordpressProjects,
   type WordPressProject,
+  type Shot,
 } from "@/data/projects";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { BrowserFrame } from "@/components/ui/BrowserFrame";
 import { Arrow, ArrowOut } from "@/components/ui/Button";
 import { MetaList, MetaRow, ChipList } from "@/components/ui/MetaRow";
+import { cn } from "@/lib/cn";
 
 /**
  * Deliberately structured differently from Selected Work: one lead
@@ -18,10 +20,13 @@ import { MetaList, MetaRow, ChipList } from "@/components/ui/MetaRow";
 export function WordPressWork({
   showAllLink = true,
   showHeading = true,
+  detailed = false,
 }: {
   showAllLink?: boolean;
   /** Off when the route's <h1> already says the same thing. */
   showHeading?: boolean;
+  /** Shows each project's extra screens — used on the /wordpress route. */
+  detailed?: boolean;
 } = {}) {
   const lead = wordpressProjects.find((p) => p.tier === "lead");
   const rest = wordpressProjects.filter((p) => p.tier !== "lead");
@@ -54,7 +59,9 @@ export function WordPressWork({
         />
         ) : null}
 
-        {lead ? <LeadProject project={lead} titleAs={titleAs} /> : null}
+        {lead ? (
+          <LeadProject project={lead} titleAs={titleAs} detailed={detailed} />
+        ) : null}
 
         {/* Trio */}
         <div className="mt-16 grid gap-10 md:mt-20 md:grid-cols-3 md:gap-8">
@@ -64,6 +71,7 @@ export function WordPressWork({
               project={project}
               delay={i * 0.07}
               titleAs={titleAs}
+              detailed={detailed}
             />
           ))}
         </div>
@@ -92,9 +100,11 @@ export function WordPressWork({
 function LeadProject({
   project,
   titleAs: Title,
+  detailed,
 }: {
   project: WordPressProject;
   titleAs: "h2" | "h3";
+  detailed: boolean;
 }) {
   return (
     <Reveal
@@ -114,6 +124,7 @@ function LeadProject({
             alt={`${project.title} — ${project.category}`}
             url={project.liveUrl}
             label={project.title}
+          fit="contain"
             ratio="16/10"
           />
         </a>
@@ -162,6 +173,12 @@ function LeadProject({
           <ArrowOut />
         </a>
       </div>
+
+      {detailed ? (
+        <div className="lg:col-span-12">
+          <ProjectGallery shots={project.gallery} />
+        </div>
+      ) : null}
     </Reveal>
   );
 }
@@ -172,10 +189,12 @@ function CompactWordPress({
   project,
   delay,
   titleAs: Title,
+  detailed,
 }: {
   project: WordPressProject;
   delay: number;
   titleAs: "h2" | "h3";
+  detailed: boolean;
 }) {
   return (
     <Reveal as="article" delay={delay} className="group/card flex flex-col">
@@ -191,6 +210,7 @@ function CompactWordPress({
           alt={`${project.title} — ${project.category}`}
           url={project.liveUrl}
           label={project.title}
+          fit="contain"
           ratio="4/3"
         />
       </a>
@@ -230,7 +250,54 @@ function CompactWordPress({
           Live site
           <ArrowOut />
         </a>
+
+        {detailed ? <ProjectGallery shots={project.gallery} compact /> : null}
       </div>
     </Reveal>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+/**
+ * Extra screens for a WordPress project. Portrait shots are capped so a
+ * phone capture does not tower over the desktop ones beside it, and all
+ * shots use contain so no part of the page is cropped away.
+ */
+function ProjectGallery({
+  shots,
+  compact = false,
+}: {
+  shots?: Shot[];
+  compact?: boolean;
+}) {
+  if (!shots || shots.length === 0) return null;
+
+  return (
+    <div
+      className={cn(
+        "mt-10 grid items-start gap-5",
+        compact ? "sm:grid-cols-3" : "md:grid-cols-3 md:gap-6",
+      )}
+    >
+      {shots.map((shot) => (
+        <div
+          key={shot.caption ?? shot.label}
+          className={cn(
+            "group/card",
+            shot.ratio === "9/16" && "mx-auto w-full max-w-[220px]",
+          )}
+        >
+          <BrowserFrame
+            src={shot.src}
+            alt={shot.caption ?? shot.label}
+            label={shot.label}
+            caption={shot.caption}
+            ratio={shot.ratio ?? "16/10"}
+            fit="contain"
+          />
+        </div>
+      ))}
+    </div>
   );
 }

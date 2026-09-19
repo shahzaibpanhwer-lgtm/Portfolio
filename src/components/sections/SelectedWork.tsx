@@ -88,6 +88,7 @@ function FeaturedProject({
           alt={`${project.title} — ${project.tagline}`}
           url={project.liveUrl}
           label={project.title}
+          fit="contain"
           priority={index === 0}
         />
       </Link>
@@ -174,6 +175,7 @@ function CompactProject({ project }: { project: Project }) {
           alt={`${project.title} — ${project.tagline}`}
           url={project.liveUrl}
           label={project.title}
+          fit="contain"
           ratio="16/10"
         />
       </Link>
