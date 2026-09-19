@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { ButtonLink, Arrow } from "@/components/ui/Button";
+import { projects } from "@/data/projects";
 import { site } from "@/data/site";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -20,12 +22,12 @@ export function Hero() {
 
   return (
     <section
-      className="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-20 md:pt-32"
+      className="relative flex min-h-[100svh] flex-col overflow-hidden pt-28 md:pt-32"
       aria-labelledby="hero-heading"
     >
       <HeroBackdrop />
 
-      <div className="container-edge relative z-10 w-full">
+      <div className="container-edge relative z-10 flex w-full flex-1 items-center">
         <div>
           {/* Eyebrow */}
           <motion.p
@@ -39,7 +41,8 @@ export function Hero() {
             Hi, I&rsquo;m Shahzaib.
           </motion.p>
 
-          {/* Headline */}
+          {/* Headline. The second line is set lighter, not dimmer — UI/UX
+              is co-primary, so it must not look like it is fading out. */}
           <h1
             id="hero-heading"
             className="mt-6 font-display text-[clamp(2.25rem,8vw,6.25rem)] font-semibold leading-[0.98] tracking-[-0.035em] md:mt-8"
@@ -47,7 +50,7 @@ export function Hero() {
             <motion.span {...line(1)} className="block">
               Full-Stack Developer
             </motion.span>
-            <motion.span {...line(2)} className="block text-ink-dim">
+            <motion.span {...line(2)} className="block text-ink/75">
               <span className="text-accent">&amp;</span> UI/UX Designer
             </motion.span>
           </h1>
@@ -75,21 +78,54 @@ export function Hero() {
               Let&rsquo;s Talk
             </ButtonLink>
           </motion.div>
-
-          {/* Availability */}
-          <motion.p
-            {...line(5)}
-            className="mt-10 flex items-center gap-2.5 text-sm text-ink-faint md:mt-14"
-          >
-            <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
-            </span>
-            {site.availability}
-          </motion.p>
         </div>
       </div>
+
+      <HeroFooter reduce={!!reduce} />
     </section>
+  );
+}
+
+/**
+ * Bottom rail. Does three jobs at once: fills the empty lower third,
+ * uses the full width the headline leaves open on the right, and —
+ * most importantly — puts named, shipped work inside the first screen.
+ * Without it a visitor scrolls roughly 2,000px before seeing evidence.
+ */
+function HeroFooter({ reduce }: { reduce: boolean }) {
+  return (
+    <motion.div
+      initial={reduce ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.9, delay: reduce ? 0 : 0.55, ease: EASE }}
+      className="relative z-10 border-t border-line-soft"
+    >
+      <div className="container-edge flex flex-col gap-5 py-6 md:flex-row md:items-center md:justify-between md:gap-10 md:py-7">
+        <p className="flex items-center gap-2.5 text-sm text-ink-faint">
+          <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+          </span>
+          {site.availability}
+        </p>
+
+        <nav aria-label="Selected work" className="min-w-0">
+          <ul className="flex items-center gap-x-6 gap-y-2 overflow-x-auto md:flex-wrap md:justify-end md:overflow-visible scrollbar-none [&::-webkit-scrollbar]:hidden">
+            <li className="shrink-0 text-sm text-ink-faint">Selected work</li>
+            {projects.map((project) => (
+              <li key={project.slug} className="shrink-0">
+                <Link
+                  href={`/work/${project.slug}`}
+                  className="text-sm text-ink-dim transition-colors duration-300 hover:text-accent"
+                >
+                  {project.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </motion.div>
   );
 }
 
