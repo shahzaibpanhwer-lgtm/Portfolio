@@ -89,6 +89,7 @@ function FeaturedProject({
           url={project.liveUrl}
           label={project.title}
           fit="contain"
+          sizes="(max-width: 1024px) 100vw, 58vw"
           priority={index === 0}
         />
       </Link>
@@ -176,6 +177,7 @@ function CompactProject({ project }: { project: Project }) {
           url={project.liveUrl}
           label={project.title}
           fit="contain"
+          sizes="(max-width: 768px) 100vw, 48vw"
           ratio="16/10"
         />
       </Link>

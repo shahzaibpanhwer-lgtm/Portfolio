@@ -25,6 +25,12 @@ type BrowserFrameProps = {
    * cropped edge means lost interface.
    */
   fit?: "cover" | "contain";
+  /**
+   * The layout width this frame actually occupies. Without it every
+   * frame requests a full-width variant, which means a 1200px image
+   * downloaded into a 106px gallery slot.
+   */
+  sizes?: string;
   priority?: boolean;
   className?: string;
 };
@@ -42,6 +48,7 @@ export function BrowserFrame({
   caption,
   ratio = "16/10",
   fit = "cover",
+  sizes = "(max-width: 768px) 100vw, 50vw",
   priority = false,
   className,
 }: BrowserFrameProps) {
@@ -79,7 +86,7 @@ export function BrowserFrame({
               fill
               priority={priority}
               loading={priority ? undefined : "lazy"}
-              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 1200px"
+              sizes={sizes}
               className={cn(
                 "transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/card:scale-[1.03]",
                 fit === "contain"

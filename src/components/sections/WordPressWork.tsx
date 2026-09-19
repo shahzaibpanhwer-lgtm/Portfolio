@@ -211,6 +211,7 @@ function CompactWordPress({
           url={project.liveUrl}
           label={project.title}
           fit="contain"
+          sizes="(max-width: 768px) 100vw, 31vw"
           ratio="4/3"
         />
       </a>
@@ -295,6 +296,11 @@ function ProjectGallery({
             caption={shot.caption}
             ratio={shot.ratio ?? "16/10"}
             fit="contain"
+            sizes={
+              shot.ratio === "9/16"
+                ? "(max-width: 640px) 40vw, 220px"
+                : "(max-width: 640px) 50vw, 24vw"
+            }
           />
         </div>
       ))}

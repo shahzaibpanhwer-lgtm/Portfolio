@@ -5,13 +5,7 @@ import { cn } from "@/lib/cn";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-export function CaseStudyBody({
-  blocks,
-  liveUrl,
-}: {
-  blocks: CaseStudyBlock[];
-  liveUrl: string;
-}) {
+export function CaseStudyBody({ blocks }: { blocks: CaseStudyBlock[] }) {
   return (
     <div className="container-edge">
       {blocks.map((block, i) => (
@@ -19,7 +13,6 @@ export function CaseStudyBody({
           key={`${block.kind}-${block.heading}`}
           block={block}
           number={pad(i + 1)}
-          liveUrl={liveUrl}
         />
       ))}
     </div>
@@ -31,11 +24,9 @@ export function CaseStudyBody({
 function Block({
   block,
   number,
-  liveUrl,
 }: {
   block: CaseStudyBlock;
   number: string;
-  liveUrl: string;
 }) {
   /* Prose sits in a narrow measure beside a sticky heading; visuals
      stack under a full-width heading so screenshots get real estate. */
@@ -59,9 +50,9 @@ function Block({
 
         <div className="mt-12 md:mt-16">
           {block.kind === "gallery" ? (
-            <Gallery shots={block.shots} url={liveUrl} />
+            <Gallery shots={block.shots} />
           ) : (
-            <Compare before={block.before} after={block.after} url={liveUrl} />
+            <Compare before={block.before} after={block.after} />
           )}
         </div>
       </section>
@@ -155,7 +146,8 @@ function SectionLabel({
 
 /* ------------------------------------------------------------------ */
 
-function Gallery({ shots }: { shots: Shot[]; url: string }) {
+function Gallery({ shots }: { shots: Shot[] }) {
+  const count = shots.length;
   const cols =
     shots.length === 1
       ? "md:grid-cols-1"
@@ -166,30 +158,22 @@ function Gallery({ shots }: { shots: Shot[]; url: string }) {
   return (
     <div className={cn("grid items-start gap-6 md:gap-8", cols)}>
       {shots.map((shot) => (
-        <ShotFrame key={shot.label} shot={shot} />
+        <ShotFrame key={shot.label} shot={shot} count={count} />
       ))}
     </div>
   );
 }
 
-function Compare({
-  before,
-  after,
-  url,
-}: {
-  before: Shot;
-  after: Shot;
-  url: string;
-}) {
+function Compare({ before, after }: { before: Shot; after: Shot }) {
   return (
     <div className="grid items-start gap-8 md:grid-cols-2">
       <div>
         <p className="label mb-4 text-ink-faint">Before</p>
-        <ShotFrame shot={before} />
+        <ShotFrame shot={before} count={2} />
       </div>
       <div>
         <p className="label mb-4 text-accent">After</p>
-        <ShotFrame shot={after} />
+        <ShotFrame shot={after} count={2} />
       </div>
     </div>
   );
@@ -200,8 +184,18 @@ function Compare({
  * No URL in the chrome: these are app surfaces, and labelling every one
  * with the marketing URL would say they are a page they are not.
  */
-function ShotFrame({ shot }: { shot: Shot }) {
+function ShotFrame({ shot, count = 1 }: { shot: Shot; count?: number }) {
   const portrait = shot.ratio === "9/16";
+
+  /* Declare the real slot width so a three-up row does not each request
+     a full-width variant. */
+  const sizes = portrait
+    ? "(max-width: 768px) 70vw, 360px"
+    : count >= 3
+      ? "(max-width: 768px) 100vw, 31vw"
+      : count === 2
+        ? "(max-width: 768px) 100vw, 46vw"
+        : "(max-width: 768px) 100vw, 1200px";
 
   return (
     <div className={cn("group/card", portrait && "mx-auto w-full max-w-[360px]")}>
@@ -212,6 +206,7 @@ function ShotFrame({ shot }: { shot: Shot }) {
         caption={shot.caption ?? shot.label}
         ratio={shot.ratio ?? "16/10"}
         fit="contain"
+        sizes={sizes}
       />
     </div>
   );

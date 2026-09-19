@@ -55,10 +55,7 @@ export default async function CaseStudyPage({ params }: Params) {
     <article>
       <CaseStudyHero project={project} />
       <div className="mt-20 md:mt-28">
-        <CaseStudyBody
-          blocks={project.caseStudy}
-          liveUrl={project.liveUrl}
-        />
+        <CaseStudyBody blocks={project.caseStudy} />
       </div>
       <LiveProject project={project} />
       {next && next.slug !== project.slug ? (
