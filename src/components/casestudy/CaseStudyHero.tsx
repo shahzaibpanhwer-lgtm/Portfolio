@@ -3,6 +3,7 @@ import type { Project } from "@/data/projects";
 import { Reveal } from "@/components/ui/Reveal";
 import { BrowserFrame } from "@/components/ui/BrowserFrame";
 import { Arrow, ArrowOut } from "@/components/ui/Button";
+import { ScrollTiltCard } from "@/components/ui/ScrollTiltCard";
 
 /**
  * Case-study masthead. Answers what / who / with what / where in one
@@ -77,17 +78,20 @@ export function CaseStudyHero({ project }: { project: Project }) {
           </a>
         </Reveal>
 
-        {/* Cover */}
+        {/* Cover — tilts back and settles flat on scroll. Nothing sticky
+            lives inside it, so the 3D transform is safe here. */}
         <Reveal delay={0.15} className="group/card mt-14 md:mt-20">
-          <BrowserFrame
-            src={project.cover}
-            alt={`${project.title} — ${project.tagline}`}
-            url={project.liveUrl}
-            label={project.title}
-          fit="contain"
-            ratio="16/9"
-            priority
-          />
+          <ScrollTiltCard>
+            <BrowserFrame
+              src={project.cover}
+              alt={`${project.title} — ${project.tagline}`}
+              url={project.liveUrl}
+              label={project.title}
+              fit="contain"
+              ratio="16/9"
+              priority
+            />
+          </ScrollTiltCard>
         </Reveal>
       </div>
     </header>

@@ -165,7 +165,9 @@ for (const [href, meta] of externalLinks) {
     note("*", "security", `target=_blank without noopener: ${href}`);
   }
   try {
-    const r = await page.request.get(href, { timeout: 25000, maxRedirects: 5 });
+    /* parix.ai regularly takes ~30s to respond. A tight timeout here
+       reports a healthy site as a broken link. */
+    const r = await page.request.get(href, { timeout: 45000, maxRedirects: 5 });
     // LinkedIn returns 999 to bots; not a broken link
     if (r.status() >= 400 && r.status() !== 999) {
       note("*", "link", `external ${r.status()}: ${href}`);
