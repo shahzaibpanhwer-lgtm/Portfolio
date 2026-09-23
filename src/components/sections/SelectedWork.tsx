@@ -125,7 +125,23 @@ function FeaturedProject({
           ))}
         </ul>
 
-        <div className="mt-9 flex flex-wrap items-center gap-6">
+        {/* Role and stack. Both already existed in the project data and
+            were simply never rendered — a recruiter asking "what did he
+            actually do here" had to open the case study to find out. */}
+        <dl className="mt-7 grid gap-x-8 gap-y-4 border-t border-line pt-6 sm:grid-cols-2">
+          <div>
+            <dt className="mb-1.5 text-xs text-ink-faint">Role</dt>
+            <dd className="text-sm text-ink">{project.role}</dd>
+          </div>
+          <div>
+            <dt className="mb-1.5 text-xs text-ink-faint">Built with</dt>
+            <dd className="text-sm text-ink-dim">
+              {project.tools.join(", ")}
+            </dd>
+          </div>
+        </dl>
+
+        <div className="mt-8 flex flex-wrap items-center gap-6">
           <Link
             href={`/work/${project.slug}`}
             className="group/btn inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors duration-300 hover:text-accent"

@@ -6,16 +6,21 @@ type Variant = "primary" | "ghost" | "quiet";
 
 const base =
   "group/btn inline-flex items-center justify-center gap-2.5 rounded-full text-sm font-medium " +
-  "transition-[background-color,border-color,color,transform] duration-300 ease-out " +
+  "transition-[background-color,border-color,color,transform,box-shadow] duration-300 ease-out " +
   "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent " +
   "active:scale-[0.985] whitespace-nowrap";
 
 const sizes = "h-11 px-6 md:h-12 md:px-7";
 
+/* The primary lifts and throws a little light; the secondary only warms
+   its border. Keeping the difference in *kind*, not just colour, is what
+   makes the hierarchy read on hover as well as at rest. */
 const variants: Record<Variant, string> = {
-  primary: "bg-accent text-bg hover:bg-accent-soft",
+  primary:
+    "bg-accent text-bg hover:bg-accent-soft hover:-translate-y-0.5 " +
+    "hover:shadow-[0_8px_24px_-8px_rgba(77,124,254,0.65)]",
   ghost:
-    "border border-line text-ink hover:border-ink-faint hover:bg-surface",
+    "border border-line text-ink hover:border-ink-faint/70 hover:bg-surface",
   quiet: "text-ink-dim hover:text-ink",
 };
 

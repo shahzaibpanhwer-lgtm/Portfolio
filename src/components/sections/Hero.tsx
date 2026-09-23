@@ -34,10 +34,10 @@ export function Hero() {
           {/* Eyebrow */}
           <motion.p
             {...line(0)}
-            className="flex items-center gap-3 text-sm text-ink-dim"
+            className="flex items-center gap-3 text-base text-ink md:text-lg"
           >
             <span
-              className="h-px w-8 bg-accent/60 md:w-12"
+              className="h-px w-8 bg-accent md:w-12"
               aria-hidden="true"
             />
             Hi, I&rsquo;m Shahzaib.
@@ -62,14 +62,24 @@ export function Hero() {
             {...line(3)}
             className="mt-8 max-w-[36rem] text-base leading-relaxed text-ink-dim md:mt-10 md:text-lg"
           >
-            I build complete web applications and design the interfaces
-            that carry them — with production experience across WordPress
-            and real client websites.
+            I build full-stack web applications and design intuitive
+            interfaces that combine clean engineering with thoughtful UX —
+            from client websites to production-ready digital products.
+          </motion.p>
+
+          {/* Disciplines. Deliberately small and dim: it qualifies the
+              headline, it does not compete with it. */}
+          <motion.p
+            {...line(4)}
+            className="mt-5 text-sm text-ink-faint"
+          >
+            UI/UX <span className="text-ink-faint/50">•</span> Full-Stack
+            Development <span className="text-ink-faint/50">•</span> WordPress
           </motion.p>
 
           {/* Actions */}
           <motion.div
-            {...line(4)}
+            {...line(5)}
             className="mt-10 flex flex-wrap items-center gap-3 md:mt-12"
           >
             <ButtonLink href="#work" variant="primary">
@@ -118,9 +128,13 @@ function HeroFooter({ reduce }: { reduce: boolean }) {
               <li key={project.slug} className="shrink-0">
                 <Link
                   href={`/work/${project.slug}`}
-                  className="text-sm text-ink-dim transition-colors duration-300 hover:text-accent"
+                  className="group/proj relative block text-sm text-ink-dim transition-colors duration-300 hover:text-ink"
                 >
                   {project.title}
+                  <span
+                    aria-hidden="true"
+                    className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-300 ease-out group-hover/proj:scale-x-100"
+                  />
                 </Link>
               </li>
             ))}

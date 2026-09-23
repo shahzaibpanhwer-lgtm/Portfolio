@@ -1,6 +1,7 @@
 "use client";
 
 import { useReducedMotion } from "motion/react";
+import { cn } from "@/lib/cn";
 
 /**
  * Isometric stack of wireframe planes, turning slowly, filling the right
@@ -28,7 +29,15 @@ export function HeroStack() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute right-[-4%] top-1/2 hidden h-[560px] w-[560px] -translate-y-1/2 lg:block xl:right-[2%]"
+      className={cn(
+        "pointer-events-none absolute top-1/2 -translate-y-1/2",
+        // Below md it would sit under the text, so it stays hidden there.
+        // From md up it scales and repositions rather than vanishing.
+        "hidden md:block",
+        "md:right-[-18%] md:h-[380px] md:w-[380px] md:opacity-70",
+        "lg:right-[-4%] lg:h-[560px] lg:w-[560px] lg:opacity-100",
+        "xl:right-[2%]",
+      )}
       style={{ perspective: "1400px" }}
     >
       <div
@@ -54,13 +63,13 @@ export function HeroStack() {
               className="relative h-full w-full rounded-2xl border"
               style={{
                 borderColor: layer.accent
-                  ? "rgba(77,124,254,0.55)"
-                  : "rgba(36,36,40,0.95)",
+                  ? "rgba(77,124,254,0.66)"
+                  : "rgba(48,48,54,0.95)",
                 background: layer.accent
-                  ? "linear-gradient(135deg, rgba(77,124,254,0.13), rgba(77,124,254,0.02))"
-                  : "linear-gradient(135deg, rgba(245,245,245,0.028), rgba(245,245,245,0.004))",
+                  ? "linear-gradient(135deg, rgba(77,124,254,0.16), rgba(77,124,254,0.03))"
+                  : "linear-gradient(135deg, rgba(245,245,245,0.038), rgba(245,245,245,0.006))",
                 boxShadow: layer.accent
-                  ? "0 0 60px rgba(77,124,254,0.18)"
+                  ? "0 0 70px rgba(77,124,254,0.22)"
                   : undefined,
               }}
             >
@@ -69,7 +78,7 @@ export function HeroStack() {
                 className="absolute inset-0 rounded-2xl opacity-70"
                 style={{
                   backgroundImage:
-                    "linear-gradient(to right, rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.045) 1px, transparent 1px)",
+                    "linear-gradient(to right, rgba(255,255,255,0.055) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.055) 1px, transparent 1px)",
                   backgroundSize: "38px 38px",
                   maskImage:
                     "radial-gradient(75% 75% at 50% 50%, #000 40%, transparent 85%)",
@@ -85,7 +94,7 @@ export function HeroStack() {
                     className="h-12 w-full"
                     style={{
                       background:
-                        "linear-gradient(to bottom, transparent, rgba(77,124,254,0.28), transparent)",
+                        "linear-gradient(to bottom, transparent, rgba(77,124,254,0.33), transparent)",
                       animation: "stack-scan 7s ease-in-out infinite",
                     }}
                   />
