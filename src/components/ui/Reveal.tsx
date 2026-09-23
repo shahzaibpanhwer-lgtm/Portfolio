@@ -2,6 +2,10 @@
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import type { ReactNode } from "react";
+import { cn } from "@/lib/cn";
+
+/** Tuple, not number[] — motion's Transition type requires the former. */
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 type RevealProps = {
   children: ReactNode;
@@ -11,6 +15,12 @@ type RevealProps = {
   y?: number;
   className?: string;
   as?: "div" | "section" | "li" | "article" | "span";
+  /**
+   * "fade" lifts the block into place — right for text.
+   * "wipe" uncovers it from the bottom edge, which suits a screenshot:
+   * the image is revealed rather than slid around.
+   */
+  variant?: "fade" | "wipe";
 };
 
 /**
@@ -21,9 +31,10 @@ type RevealProps = {
 export function Reveal({
   children,
   delay = 0,
-  y = 18,
+  y = 22,
   className,
   as = "div",
+  variant = "fade",
 }: RevealProps) {
   const reduce = useReducedMotion();
   const MotionTag = motion[as];
@@ -33,17 +44,37 @@ export function Reveal({
     return <Tag className={className}>{children}</Tag>;
   }
 
+  /**
+   * The wipe is a curtain that retracts, not a clip on the content.
+   * Clipping the container made the browser resolve srcset before layout
+   * settled, so Next served 3840px variants into 647px slots. Covering
+   * and uncovering leaves the image fully laid out the whole time.
+   */
+  if (variant === "wipe") {
+    const Tag = as;
+    return (
+      <Tag className={cn("relative", className)}>
+        {children}
+        <motion.span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-10 block bg-bg"
+          initial={{ scaleY: 1 }}
+          whileInView={{ scaleY: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          style={{ transformOrigin: "bottom" }}
+          transition={{ duration: 0.95, delay, ease: EASE }}
+        />
+      </Tag>
+    );
+  }
+
   return (
     <MotionTag
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{
-        duration: 0.65,
-        delay,
-        ease: [0.16, 1, 0.3, 1],
-      }}
+      transition={{ duration: 0.75, delay, ease: EASE }}
     >
       {children}
     </MotionTag>
@@ -62,7 +93,7 @@ const staggerChild: Variants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.6, ease: EASE },
   },
 };
 

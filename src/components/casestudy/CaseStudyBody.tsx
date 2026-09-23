@@ -198,7 +198,10 @@ function ShotFrame({ shot, count = 1 }: { shot: Shot; count?: number }) {
         : "(max-width: 768px) 100vw, 1200px";
 
   return (
-    <div className={cn("group/card", portrait && "mx-auto w-full max-w-[360px]")}>
+    <Reveal
+      variant="wipe"
+      className={cn("group/card", portrait && "mx-auto w-full max-w-[360px]")}
+    >
       <BrowserFrame
         src={shot.src}
         alt={shot.caption ?? shot.label}
@@ -208,6 +211,6 @@ function ShotFrame({ shot, count = 1 }: { shot: Shot; count?: number }) {
         fit="contain"
         sizes={sizes}
       />
-    </div>
+    </Reveal>
   );
 }

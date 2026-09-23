@@ -151,6 +151,32 @@
 }
 
 /* ============================================================
+   HERO STACK
+   Isometric wireframe planes, slowly turning. Chosen because it means
+   something here — a stack of layers for a full-stack developer —
+   rather than being an arbitrary shape that moves.
+   Transform only, so it stays on the compositor.
+   ============================================================ */
+
+@keyframes stack-turn {
+  0%   { transform: rotateX(56deg) rotateZ(-52deg); }
+  50%  { transform: rotateX(56deg) rotateZ(-24deg); }
+  100% { transform: rotateX(56deg) rotateZ(-52deg); }
+}
+
+@keyframes stack-float {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -14px; }
+}
+
+@keyframes stack-scan {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: translateY(220%); opacity: 0; }
+}
+
+/* ============================================================
    MOTION SAFETY
    ============================================================ */
 

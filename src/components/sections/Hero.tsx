@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { ButtonLink, Arrow } from "@/components/ui/Button";
 import { projects } from "@/data/projects";
 import { site } from "@/data/site";
+import { HeroStack } from "@/components/sections/HeroStack";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -26,6 +27,7 @@ export function Hero() {
       aria-labelledby="hero-heading"
     >
       <HeroBackdrop />
+      <HeroStack />
 
       <div className="container-edge relative z-10 flex w-full flex-1 items-center">
         <div>

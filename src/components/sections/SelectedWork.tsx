@@ -57,13 +57,17 @@ function FeaturedProject({
       className="group/card grid items-center gap-8 lg:grid-cols-12 lg:gap-14"
     >
       {/* Visual */}
+      <Reveal
+        variant="wipe"
+        className={cn(
+          "lg:col-span-7",
+          flip ? "lg:order-2 lg:col-start-6" : "lg:order-1",
+        )}
+      >
       <Link
         href={`/work/${project.slug}`}
         aria-label={`${project.title} — view case study`}
-        className={cn(
-          "block lg:col-span-7",
-          flip ? "lg:order-2 lg:col-start-6" : "lg:order-1",
-        )}
+        className="block"
       >
         <BrowserFrame
           src={project.cover}
@@ -75,6 +79,7 @@ function FeaturedProject({
           priority={index === 0}
         />
       </Link>
+      </Reveal>
 
       {/* Copy */}
       <div
