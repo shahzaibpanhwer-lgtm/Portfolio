@@ -17,7 +17,7 @@ export function PageHeader({
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(60% 70% at 12% 0%, rgba(232,167,92,0.07), transparent 62%)",
+            "radial-gradient(60% 70% at 12% 0%, rgba(77,124,254,0.07), transparent 62%)",
         }}
       />
       <div className="container-edge relative">

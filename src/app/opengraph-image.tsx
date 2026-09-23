@@ -33,13 +33,13 @@ export default function OpengraphImage() {
             width: 800,
             height: 700,
             background:
-              "radial-gradient(circle, rgba(232,167,92,0.16) 0%, rgba(232,167,92,0) 68%)",
+              "radial-gradient(circle, rgba(77,124,254,0.16) 0%, rgba(77,124,254,0) 68%)",
             display: "flex",
           }}
         />
 
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div style={{ width: 40, height: 2, background: "#e8a75c" }} />
+          <div style={{ width: 40, height: 2, background: "#4d7cfe" }} />
           <div
             style={{
               color: "#a1a1aa",
@@ -75,7 +75,7 @@ export default function OpengraphImage() {
               display: "flex",
             }}
           >
-            <span style={{ color: "#e8a75c" }}>&</span>
+            <span style={{ color: "#4d7cfe" }}>&</span>
             <span style={{ marginLeft: 20 }}>UI/UX Designer</span>
           </div>
         </div>

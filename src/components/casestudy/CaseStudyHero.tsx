@@ -17,7 +17,7 @@ export function CaseStudyHero({ project }: { project: Project }) {
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(55% 60% at 15% 0%, rgba(232,167,92,0.08), transparent 60%)",
+            "radial-gradient(55% 60% at 15% 0%, rgba(77,124,254,0.08), transparent 60%)",
         }}
       />
 

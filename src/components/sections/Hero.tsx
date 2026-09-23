@@ -149,14 +149,14 @@ function HeroBackdrop() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(70% 55% at 18% 8%, rgba(232,167,92,0.10), transparent 60%)",
+            "radial-gradient(70% 55% at 18% 8%, rgba(77,124,254,0.10), transparent 60%)",
         }}
       />
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(60% 50% at 88% 78%, rgba(232,167,92,0.045), transparent 62%)",
+            "radial-gradient(60% 50% at 88% 78%, rgba(77,124,254,0.045), transparent 62%)",
         }}
       />
       {/* Settle the composition back into black at the fold */}

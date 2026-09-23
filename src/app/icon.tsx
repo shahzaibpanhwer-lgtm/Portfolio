@@ -29,7 +29,7 @@ export default function Icon() {
             />
             <path
               d="M19.5 23V9h4.3c2.5 0 4.1 1.8 4.1 4.2s-1.6 4.2-4.1 4.2h-4.3"
-              stroke="#e8a75c"
+              stroke="#4d7cfe"
               strokeWidth="2.85"
               strokeLinecap="round"
               strokeLinejoin="round"

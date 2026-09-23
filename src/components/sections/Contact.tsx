@@ -26,7 +26,7 @@ export function Contact({
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(55% 60% at 50% 100%, rgba(232,167,92,0.08), transparent 62%)",
+            "radial-gradient(55% 60% at 50% 100%, rgba(77,124,254,0.08), transparent 62%)",
         }}
       />
 

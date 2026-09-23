@@ -44,7 +44,7 @@ export default async function Image({
             width: 820,
             height: 720,
             background:
-              "radial-gradient(circle, rgba(232,167,92,0.16) 0%, rgba(232,167,92,0) 68%)",
+              "radial-gradient(circle, rgba(77,124,254,0.16) 0%, rgba(77,124,254,0) 68%)",
             display: "flex",
           }}
         />
@@ -52,7 +52,7 @@ export default async function Image({
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <div
             style={{
-              color: "#e8a75c",
+              color: "#4d7cfe",
               fontSize: 22,
               letterSpacing: "0.2em",
               fontWeight: 600,
