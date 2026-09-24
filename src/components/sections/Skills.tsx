@@ -33,7 +33,7 @@ export function Skills({
       <div className="container-edge">
         {showHeading ? <SectionHeading title="Skills" lead="What I work with day to day." /> : null}
 
-        <div className="mt-16 md:mt-24">
+        <div className={showHeading ? "mt-16 md:mt-24" : undefined}>
           {skillGroups.map((group, i) => (
             <Reveal
               key={group.title}

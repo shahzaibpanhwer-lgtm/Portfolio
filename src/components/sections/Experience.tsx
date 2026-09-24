@@ -41,7 +41,7 @@ export function Experience({
       <div className="container-edge">
         {showHeading ? <SectionHeading title="Experience" /> : null}
 
-        <ol className="mt-16 md:mt-20">
+        <ol className={showHeading ? "mt-16 md:mt-20" : undefined}>
           {experience.map((entry) => (
             <li key={entry.role} className="relative">
               <Reveal>

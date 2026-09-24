@@ -17,7 +17,7 @@ export default function WorkPage() {
         title="Work"
         lead="Real products, websites and digital experiences I've worked on."
       />
-      <SelectedWork showAllLink={false} />
+      <SelectedWork showAllLink={false} showHeading={false} />
       <WordPressWork />
     </>
   );

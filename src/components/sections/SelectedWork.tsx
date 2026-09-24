@@ -6,11 +6,27 @@ import { BrowserFrame } from "@/components/ui/BrowserFrame";
 import { Arrow, ArrowOut } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
-export function SelectedWork({ showAllLink = true }: { showAllLink?: boolean } = {}) {
+export function SelectedWork({
+  showAllLink = true,
+  showHeading = true,
+}: {
+  showAllLink?: boolean;
+  /**
+   * Off on /work, where the page header already says the same thing —
+   * leaving it on repeated the title and its lead line word for word.
+   */
+  showHeading?: boolean;
+} = {}) {
+  /* No section h2 means the project titles are the page's second level. */
+  const titleAs = showHeading ? "h3" : "h2";
 
   return (
-    <section id="work" className="section-y">
+    <section
+      id="work"
+      className={showHeading ? "section-y" : "pb-24 pt-14 md:pb-32 md:pt-16"}
+    >
       <div className="container-edge">
+        {showHeading ? (
         <SectionHeading
           title="Selected Work"
           lead="Real products, websites and digital experiences I've worked on."
@@ -26,11 +42,22 @@ export function SelectedWork({ showAllLink = true }: { showAllLink?: boolean } =
             ) : null
           }
         />
+        ) : null}
 
         {/* Every project gets the same editorial row, alternating sides */}
-        <div className="mt-20 space-y-24 md:mt-28 md:space-y-36">
+        <div
+          className={cn(
+            "space-y-24 md:space-y-36",
+            showHeading && "mt-20 md:mt-28",
+          )}
+        >
           {projects.map((project, i) => (
-            <FeaturedProject key={project.slug} project={project} index={i} />
+            <FeaturedProject
+              key={project.slug}
+              project={project}
+              index={i}
+              titleAs={titleAs}
+            />
           ))}
         </div>
 
@@ -44,9 +71,11 @@ export function SelectedWork({ showAllLink = true }: { showAllLink?: boolean } =
 function FeaturedProject({
   project,
   index,
+  titleAs: Title,
 }: {
   project: Project;
   index: number;
+  titleAs: "h2" | "h3";
 }) {
   /* Alternate which side the text sits on to break the rhythm. */
   const flip = index % 2 === 1;
@@ -99,14 +128,14 @@ function FeaturedProject({
           <span className="label">{project.year}</span>
         </div>
 
-        <h3 className="mt-6 font-display text-[clamp(1.9rem,4vw,3rem)] font-semibold leading-tight tracking-[-0.03em]">
+        <Title className="mt-6 font-display text-[clamp(1.9rem,4vw,3rem)] font-semibold leading-tight tracking-[-0.03em]">
           <Link
             href={`/work/${project.slug}`}
             className="transition-colors duration-300 hover:text-accent"
           >
             {project.title}
           </Link>
-        </h3>
+        </Title>
 
         <p className="mt-2 text-sm text-ink-faint">{project.tagline}</p>
 
