@@ -30,7 +30,14 @@ export function Experience({
   const Title = showHeading ? "h3" : "h2";
 
   return (
-    <section id="experience" className="section-y">
+    <section
+      id="experience"
+      className={
+        showHeading
+          ? "section-y"
+          : "pb-24 pt-14 md:pb-28 md:pt-16"
+      }
+    >
       <div className="container-edge">
         {showHeading ? <SectionHeading title="Experience" /> : null}
 

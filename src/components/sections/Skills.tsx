@@ -22,7 +22,14 @@ export function Skills({
   const Title = showHeading ? "h3" : "h2";
 
   return (
-    <section id="skills" className="section-y band">
+    <section
+      id="skills"
+      className={
+        showHeading
+          ? "section-y band"
+          : "band pb-24 pt-14 md:pb-28 md:pt-16"
+      }
+    >
       <div className="container-edge">
         {showHeading ? <SectionHeading title="Skills" lead="What I work with day to day." /> : null}
 

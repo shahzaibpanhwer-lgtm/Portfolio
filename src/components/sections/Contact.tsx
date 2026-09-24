@@ -1,5 +1,6 @@
 import { contact, site } from "@/data/site";
 import { Reveal } from "@/components/ui/Reveal";
+import { cn } from "@/lib/cn";
 import { ButtonLink, Arrow, ArrowOut } from "@/components/ui/Button";
 import { ContactForm } from "@/components/sections/ContactForm";
 
@@ -23,7 +24,14 @@ export function Contact({
   showForm?: boolean;
 } = {}) {
   return (
-    <section id="contact" className="relative overflow-hidden section-y">
+    <section
+      id="contact"
+      className={cn(
+        "relative overflow-hidden",
+        // With no form it is a closing call to action, not a full section
+        showForm ? "section-y" : "pb-20 pt-16 md:pb-24 md:pt-20",
+      )}
+    >
       <div
         className="absolute inset-0"
         aria-hidden="true"
@@ -39,16 +47,25 @@ export function Contact({
         <Reveal>
           <p className="label">Contact</p>
 
-          <Heading className="mt-6 max-w-3xl font-display text-[clamp(2.2rem,6.5vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.035em]">
+          <Heading
+            className={cn(
+              "mt-6 max-w-3xl font-display font-semibold leading-[1.02] tracking-[-0.035em]",
+              // As a closing CTA it must sit below the page's own h1, not
+              // rival it. Full scale only on /contact, where it is the h1.
+              showForm
+                ? "text-[clamp(2.2rem,6.5vw,4.75rem)]"
+                : "text-[clamp(1.9rem,4vw,3.25rem)]",
+            )}
+          >
             Let&rsquo;s build something useful.
           </Heading>
 
-          <p className="mt-7 max-w-lg text-base leading-relaxed text-ink-dim md:text-lg">
+          <p className={cn("max-w-lg leading-relaxed text-ink-dim", showForm ? "mt-7 text-base md:text-lg" : "mt-5 text-base")}>
             Have a website, product or design challenge in mind?
           </p>
         </Reveal>
 
-        <Reveal delay={0.08} className="mt-12 flex flex-wrap items-center gap-3">
+        <Reveal delay={0.08} className={cn("flex flex-wrap items-center gap-3", showForm ? "mt-12" : "mt-8")}>
           <ButtonLink href={emailHref} external variant="primary">
             Let&rsquo;s Talk
             <Arrow />
