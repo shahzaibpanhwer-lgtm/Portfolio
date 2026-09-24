@@ -19,11 +19,20 @@ function resolveWork(name: string) {
   return null;
 }
 
-export function Experience() {
+export function Experience({
+  showHeading = true,
+}: {
+  /** Off when the route's <h1> already carries the title. */
+  showHeading?: boolean;
+} = {}) {
+  /* With the section heading suppressed the entry titles have to
+     step up, or the outline jumps h1 -> h3. */
+  const Title = showHeading ? "h3" : "h2";
+
   return (
     <section id="experience" className="section-y">
       <div className="container-edge">
-        <SectionHeading title="Experience" />
+        {showHeading ? <SectionHeading title="Experience" /> : null}
 
         <ol className="mt-16 md:mt-20">
           {experience.map((entry) => (
@@ -32,9 +41,9 @@ export function Experience() {
                 {/* Role and period share a line — a three-column rail
                     holding a single year was mostly empty space. */}
                 <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-t border-line pt-8">
-                  <h3 className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-semibold leading-tight tracking-[-0.03em]">
+                  <Title className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-semibold leading-tight tracking-[-0.03em]">
                     {entry.role}
-                  </h3>
+                  </Title>
                   <span className="text-lg text-accent md:text-xl">
                     {entry.period}
                   </span>

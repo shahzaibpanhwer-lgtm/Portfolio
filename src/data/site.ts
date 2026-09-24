@@ -36,10 +36,14 @@ export const contact = {
   github: "https://github.com/shahzaibpanhwer-lgtm",
 } as const;
 
+/**
+ * Each item is its own route. These were in-page anchors before, which
+ * meant the separate pages existed but nothing ever linked to them.
+ */
 export const navLinks = [
-  { label: "Work", href: "/#work" },
-  { label: "About", href: "/#about" },
-  { label: "Experience", href: "/#experience" },
-  { label: "Skills", href: "/#skills" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Work", href: "/work" },
+  { label: "About", href: "/about" },
+  { label: "Experience", href: "/experience" },
+  { label: "Skills", href: "/skills" },
+  { label: "Contact", href: "/contact" },
 ] as const;

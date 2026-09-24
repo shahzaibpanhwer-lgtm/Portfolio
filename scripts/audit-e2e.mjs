@@ -14,6 +14,8 @@ const ROUTES = [
   "/work",
   "/wordpress",
   "/about",
+  "/experience",
+  "/skills",
   "/contact",
   "/work/devflow",
   "/work/yemo",

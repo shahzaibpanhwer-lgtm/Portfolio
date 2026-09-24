@@ -15,9 +15,12 @@ const emailHref = contact.email.includes("@")
 
 export function Contact({
   as: Heading = "h2",
+  showForm = true,
 }: {
   /** "h1" when Contact is the page's primary heading. */
   as?: "h1" | "h2";
+  /** Off on the home page — the form belongs on /contact only. */
+  showForm?: boolean;
 } = {}) {
   return (
     <section id="contact" className="relative overflow-hidden section-y">
@@ -32,7 +35,7 @@ export function Contact({
 
       <div className="container-edge relative">
         <div className="grid gap-12 border-t border-line pt-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-7">
+          <div className={showForm ? "lg:col-span-7" : "lg:col-span-9"}>
         <Reveal>
           <p className="label">Contact</p>
 
@@ -85,9 +88,11 @@ export function Contact({
         </Reveal>
           </div>
 
-          <Reveal delay={0.1} className="lg:col-span-5">
-            <ContactForm />
-          </Reveal>
+          {showForm ? (
+            <Reveal delay={0.1} className="lg:col-span-5">
+              <ContactForm />
+            </Reveal>
+          ) : null}
         </div>
       </div>
     </section>
