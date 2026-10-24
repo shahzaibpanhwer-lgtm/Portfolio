@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { ButtonLink, Arrow } from "@/components/ui/Button";
 import { projects } from "@/data/projects";
 import { site } from "@/data/site";
@@ -10,7 +11,7 @@ import { HeroStack } from "@/components/sections/HeroStack";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Hero() {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
 
   const line = (i: number) =>
     reduce

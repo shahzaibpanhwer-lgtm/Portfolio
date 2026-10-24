@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import type { ReactNode } from "react";
 
 /**
@@ -9,7 +10,7 @@ import type { ReactNode } from "react";
  * studies. A short fade is enough to soften navigation.
  */
 export default function Template({ children }: { children: ReactNode }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
 
   if (reduce) return <>{children}</>;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useReducedMotion } from "motion/react";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { cn } from "@/lib/cn";
 
 /**
@@ -17,7 +17,7 @@ import { cn } from "@/lib/cn";
  * prefers-reduced-motion.
  */
 export function HeroStack() {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
 
   const layers = [
     { label: "Interface", accent: true, delay: "0s" },

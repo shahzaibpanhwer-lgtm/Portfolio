@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import { motion, type Variants } from "motion/react";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
@@ -36,7 +37,7 @@ export function Reveal({
   as = "div",
   variant = "fade",
 }: RevealProps) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const MotionTag = motion[as];
 
   if (reduce) {
@@ -105,7 +106,7 @@ export function Stagger({
   children: ReactNode;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
 
   if (reduce) return <div className={className}>{children}</div>;
 
@@ -130,7 +131,7 @@ export function StaggerItem({
   children: ReactNode;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
 
   if (reduce) return <div className={className}>{children}</div>;
 
