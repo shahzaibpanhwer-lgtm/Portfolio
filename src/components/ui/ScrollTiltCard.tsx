@@ -6,8 +6,8 @@ import {
   useScroll,
   useSpring,
   useTransform,
-  useReducedMotion,
 } from "motion/react";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 /**
  * A screenshot that starts tilted back in 3D and settles flat as it
@@ -31,7 +31,7 @@ export function ScrollTiltCard({
   tilt?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -50,7 +50,9 @@ export function ScrollTiltCard({
   const scale = useTransform(progress, [0, 1], [0.94, 1]);
   const opacity = useTransform(progress, [0, 0.4], [0.55, 1]);
 
-  if (reduce) return <>{children}</>;
+  /* The wrapper stays mounted either way: useScroll is tracking it, and
+     dropping it leaves the scroll target ref unattached. */
+  if (reduce) return <div ref={ref}>{children}</div>;
 
   return (
     <div ref={ref} style={{ perspective: "1600px" }}>

@@ -1,12 +1,16 @@
 import { cn } from "@/lib/cn";
 
 /**
- * SP monogram.
+ * Layer mark.
  *
- * Drawn as paths rather than set in a typeface, so the mark is
- * font-independent, stays crisp at favicon size, and can be exported as
- * an asset. Stroke geometry (single weight, round caps) matches the
- * hairline language the rest of the site is built from.
+ * The hero's isometric stack reduced to three strokes: an accent plane
+ * on top (interface) over two receding layers. It ties the identity to
+ * the one visual the site is built around instead of standing apart as
+ * a generic monogram. Drawn as paths so it stays crisp at favicon size
+ * and needs no font.
+ *
+ * Inside a `group/logo` the top plane lifts on hover, the way the hero
+ * stack floats. Motion-safe only.
  */
 export function LogoMark({
   className,
@@ -22,60 +26,43 @@ export function LogoMark({
       role={title ? "img" : "presentation"}
       aria-label={title}
       aria-hidden={title ? undefined : true}
-      className={cn("h-9 w-9", className)}
+      className={cn("h-8 w-8 overflow-visible", className)}
     >
-      {/* Tile — same radius and hairline as the site's cards */}
-      <rect
-        x="0.7"
-        y="0.7"
-        width="30.6"
-        height="30.6"
-        rx="9"
-        className="fill-surface stroke-line transition-colors duration-300"
-        strokeWidth="1.4"
+      {/* Bottom layer */}
+      <path
+        d="M4 19.5 16 26l12-6.5"
+        className="stroke-ink-faint"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-
-      {/* Letterforms are scaled about the tile centre so the optical
-          padding stays even, and the P is nudged right to open up the
-          join between the two glyphs. */}
-      <g transform="translate(16 16) scale(0.8) translate(-16 -16)">
-        {/* S */}
-        <path
-          d="M14.6 11.6c0-1.7-1.6-2.6-3.5-2.6-2.1 0-4.1.9-4.1 3 0 3.9 7.6 2.8 7.6 7.3 0 2.4-2.1 3.5-4.2 3.5-2.1 0-4-.8-4.5-2.6"
-          className="stroke-ink transition-colors duration-300"
-          strokeWidth="2.85"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-
-        {/* P */}
-        <path
-          d="M19.5 23V9h4.3c2.5 0 4.1 1.8 4.1 4.2s-1.6 4.2-4.1 4.2h-4.3"
-          className="stroke-accent transition-colors duration-300"
-          strokeWidth="2.85"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </g>
+      {/* Middle layer */}
+      <path
+        d="M4 14.5 16 21l12-6.5"
+        className="stroke-ink-dim"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {/* Top plane */}
+      <path
+        d="M16 3.5 28 10 16 16.5 4 10Z"
+        className="fill-accent/20 stroke-accent transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover/logo:-translate-y-[2px]"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 
-/**
- * Full lockup: mark + wordmark. The wordmark drops away below `sm`,
- * leaving the mark to carry the identity.
- */
+/** Full lockup: mark + name, with the accent full stop from the hero. */
 export function Logo({ className }: { className?: string }) {
   return (
-    <span className={cn("flex items-center gap-3", className)}>
-      <LogoMark
-        className={cn(
-          "h-9 w-9 shrink-0",
-          "[&>rect]:group-hover/logo:stroke-accent/50",
-        )}
-      />
-      <span className="hidden text-[11px] font-semibold uppercase tracking-[0.22em] text-ink transition-colors duration-300 group-hover/logo:text-accent sm:inline">
+    <span className={cn("flex items-center gap-2.5", className)}>
+      <LogoMark className="h-8 w-8 shrink-0" />
+      <span className="font-display text-[17px] font-bold tracking-[-0.02em] text-ink">
         Shahzaib Panhwer
+        <span className="text-accent">.</span>
       </span>
     </span>
   );
