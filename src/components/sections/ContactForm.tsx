@@ -30,6 +30,7 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Errors>({});
   const [values, setValues] = useState({ name: "", email: "", message: "" });
+  const [sentName, setSentName] = useState("");
 
   const set = (key: keyof typeof values) => (v: string) => {
     setValues((prev) => ({ ...prev, [key]: v }));
@@ -55,28 +56,28 @@ export function ContactForm() {
     setStatus("sending");
 
     try {
-      if (site.contactEndpoint) {
-        const res = await fetch(site.contactEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...values,
-            subject: `Portfolio enquiry from ${values.name}`,
-          }),
-        });
-        if (!res.ok) throw new Error(String(res.status));
-      } else {
-        /* No endpoint configured: hand the message to the visitor's mail
-           client, pre-composed. Never silently drops a message. */
-        const subject = encodeURIComponent(
-          `Portfolio enquiry from ${values.name}`,
-        );
-        const body = encodeURIComponent(
-          `${values.message}\n\n— ${values.name}\n${values.email}`,
-        );
-        window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
+      const res = await fetch(site.contactEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          ...values,
+          _subject: `Portfolio enquiry from ${values.name}`,
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+      const data = (await res.json().catch(() => null)) as {
+        success?: boolean | string;
+      } | null;
+      /* FormSubmit answers 200 with success "false" for rejected sends. */
+      if (!res.ok || String(data?.success) !== "true") {
+        throw new Error(String(res.status));
       }
 
+      setSentName(values.name.trim());
       setStatus("sent");
       setValues({ name: "", email: "", message: "" });
     } catch {
@@ -149,9 +150,8 @@ export function ContactForm() {
       <p role="status" aria-live="polite" className="mt-4 min-h-5 text-sm">
         {status === "sent" ? (
           <span className="text-accent">
-            {site.contactEndpoint
-              ? "Thanks — your message has been sent."
-              : "Your email app should have opened with the message ready to send."}
+            Thanks for reaching out{sentName ? `, ${sentName}` : ""}! Your
+            message has been sent and I&rsquo;ll get back to you soon.
           </span>
         ) : null}
         {status === "error" ? (

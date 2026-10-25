@@ -19,15 +19,12 @@ export const site = {
    */
   resumeUrl: null as string | null,
   /**
-   * Where the contact form POSTs. Leave null and the form composes the
-   * message into the visitor's own mail client instead, which needs no
-   * account and cannot silently drop a message.
-   *
-   * To have messages land in an inbox directly, set this to a form
-   * endpoint (Web3Forms and Formspree both have a free tier):
-   *   contactEndpoint: "https://api.web3forms.com/submit",
+   * Where the contact form POSTs. FormSubmit forwards each submission to
+   * the inbox in the URL, with no account or API key. The very first
+   * submission sends an "Activate Form" email to that inbox; messages are
+   * delivered once that link has been clicked.
    */
-  contactEndpoint: null as string | null,
+  contactEndpoint: "https://formsubmit.co/ajax/shahzaibpanhwer446@gmail.com",
 } as const;
 
 export const contact = {
