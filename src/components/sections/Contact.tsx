@@ -2,7 +2,8 @@ import { contact, site } from "@/data/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/cn";
 import { ButtonLink, Arrow, ArrowOut } from "@/components/ui/Button";
-import { ContactForm } from "@/components/sections/ContactForm";
+import { ContactPanel } from "@/components/sections/ContactPanel";
+import { SplitText } from "@/components/motion/SplitText";
 
 /**
  * Placeholder-safe: until real details are supplied, contact.email is
@@ -16,20 +17,25 @@ const emailHref = contact.email.includes("@")
 
 export function Contact({
   as: Heading = "h2",
-  showForm = true,
+  panel = "calendar",
 }: {
   /** "h1" when Contact is the page's primary heading. */
   as?: "h1" | "h2";
-  /** Off on the home page — the form belongs on /contact only. */
-  showForm?: boolean;
+  /**
+   * "calendar" on the home page — booking is the one action worth
+   * putting in front of every visitor. "both" on /contact adds the
+   * message form behind a tab.
+   */
+  panel?: "calendar" | "both";
 } = {}) {
+  const isPage = panel === "both";
   return (
     <section
       id="contact"
       className={cn(
         "relative overflow-hidden",
         // With no form it is a closing call to action, not a full section
-        showForm ? "section-y" : "pb-20 pt-16 md:pb-24 md:pt-20",
+        isPage ? "pb-24 pt-12 md:pb-32 md:pt-16" : "section-y",
       )}
     >
       <div
@@ -42,8 +48,8 @@ export function Contact({
       />
 
       <div className="container-edge relative">
-        <div className="grid gap-12 border-t border-line pt-12 lg:grid-cols-12 lg:gap-16">
-          <div className={showForm ? "lg:col-span-7" : "lg:col-span-9"}>
+        <div className="grid gap-12 border-t border-line pt-12 lg:grid-cols-12 lg:gap-14">
+          <div className="lg:col-span-5">
         <Reveal>
           <p className="label">Contact</p>
 
@@ -52,22 +58,23 @@ export function Contact({
               "mt-6 max-w-3xl font-display font-semibold leading-[1.02] tracking-[-0.035em]",
               // As a closing CTA it must sit below the page's own h1, not
               // rival it. Full scale only on /contact, where it is the h1.
-              showForm
-                ? "text-[clamp(2.2rem,6.5vw,4.75rem)]"
-                : "text-[clamp(1.9rem,4vw,3.25rem)]",
+              isPage
+                ? "text-[clamp(2.4rem,6vw,4.5rem)]"
+                : "text-[clamp(2.1rem,5vw,4rem)]",
             )}
           >
-            Let&rsquo;s build something useful.
+            <SplitText text="Let’s build something useful." />
           </Heading>
 
-          <p className={cn("max-w-lg leading-relaxed text-ink-dim", showForm ? "mt-7 text-base md:text-lg" : "mt-5 text-base")}>
-            Have a website, product or design challenge in mind?
+          <p className="mt-6 max-w-md text-base leading-relaxed text-ink-dim md:text-lg">
+            Have a website, product or design challenge in mind? Grab a slot
+            on my calendar — or just send a message.
           </p>
         </Reveal>
 
-        <Reveal delay={0.08} className={cn("flex flex-wrap items-center gap-3", showForm ? "mt-12" : "mt-8")}>
-          <ButtonLink href={emailHref} external variant="primary">
-            Let&rsquo;s Talk
+        <Reveal delay={0.08} className="mt-10 flex flex-wrap items-center gap-3">
+          <ButtonLink href={emailHref} external variant="ghost">
+            Email me
             <Arrow />
           </ButtonLink>
 
@@ -105,11 +112,9 @@ export function Contact({
         </Reveal>
           </div>
 
-          {showForm ? (
-            <Reveal delay={0.1} className="lg:col-span-5">
-              <ContactForm />
-            </Reveal>
-          ) : null}
+          <Reveal delay={0.1} className="lg:col-span-7">
+            <ContactPanel withForm={isPage} />
+          </Reveal>
         </div>
       </div>
     </section>

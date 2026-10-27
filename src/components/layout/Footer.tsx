@@ -2,6 +2,7 @@ import Link from "next/link";
 import { contact, navLinks, site } from "@/data/site";
 import { ArrowOut } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
+import { BackToTop, LocalTime, Wordmark } from "@/components/layout/FooterParts";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -65,12 +66,19 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-line pt-8 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-16 flex flex-col gap-4 border-t border-line pt-8 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between">
           <p>
             &copy; {year} {site.name}
           </p>
-          <p>{site.availability}</p>
+          <p>
+            <LocalTime />
+          </p>
+          <BackToTop />
         </div>
+      </div>
+
+      <div className="overflow-hidden pb-4">
+        <Wordmark text={site.name} />
       </div>
     </footer>
   );

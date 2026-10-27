@@ -1,12 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
+import { useRef } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { ButtonLink, Arrow } from "@/components/ui/Button";
 import { projects } from "@/data/projects";
 import { site } from "@/data/site";
 import { HeroStack } from "@/components/sections/HeroStack";
+import { SplitText } from "@/components/motion/SplitText";
+import { Magnetic } from "@/components/motion/Magnetic";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -22,16 +32,50 @@ export function Hero() {
           transition: { duration: 0.85, delay: 0.08 * i, ease: EASE },
         };
 
+  /* As the hero scrolls away its copy drifts up and fades a beat faster
+     than the page, and the stack sinks — two speeds read as depth. */
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const stackY = useTransform(scrollYProgress, [0, 1], [0, 160]);
+
+  /* A soft light that follows the pointer across the grid. */
+  const mx = useMotionValue(-1000);
+  const my = useMotionValue(-1000);
+  const sx = useSpring(mx, { stiffness: 120, damping: 24 });
+  const sy = useSpring(my, { stiffness: 120, damping: 24 });
+  const spotlight = useMotionTemplate`radial-gradient(420px circle at ${sx}px ${sy}px, rgba(77,124,254,0.13), transparent 70%)`;
+
   return (
     <section
+      ref={sectionRef}
       className="relative flex min-h-[100svh] flex-col overflow-hidden pt-28 md:pt-32"
       aria-labelledby="hero-heading"
+      onPointerMove={(e) => {
+        if (reduce || e.pointerType !== "mouse") return;
+        const r = e.currentTarget.getBoundingClientRect();
+        mx.set(e.clientX - r.left);
+        my.set(e.clientY - r.top);
+      }}
     >
       <HeroBackdrop />
-      <HeroStack />
+      {!reduce ? (
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 hidden md:block"
+          style={{ background: spotlight }}
+        />
+      ) : null}
+      <motion.div style={reduce ? undefined : { y: stackY }} className="absolute inset-0">
+        <HeroStack />
+      </motion.div>
 
       <div className="container-edge relative z-10 flex w-full flex-1 items-center">
-        <div>
+        <motion.div style={reduce ? undefined : { y: copyY, opacity: copyOpacity }}>
           {/* Eyebrow */}
           <motion.p
             {...line(0)}
@@ -50,12 +94,20 @@ export function Hero() {
             id="hero-heading"
             className="mt-6 font-display text-[clamp(2.25rem,8vw,6.25rem)] font-semibold leading-[0.98] tracking-[-0.035em] md:mt-8"
           >
-            <motion.span {...line(1)} className="block">
-              Full-Stack Developer
-            </motion.span>
-            <motion.span {...line(2)} className="block text-ink/75">
-              <span className="text-accent">&amp;</span> UI/UX Designer
-            </motion.span>
+            <SplitText
+              text="Full-Stack Developer"
+              trigger="mount"
+              delay={0.1}
+              className="block"
+            />
+            <span className="block text-ink/75">
+              <SplitText
+                text="& UI/UX Designer"
+                trigger="mount"
+                delay={0.28}
+                accent={["&"]}
+              />
+            </span>
           </h1>
 
           {/* Supporting copy */}
@@ -83,19 +135,48 @@ export function Hero() {
             {...line(5)}
             className="mt-10 flex flex-wrap items-center gap-3 md:mt-12"
           >
-            <ButtonLink href="#work" variant="primary">
-              View My Work
-              <Arrow />
-            </ButtonLink>
-            <ButtonLink href="#contact" variant="ghost">
-              Let&rsquo;s Talk
-            </ButtonLink>
+            <Magnetic>
+              <ButtonLink href="#work" variant="primary">
+                View My Work
+                <Arrow />
+              </ButtonLink>
+            </Magnetic>
+            <Magnetic>
+              <ButtonLink href="#contact" variant="ghost">
+                Book a call
+              </ButtonLink>
+            </Magnetic>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
+
+      <ScrollCue reduce={!!reduce} />
 
       <HeroFooter reduce={!!reduce} />
     </section>
+  );
+}
+
+/** Small "scroll" hint: a dot travelling down a hairline. */
+function ScrollCue({ reduce }: { reduce: boolean }) {
+  if (reduce) return null;
+  return (
+    <motion.div
+      aria-hidden="true"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1.4, duration: 0.8 }}
+      className="pointer-events-none absolute bottom-28 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-3 lg:flex"
+    >
+      <span className="text-[10px] uppercase tracking-[0.3em] text-ink-faint">Scroll</span>
+      <span className="relative h-12 w-px overflow-hidden bg-line">
+        <motion.span
+          className="absolute left-0 top-0 h-4 w-px bg-accent"
+          animate={{ y: [-16, 48] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </span>
+    </motion.div>
   );
 }
 

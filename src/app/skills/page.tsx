@@ -20,7 +20,7 @@ export default function SkillsPage() {
       />
       <Skills showHeading={false} />
       <Process />
-      <Contact showForm={false} />
+      <Contact />
     </>
   );
 }
