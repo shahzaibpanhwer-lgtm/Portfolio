@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import {
   motion,
   useScroll,
@@ -17,7 +17,12 @@ import { Magnetic } from "@/components/motion/Magnetic";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-export function Hero() {
+export function Hero({
+  visual = <HeroStack />,
+}: {
+  /** The right-hand illustration. */
+  visual?: ReactNode;
+} = {}) {
   const reduce = usePrefersReducedMotion();
 
   const line = (i: number) =>
@@ -49,7 +54,7 @@ export function Hero() {
     >
       <HeroBackdrop />
       <motion.div style={reduce ? undefined : { y: stackY }} className="absolute inset-0">
-        <HeroStack />
+        {visual}
       </motion.div>
 
       <div className="container-edge relative z-10 flex w-full flex-1 items-center">
