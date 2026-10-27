@@ -3,6 +3,7 @@ import { projects, type Project } from "@/data/projects";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { BrowserFrame } from "@/components/ui/BrowserFrame";
+import { ScrollTiltCard } from "@/components/ui/ScrollTiltCard";
 import { Arrow, ArrowOut } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
@@ -93,9 +94,11 @@ function FeaturedProject({
           flip ? "lg:order-2 lg:col-start-6" : "lg:order-1",
         )}
       >
+      <ScrollTiltCard tilt={10}>
       <Link
         href={`/work/${project.slug}`}
         aria-label={`${project.title} — view case study`}
+        data-cursor="View"
         className="block"
       >
         <BrowserFrame
@@ -108,6 +111,7 @@ function FeaturedProject({
           priority={index === 0}
         />
       </Link>
+      </ScrollTiltCard>
       </Reveal>
 
       {/* Copy */}

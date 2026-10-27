@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/ui/Reveal";
+import { SplitText } from "@/components/motion/SplitText";
 import { cn } from "@/lib/cn";
 
 type SectionHeadingProps = {
@@ -31,7 +32,7 @@ export function SectionHeading({
       <div className="max-w-2xl">
         {eyebrow ? <p className="label mb-5">{eyebrow}</p> : null}
         <Tag className="font-display text-[clamp(1.9rem,4.5vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.03em]">
-          {title}
+          <SplitText text={title} />
         </Tag>
         {lead ? (
           <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-dim">

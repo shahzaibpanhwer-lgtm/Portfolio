@@ -8,16 +8,28 @@ import { navLinks, site } from "@/data/site";
 import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/cn";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
+import { getLenis } from "@/lib/smoothScroll";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const reduce = usePrefersReducedMotion();
 
-  /* Solidify the bar once the hero starts leaving. */
+  /* Solidify the bar once the hero starts leaving, and tuck it away while
+     the visitor is reading downward — it comes back the moment they
+     scroll up, which is when they are looking for it. */
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      if (Math.abs(y - last) > 6) {
+        setHidden(y > last && y > 320);
+        last = y;
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -26,8 +38,11 @@ export function Navbar() {
   /* Lock body scroll while the mobile sheet is open. */
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    if (open) getLenis()?.stop();
+    else getLenis()?.start();
     return () => {
       document.body.style.overflow = "";
+      getLenis()?.start();
     };
   }, [open]);
 
@@ -54,6 +69,7 @@ export function Navbar() {
           scrolled
             ? "border-b border-line bg-bg/70 backdrop-blur-xl"
             : "border-b border-transparent bg-transparent",
+          hidden && !open && "-translate-y-full",
         )}
       >
         <nav

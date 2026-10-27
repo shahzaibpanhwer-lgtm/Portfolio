@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/ui/Reveal";
+import { SplitText } from "@/components/motion/SplitText";
 
 /** Standard masthead for non-home routes. */
 export function PageHeader({
@@ -24,7 +25,7 @@ export function PageHeader({
         <Reveal>
           <p className="label">{eyebrow}</p>
           <h1 className="mt-5 font-display text-[clamp(2.2rem,6vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.035em]">
-            {title}
+            <SplitText text={title} trigger="mount" delay={0.1} />
           </h1>
           {lead ? (
             <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-dim md:text-lg">

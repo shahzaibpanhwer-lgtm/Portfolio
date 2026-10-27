@@ -102,6 +102,33 @@ exported by hand:
 - [ ] Review each project's `contributions` array and correct anything not
       personally performed
 
+### Booking calendar
+
+The "Book a call" calendar (home page, the closing section of every page,
+and a tab on `/contact`) is driven by `booking` in
+[`src/data/site.ts`](src/data/site.ts): time zone, working days, first and
+last start hour, slot spacing, how far ahead and how much notice.
+
+Slots are generated in the browser from those rules — there is no live
+calendar behind them — so a pick is sent as a *request* through the same
+FormSubmit endpoint as the contact form, with the time in both zones.
+Confirm it by replying. Keep the hours honest and it stays reliable.
+
+---
+
+## Motion
+
+- Inertial page scroll (Lenis) on mouse/trackpad; native scroll on touch
+- Word-by-word masked reveals on headings, a pointer spotlight and
+  scroll parallax in the hero, magnetic primary buttons
+- A skills ribbon that speeds up with scroll velocity, and a statement
+  that lights up word by word as it is scrolled
+- A cursor ring that labels project images "View"
+- Navbar that tucks away while reading down, plus a scroll progress line
+
+All of it lives in `src/components/motion/` and switches off under
+`prefers-reduced-motion`.
+
 ---
 
 ## Design system

@@ -18,7 +18,7 @@ export default function ExperiencePage() {
         lead="Real-world website and product work, and the projects it produced."
       />
       <Experience showHeading={false} />
-      <Contact showForm={false} />
+      <Contact />
     </>
   );
 }

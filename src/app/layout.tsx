@@ -2,7 +2,11 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Manrope } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { CursorFollower } from "@/components/motion/CursorFollower";
+import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { site } from "@/data/site";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 const inter = Inter({
@@ -68,6 +72,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${manrope.variable}`}>
       <body className="antialiased">
+        <SmoothScroll />
+        <ScrollProgress />
+        <CursorFollower />
         <Navbar />
         <main id="main" className="relative z-10">{children}</main>
         <Footer />

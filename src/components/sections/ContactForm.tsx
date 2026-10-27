@@ -8,7 +8,7 @@ import { Arrow } from "@/components/ui/Button";
 type Status = "idle" | "sending" | "sent" | "error";
 type Errors = Partial<Record<"name" | "email" | "message", string>>;
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function validate(values: {
   name: string;
@@ -173,7 +173,7 @@ export function ContactForm() {
 
 /* ------------------------------------------------------------------ */
 
-function Field({
+export function Field({
   id,
   label,
   value,

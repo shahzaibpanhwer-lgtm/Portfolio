@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/Hero";
+import { Statement } from "@/components/sections/Statement";
 import { Capabilities } from "@/components/sections/Capabilities";
 import { SelectedWork } from "@/components/sections/SelectedWork";
 import { Contact } from "@/components/sections/Contact";
@@ -12,15 +13,17 @@ import { Contact } from "@/components/sections/Contact";
  * shows no work is not a portfolio; /work goes further by adding the
  * WordPress projects.
  *
- * Contact closes the page without its form — the form lives on /contact.
+ * Contact closes the page with the booking calendar; the message form
+ * lives on /contact.
  */
 export default function HomePage() {
   return (
     <>
       <Hero />
+      <Statement />
       <Capabilities />
       <SelectedWork />
-      <Contact showForm={false} />
+      <Contact />
     </>
   );
 }

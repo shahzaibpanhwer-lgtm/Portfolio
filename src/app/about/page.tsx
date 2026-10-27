@@ -20,7 +20,7 @@ export default function AboutPage() {
       />
       <About showHeading={false} />
       <Capabilities />
-      <Contact showForm={false} />
+      <Contact />
     </>
   );
 }
