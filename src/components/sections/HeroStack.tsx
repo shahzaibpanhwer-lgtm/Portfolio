@@ -63,13 +63,13 @@ export function HeroStack() {
               className="relative h-full w-full rounded-2xl border"
               style={{
                 borderColor: layer.accent
-                  ? "rgba(77,124,254,0.66)"
+                  ? "color-mix(in srgb, var(--color-accent) 66%, transparent)"
                   : "rgba(48,48,54,0.95)",
                 background: layer.accent
-                  ? "linear-gradient(135deg, rgba(77,124,254,0.16), rgba(77,124,254,0.03))"
+                  ? "linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 16%, transparent), color-mix(in srgb, var(--color-accent) 3%, transparent))"
                   : "linear-gradient(135deg, rgba(245,245,245,0.038), rgba(245,245,245,0.006))",
                 boxShadow: layer.accent
-                  ? "0 0 70px rgba(77,124,254,0.22)"
+                  ? "0 0 70px color-mix(in srgb, var(--color-accent) 22%, transparent)"
                   : undefined,
               }}
             >
@@ -94,7 +94,7 @@ export function HeroStack() {
                     className="h-12 w-full"
                     style={{
                       background:
-                        "linear-gradient(to bottom, transparent, rgba(77,124,254,0.33), transparent)",
+                        "linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-accent) 33%, transparent), transparent)",
                       animation: "stack-scan 7s ease-in-out infinite",
                     }}
                   />

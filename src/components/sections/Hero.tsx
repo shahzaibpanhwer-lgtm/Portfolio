@@ -4,10 +4,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import {
   motion,
-  useMotionTemplate,
-  useMotionValue,
   useScroll,
-  useSpring,
   useTransform,
 } from "motion/react";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
@@ -43,33 +40,14 @@ export function Hero() {
   const copyOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const stackY = useTransform(scrollYProgress, [0, 1], [0, 160]);
 
-  /* A soft light that follows the pointer across the grid. */
-  const mx = useMotionValue(-1000);
-  const my = useMotionValue(-1000);
-  const sx = useSpring(mx, { stiffness: 120, damping: 24 });
-  const sy = useSpring(my, { stiffness: 120, damping: 24 });
-  const spotlight = useMotionTemplate`radial-gradient(420px circle at ${sx}px ${sy}px, rgba(77,124,254,0.13), transparent 70%)`;
 
   return (
     <section
       ref={sectionRef}
       className="relative flex min-h-[100svh] flex-col overflow-hidden pt-28 md:pt-32"
       aria-labelledby="hero-heading"
-      onPointerMove={(e) => {
-        if (reduce || e.pointerType !== "mouse") return;
-        const r = e.currentTarget.getBoundingClientRect();
-        mx.set(e.clientX - r.left);
-        my.set(e.clientY - r.top);
-      }}
     >
       <HeroBackdrop />
-      {!reduce ? (
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 hidden md:block"
-          style={{ background: spotlight }}
-        />
-      ) : null}
       <motion.div style={reduce ? undefined : { y: stackY }} className="absolute inset-0">
         <HeroStack />
       </motion.div>
@@ -247,14 +225,14 @@ function HeroBackdrop() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(70% 55% at 18% 8%, rgba(77,124,254,0.10), transparent 60%)",
+            "radial-gradient(70% 55% at 18% 8%, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 60%)",
         }}
       />
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(60% 50% at 88% 78%, rgba(77,124,254,0.045), transparent 62%)",
+            "radial-gradient(60% 50% at 88% 78%, color-mix(in srgb, var(--color-accent) 4.5%, transparent), transparent 62%)",
         }}
       />
       {/* Settle the composition back into black at the fold */}

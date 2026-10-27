@@ -18,7 +18,7 @@ const sizes = "h-11 px-6 md:h-12 md:px-7";
 const variants: Record<Variant, string> = {
   primary:
     "bg-accent text-bg hover:bg-accent-soft hover:-translate-y-0.5 " +
-    "hover:shadow-[0_8px_24px_-8px_rgba(77,124,254,0.65)]",
+    "hover:shadow-[0_8px_24px_-8px_color-mix(in_srgb,_var(--color-accent)_65%,_transparent)]",
   ghost:
     "border border-line text-ink hover:border-ink-faint/70 hover:bg-surface",
   quiet: "text-ink-dim hover:text-ink",
