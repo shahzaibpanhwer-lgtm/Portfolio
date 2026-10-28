@@ -82,6 +82,7 @@ export function Hero({
               trigger="mount"
               delay={0.1}
               className="block"
+              wordClassName="silver"
             />
             <span className="block text-ink/75">
               <SplitText

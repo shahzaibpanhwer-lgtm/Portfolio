@@ -39,7 +39,7 @@ export function Globe() {
 
     const accent =
       getComputedStyle(document.documentElement).getPropertyValue("--color-accent").trim() ||
-      "#4d7cfe";
+      "#c6f25a";
 
     const N = 1400;
     const pts: number[][] = [];

@@ -136,13 +136,15 @@ Tokens live in [`src/app/globals.css`](src/app/globals.css) under `@theme`.
 
 | Token                | Value     |
 | -------------------- | --------- |
-| `--color-bg`         | `#0b0b0c` |
-| `--color-surface`    | `#111114` |
-| `--color-line`       | `#242428` |
-| `--color-ink`        | `#f5f5f5` |
+| `--color-bg`         | `#08080a` |
+| `--color-surface`    | `#0f0f12` |
+| `--color-line`       | `#1f1f24` |
+| `--color-ink`        | `#ededed` |
 | `--color-ink-dim`    | `#a1a1aa` |
-| `--color-accent`     | `#e8a75c` |
+| `--color-ink-faint`  | `#8b8b94` |
+| `--color-accent`     | `#c6f25a` |
 
+Headings use the `silver` utility (a white-to-grey text gradient).
 One accent colour throughout. Components reach it only through
 `--color-accent` (tints use `color-mix`), so changing the palette is an
 edit to the tokens above — plus the hex in `opengraph-image.tsx`,

@@ -35,7 +35,12 @@ export function SplitText({
   const reduce = usePrefersReducedMotion();
   const words = text.split(" ");
 
-  if (reduce) return <span className={className}>{text}</span>;
+  if (reduce)
+    return (
+      <span className={className}>
+        <span className={wordClassName}>{text}</span>
+      </span>
+    );
 
   const play =
     trigger === "mount"

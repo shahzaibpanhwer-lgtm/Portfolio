@@ -63,7 +63,7 @@ export function Contact({
                 : "text-[clamp(2.1rem,5vw,4rem)]",
             )}
           >
-            <SplitText text="Let’s build something useful." />
+            <SplitText text="Let’s build something useful." wordClassName="silver" />
           </Heading>
 
           <p className="mt-6 max-w-md text-base leading-relaxed text-ink-dim md:text-lg">
