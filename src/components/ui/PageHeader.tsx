@@ -18,14 +18,14 @@ export function PageHeader({
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(60% 70% at 12% 0%, rgba(77,124,254,0.07), transparent 62%)",
+            "radial-gradient(60% 70% at 12% 0%, color-mix(in srgb, var(--color-accent) 7%, transparent), transparent 62%)",
         }}
       />
       <div className="container-edge relative">
         <Reveal>
           <p className="label">{eyebrow}</p>
           <h1 className="mt-5 font-display text-[clamp(2.2rem,6vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.035em]">
-            <SplitText text={title} trigger="mount" delay={0.1} />
+            <SplitText text={title} trigger="mount" delay={0.1} wordClassName="silver" />
           </h1>
           {lead ? (
             <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-dim md:text-lg">

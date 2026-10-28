@@ -98,7 +98,6 @@ function FeaturedProject({
       <Link
         href={`/work/${project.slug}`}
         aria-label={`${project.title} — view case study`}
-        data-cursor="View"
         className="block"
       >
         <BrowserFrame

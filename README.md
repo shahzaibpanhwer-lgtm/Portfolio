@@ -119,11 +119,12 @@ Confirm it by replying. Keep the hours honest and it stays reliable.
 ## Motion
 
 - Inertial page scroll (Lenis) on mouse/trackpad; native scroll on touch
-- Word-by-word masked reveals on headings, a pointer spotlight and
-  scroll parallax in the hero, magnetic primary buttons
-- A skills ribbon that speeds up with scroll velocity, and a statement
-  that lights up word by word as it is scrolled
-- A cursor ring that labels project images "View"
+- Word-by-word masked reveals on headings, a sweeping light beam in the
+  hero, magnetic primary buttons
+- The hero's project deck (the first three projects with a cover in
+  `projects.ts`) deals itself on a CSS loop and pauses on hover
+- A statement that lights up word by word as it is scrolled
+- Project frames that tilt flat as they scroll in
 - Navbar that tucks away while reading down, plus a scroll progress line
 
 All of it lives in `src/components/motion/` and switches off under
@@ -137,12 +138,17 @@ Tokens live in [`src/app/globals.css`](src/app/globals.css) under `@theme`.
 
 | Token                | Value     |
 | -------------------- | --------- |
-| `--color-bg`         | `#0b0b0c` |
-| `--color-surface`    | `#111114` |
-| `--color-line`       | `#242428` |
-| `--color-ink`        | `#f5f5f5` |
+| `--color-bg`         | `#08080a` |
+| `--color-surface`    | `#0f0f12` |
+| `--color-line`       | `#1f1f24` |
+| `--color-ink`        | `#ededed` |
 | `--color-ink-dim`    | `#a1a1aa` |
-| `--color-accent`     | `#e8a75c` |
+| `--color-ink-faint`  | `#8b8b94` |
+| `--color-accent`     | `#c6f25a` |
 
-One accent colour throughout. Type is Inter (body) and Manrope (display),
+Headings use the `silver` utility (a white-to-grey text gradient).
+One accent colour throughout. Components reach it only through
+`--color-accent` (tints use `color-mix`), so changing the palette is an
+edit to the tokens above — plus the hex in `opengraph-image.tsx`,
+`work/[slug]/opengraph-image.tsx` and `icon.tsx`, which render outside CSS. Type is Inter (body) and Manrope (display),
 self-hosted via `next/font`. All motion is gated behind `prefers-reduced-motion`.

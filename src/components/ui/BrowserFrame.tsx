@@ -118,7 +118,7 @@ function Plate({ label }: { label: string }) {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(120% 90% at 50% 0%, rgba(77,124,254,0.07), transparent 62%)",
+            "radial-gradient(120% 90% at 50% 0%, color-mix(in srgb, var(--color-accent) 7%, transparent), transparent 62%)",
         }}
       />
       <div className="absolute inset-0 flex items-center justify-center p-8">

@@ -43,7 +43,7 @@ export function Contact({
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(55% 60% at 50% 100%, rgba(77,124,254,0.08), transparent 62%)",
+            "radial-gradient(55% 60% at 50% 100%, color-mix(in srgb, var(--color-accent) 8%, transparent), transparent 62%)",
         }}
       />
 
@@ -63,7 +63,7 @@ export function Contact({
                 : "text-[clamp(2.1rem,5vw,4rem)]",
             )}
           >
-            <SplitText text="Let’s build something useful." />
+            <SplitText text="Let’s build something useful." wordClassName="silver" />
           </Heading>
 
           <p className="mt-6 max-w-md text-base leading-relaxed text-ink-dim md:text-lg">

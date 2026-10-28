@@ -48,13 +48,13 @@ export function BookingCalendar() {
   const hydrated = useHydrated();
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-line bg-surface/60 shadow-[0_40px_120px_-40px_rgba(77,124,254,0.25)] backdrop-blur-sm">
+    <div className="relative overflow-hidden rounded-3xl border border-line bg-surface/60 shadow-[0_40px_120px_-40px_color-mix(in_srgb,_var(--color-accent)_25%,_transparent)] backdrop-blur-sm">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(60% 50% at 100% 0%, rgba(77,124,254,0.10), transparent 60%)",
+            "radial-gradient(60% 50% at 100% 0%, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 60%)",
         }}
       />
       <div className="relative">
@@ -536,7 +536,7 @@ function MonthGrid({
                   {selected ? (
                     <motion.span
                       layoutId="day-pill"
-                      className="absolute inset-0 rounded-xl bg-accent shadow-[0_8px_30px_-6px_rgba(77,124,254,0.7)]"
+                      className="absolute inset-0 rounded-xl bg-accent shadow-[0_8px_30px_-6px_color-mix(in_srgb,_var(--color-accent)_70%,_transparent)]"
                       transition={{ type: "spring", stiffness: 420, damping: 34 }}
                     />
                   ) : null}

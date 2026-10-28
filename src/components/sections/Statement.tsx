@@ -1,24 +1,12 @@
-import { skillGroups } from "@/data/content";
-import { Marquee } from "@/components/motion/Marquee";
 import { ScrollWords } from "@/components/motion/ScrollWords";
 
-/* One ribbon of everything in the skills data, de-duplicated. */
-const ribbon = [...new Set(skillGroups.flatMap((g) => g.items))];
-
 /**
- * The pause between the hero and the work: a skills ribbon that runs
- * with the scroll, then one sentence that lights up word by word.
+ * The pause between the hero and the work: one sentence that lights up
+ * word by word as it is scrolled.
  */
 export function Statement() {
   return (
     <section aria-labelledby="statement-label" className="relative overflow-hidden">
-      <div className="border-y border-line-soft bg-band py-6 md:py-8">
-        <Marquee
-          items={ribbon}
-          className="font-display text-xl font-medium tracking-tight text-ink-dim md:text-3xl"
-        />
-      </div>
-
       <div className="container-edge section-y">
         <p id="statement-label" className="label">
           How I work

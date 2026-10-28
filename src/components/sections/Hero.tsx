@@ -1,143 +1,88 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
-import {
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "motion/react";
+import { motion } from "motion/react";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { ButtonLink, Arrow } from "@/components/ui/Button";
 import { projects } from "@/data/projects";
 import { site } from "@/data/site";
-import { HeroStack } from "@/components/sections/HeroStack";
 import { SplitText } from "@/components/motion/SplitText";
 import { Magnetic } from "@/components/motion/Magnetic";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+/* The deck shows the first three projects that have a cover. */
+const deck = projects.filter((p) => p.cover).slice(0, 3);
+
+/**
+ * Statement on the left, a deck of real projects on the right that deals
+ * itself: the front card slides away and goes to the back every few
+ * seconds. The first screen carries the claim and the evidence for it.
+ */
 export function Hero() {
   const reduce = usePrefersReducedMotion();
-
-  const line = (i: number) =>
+  const fade = (delay: number) =>
     reduce
       ? {}
       : {
-          initial: { opacity: 0, y: 24 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.85, delay: 0.08 * i, ease: EASE },
+          initial: { opacity: 0, y: 18, filter: "blur(6px)" },
+          animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+          transition: { duration: 1, delay, ease: EASE },
         };
-
-  /* As the hero scrolls away its copy drifts up and fades a beat faster
-     than the page, and the stack sinks — two speeds read as depth. */
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const copyY = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const copyOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  const stackY = useTransform(scrollYProgress, [0, 1], [0, 160]);
-
-  /* A soft light that follows the pointer across the grid. */
-  const mx = useMotionValue(-1000);
-  const my = useMotionValue(-1000);
-  const sx = useSpring(mx, { stiffness: 120, damping: 24 });
-  const sy = useSpring(my, { stiffness: 120, damping: 24 });
-  const spotlight = useMotionTemplate`radial-gradient(420px circle at ${sx}px ${sy}px, rgba(77,124,254,0.13), transparent 70%)`;
 
   return (
     <section
-      ref={sectionRef}
       className="relative flex min-h-[100svh] flex-col overflow-hidden pt-28 md:pt-32"
       aria-labelledby="hero-heading"
-      onPointerMove={(e) => {
-        if (reduce || e.pointerType !== "mouse") return;
-        const r = e.currentTarget.getBoundingClientRect();
-        mx.set(e.clientX - r.left);
-        my.set(e.clientY - r.top);
-      }}
     >
       <HeroBackdrop />
-      {!reduce ? (
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 hidden md:block"
-          style={{ background: spotlight }}
-        />
-      ) : null}
-      <motion.div style={reduce ? undefined : { y: stackY }} className="absolute inset-0">
-        <HeroStack />
-      </motion.div>
 
-      <div className="container-edge relative z-10 flex w-full flex-1 items-center">
-        <motion.div style={reduce ? undefined : { y: copyY, opacity: copyOpacity }}>
-          {/* Eyebrow */}
+      <div className="container-edge relative z-10 grid flex-1 items-center gap-16 pb-16 pt-10 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pb-20">
+        {/* copy */}
+        <div>
           <motion.p
-            {...line(0)}
-            className="flex items-center gap-3 text-base text-ink md:text-lg"
+            {...fade(0.05)}
+            className="inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border border-line bg-surface/60 px-4 py-2 text-xs text-ink-dim backdrop-blur sm:text-[13px]"
           >
-            <span
-              className="h-px w-8 bg-accent md:w-12"
-              aria-hidden="true"
-            />
-            Hi, I&rsquo;m Shahzaib.
+            <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+            </span>
+            {site.availability}
           </motion.p>
 
-          {/* Headline. The second line is set lighter, not dimmer — UI/UX
-              is co-primary, so it must not look like it is fading out. */}
           <h1
             id="hero-heading"
-            className="mt-6 font-display text-[clamp(2.25rem,8vw,6.25rem)] font-semibold leading-[0.98] tracking-[-0.035em] md:mt-8"
+            className="mt-8 max-w-[12ch] font-display text-[clamp(2.75rem,6.6vw,5.75rem)] font-semibold leading-[0.98] tracking-[-0.055em]"
           >
             <SplitText
-              text="Full-Stack Developer"
+              text="Design and code, in one"
               trigger="mount"
               delay={0.1}
-              className="block"
+              wordClassName="silver"
+            />{" "}
+            <SplitText
+              text="pair of hands."
+              trigger="mount"
+              delay={0.4}
+              wordClassName="text-accent"
             />
-            <span className="block text-ink/75">
-              <SplitText
-                text="& UI/UX Designer"
-                trigger="mount"
-                delay={0.28}
-                accent={["&"]}
-              />
-            </span>
           </h1>
 
-          {/* Supporting copy */}
           <motion.p
-            {...line(3)}
-            className="mt-8 max-w-[36rem] text-base leading-relaxed text-ink-dim md:mt-10 md:text-lg"
+            {...fade(0.6)}
+            className="mt-7 max-w-[30rem] text-base leading-relaxed text-ink-dim md:text-lg"
           >
-            I build full-stack web applications and design intuitive
-            interfaces that combine clean engineering with thoughtful UX —
-            from client websites to production-ready digital products.
+            I&rsquo;m Shahzaib — full-stack developer and UI/UX designer from
+            Pakistan, taking products from the first wireframe to
+            production.
           </motion.p>
 
-          {/* Disciplines. Deliberately small and dim: it qualifies the
-              headline, it does not compete with it. */}
-          <motion.p
-            {...line(4)}
-            className="mt-5 text-sm text-ink-faint"
-          >
-            UI/UX <span className="text-ink-faint/50">•</span> Full-Stack
-            Development <span className="text-ink-faint/50">•</span> WordPress
-          </motion.p>
-
-          {/* Actions */}
-          <motion.div
-            {...line(5)}
-            className="mt-10 flex flex-wrap items-center gap-3 md:mt-12"
-          >
+          <motion.div {...fade(0.7)} className="mt-10 flex flex-wrap items-center gap-3">
             <Magnetic>
               <ButtonLink href="#work" variant="primary">
-                View My Work
+                Explore my work
                 <Arrow />
               </ButtonLink>
             </Magnetic>
@@ -147,118 +92,101 @@ export function Hero() {
               </ButtonLink>
             </Magnetic>
           </motion.div>
+        </div>
+
+        {/* project deck */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.5, ease: EASE }}
+          className="relative mx-auto w-full max-w-[640px] pr-[18%] pt-[16%] lg:mr-0"
+        >
+          <ProjectDeck />
         </motion.div>
       </div>
 
-      <ScrollCue reduce={!!reduce} />
-
-      <HeroFooter reduce={!!reduce} />
+      <MetaRail />
     </section>
   );
 }
 
-/** Small "scroll" hint: a dot travelling down a hairline. */
-function ScrollCue({ reduce }: { reduce: boolean }) {
-  if (reduce) return null;
-  return (
-    <motion.div
-      aria-hidden="true"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 1.4, duration: 0.8 }}
-      className="pointer-events-none absolute bottom-28 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-3 lg:flex"
-    >
-      <span className="text-[10px] uppercase tracking-[0.3em] text-ink-faint">Scroll</span>
-      <span className="relative h-12 w-px overflow-hidden bg-line">
-        <motion.span
-          className="absolute left-0 top-0 h-4 w-px bg-accent"
-          animate={{ y: [-16, 48] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </span>
-    </motion.div>
-  );
-}
+/* ------------------------------------------------------------------ */
 
 /**
- * Bottom rail. Does three jobs at once: fills the empty lower third,
- * uses the full width the headline leaves open on the right, and —
- * most importantly — puts named, shipped work inside the first screen.
- * Without it a visitor scrolls roughly 2,000px before seeing evidence.
+ * Three stacked cards on one CSS loop, each offset by a third of it, so
+ * the deck cycles with no JavaScript timer. Each card is a real link; the
+ * front one is on top, so it is the one a click lands on, and hovering
+ * the deck pauses it. Under reduced motion it rests as a static fan.
  */
-function HeroFooter({ reduce }: { reduce: boolean }) {
+function ProjectDeck() {
   return (
-    <motion.div
-      initial={reduce ? false : { opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.9, delay: reduce ? 0 : 0.55, ease: EASE }}
-      className="relative z-10 border-t border-line-soft"
-    >
-      <div className="container-edge flex flex-col gap-5 py-6 md:flex-row md:items-center md:justify-between md:gap-10 md:py-7">
-        <p className="flex items-center gap-2.5 text-sm text-ink-faint">
-          <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
-          </span>
-          {site.availability}
-        </p>
+    <ul className="deck relative aspect-[3/2] w-full" aria-label="Featured projects">
+      {deck.map((project, i) => (
+        <li key={project.slug} className={`deck-card deck-card-${i} absolute inset-0`}>
+          <Link
+            href={`/work/${project.slug}`}
+            aria-label={`${project.title} — view case study`}
+            className="relative block h-full rounded-[22px] border border-white/10 bg-gradient-to-b from-white/[0.16] to-white/[0.03] p-2 shadow-[0_40px_90px_-30px_rgba(0,0,0,0.9)] focus-visible:outline-offset-4"
+          >
+            <span className="relative block h-full overflow-hidden rounded-[15px]">
+              <Image
+                src={project.cover!}
+                alt=""
+                fill
+                sizes="(max-width: 1024px) 80vw, 560px"
+                priority={i === 0}
+                className="object-cover object-top"
+              />
+            </span>
+            <span className="absolute bottom-5 left-5 rounded-full border border-white/10 bg-bg/80 px-3 py-1.5 text-[13px] font-medium text-ink backdrop-blur">
+              {project.title}
+              <span className="text-ink-faint"> · {project.categories[0]}</span>
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
-        <nav aria-label="Selected work" className="min-w-0">
-          <ul className="flex items-center gap-x-6 gap-y-2 overflow-x-auto md:flex-wrap md:justify-end md:overflow-visible scrollbar-none [&::-webkit-scrollbar]:hidden">
-            <li className="shrink-0 text-sm text-ink-faint">Selected work</li>
-            {projects.map((project) => (
-              <li key={project.slug} className="shrink-0">
-                <Link
-                  href={`/work/${project.slug}`}
-                  className="group/proj relative block text-sm text-ink-dim transition-colors duration-300 hover:text-ink"
-                >
-                  {project.title}
-                  <span
-                    aria-hidden="true"
-                    className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-300 ease-out group-hover/proj:scale-x-100"
-                  />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+function MetaRail() {
+  return (
+    <div className="container-edge relative z-10 pb-8">
+      <div className="flex flex-wrap justify-between gap-x-8 gap-y-2 border-t border-line-soft pt-6 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint">
+        <span>Based in Pakistan · GMT+5</span>
+        <span className="hidden sm:inline">UI/UX · Full-stack · WordPress</span>
+        <a href="#work" className="transition-colors duration-300 hover:text-ink">
+          Scroll to explore ↓
+        </a>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
 /**
- * Depth without spectacle: one warm off-centre glow, a masked hairline
- * grid, and film grain. Nothing moves; nothing competes with the type.
+ * A slow light beam sweeping over a hairline grid that fades out toward
+ * the edges. Light, not decoration: it gives the deck somewhere to sit.
  */
 function HeroBackdrop() {
   return (
-    <div className="absolute inset-0 grain" aria-hidden="true">
+    <div className="pointer-events-none absolute inset-0 grain" aria-hidden="true">
       <div
-        className="absolute inset-0 fine-grid"
+        className="hero-beam absolute -top-52 left-[35%] h-[1400px] w-[1000px] blur-[20px]"
         style={{
-          maskImage:
-            "radial-gradient(85% 70% at 50% 35%, #000 20%, transparent 78%)",
-          WebkitMaskImage:
-            "radial-gradient(85% 70% at 50% 35%, #000 20%, transparent 78%)",
+          background:
+            "conic-gradient(from 160deg at 50% 0%, transparent 0deg, color-mix(in srgb, var(--color-accent) 14%, transparent) 20deg, transparent 40deg)",
         }}
       />
       <div
         className="absolute inset-0"
         style={{
-          background:
-            "radial-gradient(70% 55% at 18% 8%, rgba(77,124,254,0.10), transparent 60%)",
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+          backgroundSize: "72px 72px",
+          maskImage: "radial-gradient(70% 70% at 70% 40%, #000, transparent)",
+          WebkitMaskImage: "radial-gradient(70% 70% at 70% 40%, #000, transparent)",
         }}
       />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(60% 50% at 88% 78%, rgba(77,124,254,0.045), transparent 62%)",
-        }}
-      />
-      {/* Settle the composition back into black at the fold */}
-      <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-b from-transparent to-bg" />
     </div>
   );
 }
