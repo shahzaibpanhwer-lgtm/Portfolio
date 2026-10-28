@@ -53,8 +53,77 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "devflow",
+    slug: "agentforce",
     number: "01",
+    title: "AgentForce",
+    tagline: "AI Digital Employees / Business Automation",
+    description:
+      "An AI team for small businesses: agents that read customer messages, check stock and draft quotations, with nothing sent to a customer until the owner approves it.",
+    categories: ["AI Product", "Web App", "Dashboard"],
+    // Role, tools and contributions are left empty until confirmed by
+    // Shahzaib; the site hides empty fields rather than guessing.
+    role: "",
+    type: "Web App",
+    tools: [],
+    year: "2026",
+    liveUrl: "https://agent-force.tech/",
+    // Supplied manually — the public URL is a login wall.
+    cover: "/work/agentforce/cover.jpg",
+    contributions: [],
+    caseStudy: [
+      {
+        kind: "text",
+        heading: "Project Overview",
+        body: [
+          "AgentForce gives small businesses in Pakistan a team of AI agents for support, stock and sales. The agents read customer messages, check inventory and draft quotations, and the owner reviews everything from one dashboard before anything reaches a customer.",
+        ],
+      },
+      {
+        kind: "list",
+        heading: "How It Works",
+        items: [
+          "The Support Agent reads incoming customer messages",
+          "The Inventory Agent checks stock and flags products to restock",
+          "The Sales Agent drafts quotations",
+          "The owner approves each draft in the Approval Center",
+          "Approved replies go out to the customer on WhatsApp",
+        ],
+      },
+      {
+        kind: "list",
+        heading: "Inside the Dashboard",
+        items: [
+          "Pending approvals, approved value, quotations and low stock at a glance",
+          "Quotation volume and approval rate over the last seven days",
+          "Live status of each agent on the AI team",
+          "An activity log that keeps an audit trail of every action",
+          "Customers, inventory, follow-ups and reports",
+          "Light and dark mode",
+        ],
+      },
+      {
+        kind: "gallery",
+        heading: "Key Screens",
+        shots: [
+          {
+            src: "/work/agentforce/cover.jpg",
+            label: "Owner dashboard",
+            caption: "Approvals, quotation volume and the AI team at a glance",
+            ratio: "16/10",
+          },
+          {
+            src: "/work/agentforce/signin.jpg",
+            label: "Sign in",
+            caption: "Owner sign-in with Google or email",
+            ratio: "16/10",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "devflow",
+    number: "02",
     title: "DevFlow",
     tagline: "Developer Project, API & Deployment Management Platform",
     description:
@@ -131,7 +200,7 @@ export const projects: Project[] = [
 
   {
     slug: "yemo",
-    number: "02",
+    number: "03",
     title: "Yemo",
     tagline: "Restaurant Technology / Product Experience",
     description:
@@ -276,7 +345,7 @@ export const projects: Project[] = [
 
   {
     slug: "parix",
-    number: "03",
+    number: "04",
     title: "Parix.ai",
     tagline: "AI Automation / Website & Web Design",
     description:
@@ -398,7 +467,7 @@ export const projects: Project[] = [
 
   {
     slug: "book-scraper",
-    number: "04",
+    number: "05",
     title: "Book Scraper",
     tagline: "Web Product / Data Interface",
     description:

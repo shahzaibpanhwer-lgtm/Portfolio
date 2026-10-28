@@ -1,5 +1,4 @@
 import { Hero } from "@/components/sections/Hero";
-import { Statement } from "@/components/sections/Statement";
 import { Capabilities } from "@/components/sections/Capabilities";
 import { SelectedWork } from "@/components/sections/SelectedWork";
 import { Contact } from "@/components/sections/Contact";
@@ -20,7 +19,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Statement />
       <Capabilities />
       <SelectedWork />
       <Contact />

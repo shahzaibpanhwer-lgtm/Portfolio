@@ -160,18 +160,26 @@ function FeaturedProject({
         {/* Role and stack. Both already existed in the project data and
             were simply never rendered — a recruiter asking "what did he
             actually do here" had to open the case study to find out. */}
-        <dl className="mt-7 grid gap-x-8 gap-y-4 border-t border-line pt-6 sm:grid-cols-2">
-          <div>
-            <dt className="mb-1.5 text-xs text-ink-faint">Role</dt>
-            <dd className="text-sm text-ink">{project.role}</dd>
-          </div>
-          <div>
-            <dt className="mb-1.5 text-xs text-ink-faint">Built with</dt>
-            <dd className="text-sm text-ink-dim">
-              {project.tools.join(", ")}
-            </dd>
-          </div>
-        </dl>
+        {/* Either may be unconfirmed (empty) for a new project; show what
+            is known and drop the strip entirely when neither is. */}
+        {project.role || project.tools.length > 0 ? (
+          <dl className="mt-7 grid gap-x-8 gap-y-4 border-t border-line pt-6 sm:grid-cols-2">
+            {project.role ? (
+              <div>
+                <dt className="mb-1.5 text-xs text-ink-faint">Role</dt>
+                <dd className="text-sm text-ink">{project.role}</dd>
+              </div>
+            ) : null}
+            {project.tools.length > 0 ? (
+              <div>
+                <dt className="mb-1.5 text-xs text-ink-faint">Built with</dt>
+                <dd className="text-sm text-ink-dim">
+                  {project.tools.join(", ")}
+                </dd>
+              </div>
+            ) : null}
+          </dl>
+        ) : null}
 
         <div className="mt-8 flex flex-wrap items-center gap-6">
           <Link

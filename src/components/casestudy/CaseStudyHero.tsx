@@ -98,7 +98,9 @@ export function CaseStudyHero({ project }: { project: Project }) {
   );
 }
 
+/** Renders nothing for an unconfirmed (empty) value. */
 function Meta({ label, value }: { label: string; value: string }) {
+  if (!value) return null;
   return (
     <div>
       <dt className="label mb-2.5">{label}</dt>

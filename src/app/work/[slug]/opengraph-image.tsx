@@ -121,7 +121,7 @@ export default async function Image({
             {site.name}
           </div>
           <div style={{ color: "#8b8b94", fontSize: 22 }}>
-            {project?.role ?? site.role}
+            {project?.role || site.role}
           </div>
         </div>
       </div>

@@ -123,9 +123,8 @@ Confirm it by replying. Keep the hours honest and it stays reliable.
   hero, magnetic primary buttons
 - The hero's project deck (the first three projects with a cover in
   `projects.ts`) deals itself on a CSS loop and pauses on hover
-- A statement that lights up word by word as it is scrolled
 - Project frames that tilt flat as they scroll in
-- Navbar that tucks away while reading down, plus a scroll progress line
+- Navbar that tucks away while reading down
 
 All of it lives in `src/components/motion/` and switches off under
 `prefers-reduced-motion`.
