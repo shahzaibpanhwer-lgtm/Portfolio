@@ -3,14 +3,11 @@ import { cn } from "@/lib/cn";
 /**
  * Layer mark.
  *
- * The hero's isometric stack reduced to three strokes: an accent plane
- * on top (interface) over two receding layers. It ties the identity to
- * the one visual the site is built around instead of standing apart as
- * a generic monogram. Drawn as paths so it stays crisp at favicon size
- * and needs no font.
+ * Three stacked strokes for the layers of a full-stack product: an
+ * accent plane on top (interface) over two receding layers. Drawn as
+ * paths so it stays crisp at favicon size and needs no font.
  *
- * Inside a `group/logo` the top plane lifts on hover, the way the hero
- * stack floats. Motion-safe only.
+ * Inside a `group/logo` the top plane lifts on hover. Motion-safe only.
  */
 export function LogoMark({
   className,

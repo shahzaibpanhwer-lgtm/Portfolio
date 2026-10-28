@@ -1,248 +1,243 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
+  AnimatePresence,
   motion,
   useScroll,
+  useSpring,
   useTransform,
 } from "motion/react";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { ButtonLink, Arrow } from "@/components/ui/Button";
 import { projects } from "@/data/projects";
 import { site } from "@/data/site";
-import { HeroStack } from "@/components/sections/HeroStack";
 import { SplitText } from "@/components/motion/SplitText";
 import { Magnetic } from "@/components/motion/Magnetic";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+const ROLES = ["UI/UX designer", "full-stack developer", "WordPress builder"];
 
-export function Hero({
-  visual = <HeroStack />,
-}: {
-  /** The right-hand illustration. */
-  visual?: ReactNode;
-} = {}) {
+/**
+ * Centred statement, one rotating line that names the three disciplines,
+ * and the flagship project as the image — so the first screen carries a
+ * claim and the evidence for it, and nothing decorative.
+ */
+export function Hero() {
   const reduce = usePrefersReducedMotion();
-
-  const line = (i: number) =>
+  const fade = (delay: number) =>
     reduce
       ? {}
       : {
-          initial: { opacity: 0, y: 24 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.85, delay: 0.08 * i, ease: EASE },
+          initial: { opacity: 0, y: 18, filter: "blur(6px)" },
+          animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+          transition: { duration: 1, delay, ease: EASE },
         };
-
-  /* As the hero scrolls away its copy drifts up and fades a beat faster
-     than the page, and the stack sinks — two speeds read as depth. */
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const copyY = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const copyOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  const stackY = useTransform(scrollYProgress, [0, 1], [0, 160]);
-
 
   return (
     <section
-      ref={sectionRef}
-      className="relative flex min-h-[100svh] flex-col overflow-hidden pt-28 md:pt-32"
+      className="relative overflow-hidden pt-36 md:pt-44"
       aria-labelledby="hero-heading"
     >
-      <HeroBackdrop />
-      <motion.div style={reduce ? undefined : { y: stackY }} className="absolute inset-0">
-        {visual}
-      </motion.div>
+      <HeroBackdrop reduce={!!reduce} />
 
-      <div className="container-edge relative z-10 flex w-full flex-1 items-center">
-        <motion.div style={reduce ? undefined : { y: copyY, opacity: copyOpacity }}>
-          {/* Eyebrow */}
-          <motion.p
-            {...line(0)}
-            className="flex items-center gap-3 text-base text-ink md:text-lg"
-          >
-            <span
-              className="h-px w-8 bg-accent md:w-12"
-              aria-hidden="true"
-            />
-            Hi, I&rsquo;m Shahzaib.
-          </motion.p>
-
-          {/* Headline. The second line is set lighter, not dimmer — UI/UX
-              is co-primary, so it must not look like it is fading out. */}
-          <h1
-            id="hero-heading"
-            className="mt-6 font-display text-[clamp(2.25rem,8vw,6.25rem)] font-semibold leading-[0.98] tracking-[-0.035em] md:mt-8"
-          >
-            <SplitText
-              text="Full-Stack Developer"
-              trigger="mount"
-              delay={0.1}
-              className="block"
-              wordClassName="silver"
-            />
-            <span className="block text-ink/75">
-              <SplitText
-                text="& UI/UX Designer"
-                trigger="mount"
-                delay={0.28}
-                accent={["&"]}
-              />
-            </span>
-          </h1>
-
-          {/* Supporting copy */}
-          <motion.p
-            {...line(3)}
-            className="mt-8 max-w-[36rem] text-base leading-relaxed text-ink-dim md:mt-10 md:text-lg"
-          >
-            I build full-stack web applications and design intuitive
-            interfaces that combine clean engineering with thoughtful UX —
-            from client websites to production-ready digital products.
-          </motion.p>
-
-          {/* Disciplines. Deliberately small and dim: it qualifies the
-              headline, it does not compete with it. */}
-          <motion.p
-            {...line(4)}
-            className="mt-5 text-sm text-ink-faint"
-          >
-            UI/UX <span className="text-ink-faint/50">•</span> Full-Stack
-            Development <span className="text-ink-faint/50">•</span> WordPress
-          </motion.p>
-
-          {/* Actions */}
-          <motion.div
-            {...line(5)}
-            className="mt-10 flex flex-wrap items-center gap-3 md:mt-12"
-          >
-            <Magnetic>
-              <ButtonLink href="#work" variant="primary">
-                View My Work
-                <Arrow />
-              </ButtonLink>
-            </Magnetic>
-            <Magnetic>
-              <ButtonLink href="#contact" variant="ghost">
-                Book a call
-              </ButtonLink>
-            </Magnetic>
-          </motion.div>
-        </motion.div>
-      </div>
-
-      <ScrollCue reduce={!!reduce} />
-
-      <HeroFooter reduce={!!reduce} />
-    </section>
-  );
-}
-
-/** Small "scroll" hint: a dot travelling down a hairline. */
-function ScrollCue({ reduce }: { reduce: boolean }) {
-  if (reduce) return null;
-  return (
-    <motion.div
-      aria-hidden="true"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 1.4, duration: 0.8 }}
-      className="pointer-events-none absolute bottom-28 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-3 lg:flex"
-    >
-      <span className="text-[10px] uppercase tracking-[0.3em] text-ink-faint">Scroll</span>
-      <span className="relative h-12 w-px overflow-hidden bg-line">
-        <motion.span
-          className="absolute left-0 top-0 h-4 w-px bg-accent"
-          animate={{ y: [-16, 48] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </span>
-    </motion.div>
-  );
-}
-
-/**
- * Bottom rail. Does three jobs at once: fills the empty lower third,
- * uses the full width the headline leaves open on the right, and —
- * most importantly — puts named, shipped work inside the first screen.
- * Without it a visitor scrolls roughly 2,000px before seeing evidence.
- */
-function HeroFooter({ reduce }: { reduce: boolean }) {
-  return (
-    <motion.div
-      initial={reduce ? false : { opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.9, delay: reduce ? 0 : 0.55, ease: EASE }}
-      className="relative z-10 border-t border-line-soft"
-    >
-      <div className="container-edge flex flex-col gap-5 py-6 md:flex-row md:items-center md:justify-between md:gap-10 md:py-7">
-        <p className="flex items-center gap-2.5 text-sm text-ink-faint">
+      <div className="container-edge relative z-10 flex flex-col items-center text-center">
+        <motion.p
+          {...fade(0.05)}
+          className="inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border border-line bg-surface/60 px-4 py-2 text-xs text-ink-dim backdrop-blur sm:text-[13px]"
+        >
           <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
           </span>
           {site.availability}
-        </p>
+        </motion.p>
 
-        <nav aria-label="Selected work" className="min-w-0">
-          <ul className="flex items-center gap-x-6 gap-y-2 overflow-x-auto md:flex-wrap md:justify-end md:overflow-visible scrollbar-none [&::-webkit-scrollbar]:hidden">
-            <li className="shrink-0 text-sm text-ink-faint">Selected work</li>
-            {projects.map((project) => (
-              <li key={project.slug} className="shrink-0">
-                <Link
-                  href={`/work/${project.slug}`}
-                  className="group/proj relative block text-sm text-ink-dim transition-colors duration-300 hover:text-ink"
-                >
-                  {project.title}
-                  <span
-                    aria-hidden="true"
-                    className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-300 ease-out group-hover/proj:scale-x-100"
-                  />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <h1
+          id="hero-heading"
+          className="mt-9 max-w-[17ch] font-display text-[clamp(2.6rem,7.4vw,6.4rem)] font-semibold leading-[0.98] tracking-[-0.05em]"
+        >
+          <SplitText
+            text="Design and code, in one"
+            trigger="mount"
+            delay={0.12}
+            wordClassName="silver"
+          />{" "}
+          <SplitText
+            text="pair of hands."
+            trigger="mount"
+            delay={0.42}
+            wordClassName="text-accent"
+          />
+        </h1>
+
+        <motion.p
+          {...fade(0.6)}
+          className="mt-8 max-w-[38rem] text-base leading-relaxed text-ink-dim md:text-lg"
+        >
+          I&rsquo;m Shahzaib, a <RoleRoller reduce={!!reduce} /> from
+          Pakistan — shipping products from the first wireframe to
+          production.
+        </motion.p>
+
+        <motion.div
+          {...fade(0.72)}
+          className="mt-10 flex flex-wrap items-center justify-center gap-3"
+        >
+          <Magnetic>
+            <ButtonLink href="#work" variant="primary">
+              Explore my work
+              <Arrow />
+            </ButtonLink>
+          </Magnetic>
+          <Magnetic>
+            <ButtonLink href="#contact" variant="ghost">
+              Book a call
+            </ButtonLink>
+          </Magnetic>
+        </motion.div>
       </div>
-    </motion.div>
+
+      <HeroShot reduce={!!reduce} />
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+/**
+ * The role word swaps in place, and its slot eases to the new word's
+ * width so the sentence closes up around it instead of leaving a gap.
+ * Screen readers get the full list once.
+ */
+function RoleRoller({ reduce }: { reduce: boolean }) {
+  const [i, setI] = useState(0);
+
+  useEffect(() => {
+    if (reduce) return;
+    const id = window.setInterval(() => setI((n) => (n + 1) % ROLES.length), 2600);
+    return () => window.clearInterval(id);
+  }, [reduce]);
+
+  return (
+    <>
+      <span className="sr-only">{ROLES.join(", ")}</span>
+      <motion.span
+        aria-hidden="true"
+        layout={!reduce}
+        transition={{ duration: 0.6, ease: EASE }}
+        className="relative inline-flex overflow-hidden whitespace-nowrap align-bottom font-medium text-ink"
+      >
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.span
+            key={ROLES[i]}
+            className="inline-block"
+            initial={reduce ? false : { y: "100%", opacity: 0 }}
+            animate={{ y: "0%", opacity: 1 }}
+            exit={reduce ? undefined : { y: "-100%", opacity: 0 }}
+            transition={{ duration: 0.6, ease: EASE }}
+          >
+            {ROLES[i]}
+          </motion.span>
+        </AnimatePresence>
+      </motion.span>
+    </>
   );
 }
 
 /**
- * Depth without spectacle: one warm off-centre glow, a masked hairline
- * grid, and film grain. Nothing moves; nothing competes with the type.
+ * The flagship project, framed in glass. It rises in tilted back, then
+ * lays flat as the page scrolls — the screen "opening" toward the reader.
  */
-function HeroBackdrop() {
+function HeroShot({ reduce }: { reduce: boolean }) {
+  const project = projects[0];
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start 0.25"],
+  });
+  const progress = useSpring(scrollYProgress, { stiffness: 110, damping: 26, restDelta: 0.001 });
+  const rotateX = useTransform(progress, [0, 1], [18, 0]);
+  const scale = useTransform(progress, [0, 1], [0.92, 1]);
+
   return (
-    <div className="absolute inset-0 grain" aria-hidden="true">
+    <div ref={ref} className="container-edge relative z-10 mt-20 md:mt-24" style={{ perspective: "1600px" }}>
+      {/* lime light pooling behind the frame */}
       <div
-        className="absolute inset-0 fine-grid"
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-[12%] top-[6%] h-[60%] rounded-full blur-[70px]"
+        style={{ background: "color-mix(in srgb, var(--color-accent) 22%, transparent)" }}
+      />
+
+      <motion.div
+        initial={reduce ? false : { opacity: 0, y: 80 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.4, delay: 0.8, ease: EASE }}
+      >
+        <motion.div
+          style={
+            reduce
+              ? undefined
+              : { rotateX, scale, transformOrigin: "50% 0%", willChange: "transform" }
+          }
+          className="relative mx-auto max-w-[1200px] rounded-[26px] border border-white/10 bg-gradient-to-b from-white/[0.14] to-white/[0.02] p-2 md:p-2.5"
+        >
+          <Link
+            href={`/work/${project.slug}`}
+            aria-label={`${project.title} — view case study`}
+            className="block overflow-hidden rounded-[18px] focus-visible:outline-offset-4"
+          >
+            {project.cover ? (
+              <Image
+                src={project.cover}
+                alt={`${project.title} — ${project.tagline}`}
+                width={2880}
+                height={1800}
+                priority
+                sizes="(max-width: 1280px) 100vw, 1200px"
+                className="h-auto w-full"
+              />
+            ) : null}
+          </Link>
+        </motion.div>
+      </motion.div>
+
+      {/* settle the frame's lower edge back into the page */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%] bg-gradient-to-b from-transparent to-bg"
+      />
+    </div>
+  );
+}
+
+/**
+ * A breathing lime halo over a hairline grid that fades out from the
+ * centre. Light, not decoration: it gives the headline somewhere to sit.
+ */
+function HeroBackdrop({ reduce }: { reduce: boolean }) {
+  return (
+    <div className="pointer-events-none absolute inset-0 grain" aria-hidden="true">
+      <div
+        className="absolute inset-x-0 top-0 h-[1100px]"
         style={{
-          maskImage:
-            "radial-gradient(85% 70% at 50% 35%, #000 20%, transparent 78%)",
-          WebkitMaskImage:
-            "radial-gradient(85% 70% at 50% 35%, #000 20%, transparent 78%)",
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px)",
+          backgroundSize: "72px 72px",
+          maskImage: "radial-gradient(60% 55% at 50% 30%, #000, transparent)",
+          WebkitMaskImage: "radial-gradient(60% 55% at 50% 30%, #000, transparent)",
         }}
       />
       <div
-        className="absolute inset-0"
+        className="absolute left-1/2 top-[-380px] h-[760px] w-[1100px] max-w-[160vw] -translate-x-1/2 rounded-full blur-[40px]"
         style={{
           background:
-            "radial-gradient(70% 55% at 18% 8%, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 60%)",
+            "radial-gradient(closest-side, color-mix(in srgb, var(--color-accent) 15%, transparent), transparent)",
+          animation: reduce ? undefined : "halo-breathe 9s ease-in-out infinite",
         }}
       />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(60% 50% at 88% 78%, color-mix(in srgb, var(--color-accent) 4.5%, transparent), transparent 62%)",
-        }}
-      />
-      {/* Settle the composition back into black at the fold */}
-      <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-b from-transparent to-bg" />
     </div>
   );
 }
