@@ -31,10 +31,12 @@ export function LiveProject({ project }: { project: Project }) {
               it in its real environment.
             </p>
 
-            <div className="mt-8">
-              <p className="label mb-3">What I contributed</p>
-              <ChipList items={project.contributions} tone="accent" />
-            </div>
+            {project.contributions.length > 0 ? (
+              <div className="mt-8">
+                <p className="label mb-3">What I contributed</p>
+                <ChipList items={project.contributions} tone="accent" />
+              </div>
+            ) : null}
 
             <div className="mt-10">
               <ButtonLink href={project.liveUrl} external variant="primary">
