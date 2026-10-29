@@ -79,7 +79,7 @@ export function Navbar() {
           {/* Wordmark */}
           <Link
             href="/"
-            className="group/logo shrink-0 rounded-xl"
+            className="group/logo flex min-h-11 shrink-0 items-center rounded-xl"
             aria-label={`${site.name} — home`}
           >
             <Logo />

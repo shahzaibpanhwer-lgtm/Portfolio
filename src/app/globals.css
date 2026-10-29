@@ -116,6 +116,18 @@
   margin-bottom: -0.14em;
 }
 
+/* Grows a small text link's touch area to about 44px tall without
+   moving anything: the pseudo-element is invisible but clickable. */
+@utility tap {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -12px -6px;
+  }
+}
+
 /* Editorial eyebrow / label */
 @utility label {
   font-size: 0.6875rem;
@@ -127,7 +139,7 @@
 
 /* Section vertical rhythm */
 @utility section-y {
-  padding-block: 6rem;
+  padding-block: 4.5rem;
 
   @media (width >= 768px) {
     padding-block: 8.5rem;

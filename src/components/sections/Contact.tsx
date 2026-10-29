@@ -94,7 +94,7 @@ export function Contact({
           <Reveal delay={0.12}>
             <a
               href={emailHref}
-              className="mt-12 inline-block font-display text-[clamp(1.1rem,2.4vw,1.75rem)] font-medium tracking-tight text-ink-dim transition-colors duration-300 hover:text-accent"
+              className="tap mt-12 inline-block font-display text-[clamp(1.1rem,2.4vw,1.75rem)] font-medium tracking-tight text-ink-dim transition-colors duration-300 hover:text-accent"
             >
               {contact.email}
             </a>

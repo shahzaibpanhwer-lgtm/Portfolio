@@ -71,7 +71,7 @@ export function BrowserFrame({
             <i className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
           </span>
           {url ? (
-            <span className="ml-2 truncate font-mono text-[10px] tracking-tight text-ink-faint">
+            <span className="ml-2 truncate font-mono text-[11px] tracking-tight text-ink-faint">
               {url.replace(/^https?:\/\//, "")}
             </span>
           ) : null}

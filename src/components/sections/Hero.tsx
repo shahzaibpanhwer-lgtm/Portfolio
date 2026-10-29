@@ -265,7 +265,7 @@ function MetaRail() {
       <div className="flex flex-wrap justify-between gap-x-8 gap-y-2 border-t border-line-soft pt-6 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint">
         <span>Based in Pakistan · GMT+5</span>
         <span className="hidden sm:inline">UI/UX · Full-stack · WordPress</span>
-        <a href="#work" className="transition-colors duration-300 hover:text-ink">
+        <a href="#work" className="tap transition-colors duration-300 hover:text-ink">
           Scroll to explore ↓
         </a>
       </div>

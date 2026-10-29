@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { contact, site } from "@/data/site";
+import { mailtoHref, sendMessage, type Message } from "@/lib/sendMessage";
 import { cn } from "@/lib/cn";
 import { Arrow } from "@/components/ui/Button";
 
@@ -31,6 +31,7 @@ export function ContactForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [values, setValues] = useState({ name: "", email: "", message: "" });
   const [sentName, setSentName] = useState("");
+  const [lastMessage, setLastMessage] = useState<Message | null>(null);
 
   const set = (key: keyof typeof values) => (v: string) => {
     setValues((prev) => ({ ...prev, [key]: v }));
@@ -55,32 +56,22 @@ export function ContactForm() {
 
     setStatus("sending");
 
-    try {
-      const res = await fetch(site.contactEndpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          ...values,
-          _subject: `Portfolio enquiry from ${values.name}`,
-          _template: "table",
-          _captcha: "false",
-        }),
-      });
-      const data = (await res.json().catch(() => null)) as {
-        success?: boolean | string;
-      } | null;
-      /* FormSubmit answers 200 with success "false" for rejected sends. */
-      if (!res.ok || String(data?.success) !== "true") {
-        throw new Error(String(res.status));
-      }
-
+    const message: Message = {
+      subject: `Portfolio enquiry from ${values.name.trim()}`,
+      name: values.name.trim(),
+      email: values.email.trim(),
+      fields: [
+        ["Name", values.name.trim()],
+        ["Email", values.email.trim()],
+        ["Message", values.message.trim()],
+      ],
+    };
+    setLastMessage(message);
+    if (await sendMessage(message)) {
       setSentName(values.name.trim());
       setStatus("sent");
       setValues({ name: "", email: "", message: "" });
-    } catch {
+    } else {
       setStatus("error");
     }
   }
@@ -156,14 +147,16 @@ export function ContactForm() {
         ) : null}
         {status === "error" ? (
           <span className="text-ink-dim">
-            Something went wrong. You can email me directly at{" "}
-            <a
-              href={`mailto:${contact.email}`}
-              className="text-accent underline underline-offset-4"
-            >
-              {contact.email}
-            </a>
-            .
+            That didn&rsquo;t go through. Send the same message by email
+            instead — it&rsquo;s already filled in.
+            {lastMessage ? (
+              <a
+                href={mailtoHref(lastMessage)}
+                className="mt-3 flex min-h-11 items-center justify-center gap-2 rounded-full border border-accent/60 px-5 text-sm font-medium text-accent transition-colors hover:bg-accent/10"
+              >
+                Send by email instead
+              </a>
+            ) : null}
           </span>
         ) : null}
       </p>

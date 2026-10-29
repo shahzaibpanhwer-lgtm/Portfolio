@@ -35,7 +35,7 @@ export function BackToTop() {
         if (lenis) lenis.scrollTo(0, { duration: 1.6 });
         else window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
       }}
-      className="group/top inline-flex items-center gap-2 text-ink-faint transition-colors duration-300 hover:text-ink"
+      className="group/top inline-flex min-h-11 items-center gap-2 text-ink-faint transition-colors duration-300 hover:text-ink"
     >
       Back to top
       <span className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-full border border-line transition-colors duration-300 group-hover/top:border-accent">
