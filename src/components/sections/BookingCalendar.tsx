@@ -9,7 +9,8 @@ import {
   type KeyboardEvent,
 } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { booking, contact, site } from "@/data/site";
+import { booking, site } from "@/data/site";
+import { mailtoHref, sendMessage, type Message } from "@/lib/sendMessage";
 import {
   buildSlots,
   dayKeyOf,
@@ -583,6 +584,7 @@ function Details({
   const [topic, setTopic] = useState<string>(booking.topics[0]);
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
+  const [lastMessage, setLastMessage] = useState<Message | null>(null);
 
   const set = (key: keyof typeof values) => (v: string) => {
     setValues((prev) => ({ ...prev, [key]: v }));
@@ -608,30 +610,24 @@ function Details({
     setStatus("sending");
     const when = (z: string) =>
       `${formatLongDate(start, z)}, ${formatTime(start, z)} (${zoneOffsetLabel(start, z)})`;
-    try {
-      const res = await fetch(site.contactEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: values.name.trim(),
-          email: values.email.trim(),
-          topic,
-          length: `${minutes} minutes`,
-          requested_time_yours: when(booking.timeZone),
-          requested_time_theirs: `${when(localZone)} — ${localZone}`,
-          requested_time_utc: new Date(start).toISOString(),
-          message: values.notes.trim() || "(no notes)",
-          _subject: `Call request: ${topic} — ${formatLongDate(start, booking.timeZone)}, ${formatTime(start, booking.timeZone)}`,
-          _template: "table",
-          _captcha: "false",
-        }),
-      });
-      const data = (await res.json().catch(() => null)) as { success?: boolean | string } | null;
-      if (!res.ok || String(data?.success) !== "true") throw new Error(String(res.status));
-      onDone();
-    } catch {
-      setStatus("error");
-    }
+    const message: Message = {
+      subject: `Call request: ${topic} — ${formatLongDate(start, booking.timeZone)}, ${formatTime(start, booking.timeZone)}`,
+      name: values.name.trim(),
+      email: values.email.trim(),
+      fields: [
+        ["Name", values.name.trim()],
+        ["Email", values.email.trim()],
+        ["Topic", topic],
+        ["Length", `${minutes} minutes`],
+        ["Requested time (yours)", when(booking.timeZone)],
+        ["Requested time (theirs)", `${when(localZone)} — ${localZone}`],
+        ["Requested time (UTC)", new Date(start).toISOString()],
+        ["Notes", values.notes.trim() || "(no notes)"],
+      ],
+    };
+    setLastMessage(message);
+    if (await sendMessage(message)) onDone();
+    else setStatus("error");
   }
 
   const sending = status === "sending";
@@ -703,11 +699,16 @@ function Details({
       <p role="status" aria-live="polite" className="mt-4 min-h-5 text-sm text-ink-dim">
         {status === "error" ? (
           <>
-            That didn&rsquo;t go through. You can email me at{" "}
-            <a href={`mailto:${contact.email}`} className="text-accent underline underline-offset-4">
-              {contact.email}
-            </a>{" "}
-            instead.
+            That didn&rsquo;t go through. Send the same request by email
+            instead — it&rsquo;s already filled in.
+            {lastMessage ? (
+              <a
+                href={mailtoHref(lastMessage)}
+                className="mt-3 flex min-h-11 items-center justify-center gap-2 rounded-full border border-accent/60 px-5 text-sm font-medium text-accent transition-colors hover:bg-accent/10"
+              >
+                Send by email instead
+              </a>
+            ) : null}
           </>
         ) : null}
       </p>
