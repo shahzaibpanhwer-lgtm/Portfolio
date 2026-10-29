@@ -50,7 +50,7 @@ export function WordPressWork({
             showAllLink ? (
               <Link
                 href="/wordpress"
-                className="group/btn inline-flex items-center gap-2 text-sm text-ink-dim transition-colors duration-300 hover:text-accent"
+                className="tap group/btn inline-flex items-center gap-2 text-sm text-ink-dim transition-colors duration-300 hover:text-accent"
               >
                 All WordPress work
                 <Arrow />
@@ -168,7 +168,7 @@ function LeadProject({
           href={project.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group/btn mt-7 inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors duration-300 hover:text-accent"
+          className="tap group/btn mt-7 inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors duration-300 hover:text-accent"
         >
           Visit live website
           <ArrowOut />
@@ -247,7 +247,7 @@ function CompactWordPress({
           href={project.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group/btn mt-auto inline-flex items-center gap-2 pt-6 text-sm text-ink-dim transition-colors duration-300 hover:text-accent"
+          className="tap group/btn mt-auto inline-flex items-center gap-2 pt-6 text-sm text-ink-dim transition-colors duration-300 hover:text-accent"
         >
           Live site
           <ArrowOut />

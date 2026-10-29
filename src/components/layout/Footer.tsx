@@ -22,12 +22,12 @@ export function Footer() {
           {/* Sitemap */}
           <nav aria-label="Footer">
             <p className="label mb-5">Navigate</p>
-            <ul className="space-y-3">
+            <ul className="-my-2.5">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-ink-dim transition-colors duration-300 hover:text-ink"
+                    className="inline-flex min-h-10 items-center text-sm text-ink-dim transition-colors duration-300 hover:text-ink"
                   >
                     {link.label}
                   </Link>
@@ -39,13 +39,13 @@ export function Footer() {
           {/* Social */}
           <div>
             <p className="label mb-5">Elsewhere</p>
-            <ul className="space-y-3">
+            <ul className="-my-2.5">
               <li>
                 <a
                   href={contact.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group/btn inline-flex items-center gap-1.5 text-sm text-ink-dim transition-colors duration-300 hover:text-ink"
+                  className="group/btn inline-flex min-h-10 items-center gap-1.5 text-sm text-ink-dim transition-colors duration-300 hover:text-ink"
                 >
                   LinkedIn
                   <ArrowOut />
@@ -56,7 +56,7 @@ export function Footer() {
                   href={contact.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group/btn inline-flex items-center gap-1.5 text-sm text-ink-dim transition-colors duration-300 hover:text-ink"
+                  className="group/btn inline-flex min-h-10 items-center gap-1.5 text-sm text-ink-dim transition-colors duration-300 hover:text-ink"
                 >
                   GitHub
                   <ArrowOut />

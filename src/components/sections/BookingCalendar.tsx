@@ -197,7 +197,7 @@ function Booking() {
                   aria-checked={active}
                   onClick={() => setDuration(d.minutes)}
                   className={cn(
-                    "relative rounded-full px-3.5 py-1.5 text-xs transition-colors duration-300",
+                    "relative rounded-full px-3.5 py-2.5 text-xs transition-colors duration-300 sm:py-1.5",
                     active ? "text-bg" : "text-ink-dim hover:text-ink",
                   )}
                 >
@@ -379,7 +379,7 @@ function Booking() {
                 <button
                   type="button"
                   onClick={() => switchZone(!useHostZone)}
-                  className="text-ink-dim underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                  className="tap text-ink-dim underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
                 >
                   Show in {useHostZone ? "my time" : `${booking.zoneLabel} time`}
                 </button>

@@ -43,7 +43,7 @@ export function SelectedWork({
             showAllLink ? (
               <Link
                 href="/work"
-                className="group/btn inline-flex items-center gap-2 text-sm text-ink-dim transition-colors duration-300 hover:text-accent"
+                className="tap group/btn inline-flex items-center gap-2 text-sm text-ink-dim transition-colors duration-300 hover:text-accent"
               >
                 All projects
                 <Arrow />
@@ -193,7 +193,7 @@ function FeaturedProject({
         <div className="mt-8 flex flex-wrap items-center gap-6">
           <Link
             href={`/work/${project.slug}`}
-            className="group/btn inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors duration-300 hover:text-accent"
+            className="tap group/btn inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors duration-300 hover:text-accent"
           >
             View Case Study
             <Arrow />
@@ -203,7 +203,7 @@ function FeaturedProject({
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn inline-flex items-center gap-2 text-sm text-ink-dim transition-colors duration-300 hover:text-ink"
+              className="tap group/btn inline-flex items-center gap-2 text-sm text-ink-dim transition-colors duration-300 hover:text-ink"
             >
               Live site
               <ArrowOut />
