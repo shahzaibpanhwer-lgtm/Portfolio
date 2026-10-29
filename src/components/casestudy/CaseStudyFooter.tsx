@@ -21,15 +21,17 @@ export function LiveProject({ project }: { project: Project }) {
               <span className="h-px w-10 bg-line" aria-hidden="true" />
             </div>
             <h2 className="mt-5 font-display text-[clamp(1.6rem,3.2vw,2.4rem)] font-semibold leading-tight tracking-[-0.03em]">
-              Live Project
+              {project.liveUrl ? "Live Project" : "What I Built"}
             </h2>
           </div>
 
           <div className="lg:col-span-7 lg:col-start-6">
-            <p className="text-base leading-relaxed text-ink-dim md:text-lg">
-              The finished {project.type.toLowerCase()} is live. Have a look at
-              it in its real environment.
-            </p>
+            {project.liveUrl ? (
+              <p className="text-base leading-relaxed text-ink-dim md:text-lg">
+                The finished {project.type.toLowerCase()} is live. Have a look
+                at it in its real environment.
+              </p>
+            ) : null}
 
             {project.contributions.length > 0 ? (
               <div className="mt-8">
@@ -38,12 +40,14 @@ export function LiveProject({ project }: { project: Project }) {
               </div>
             ) : null}
 
-            <div className="mt-10">
-              <ButtonLink href={project.liveUrl} external variant="primary">
-                Visit {project.title}
-                <ArrowOut />
-              </ButtonLink>
-            </div>
+            {project.liveUrl ? (
+              <div className="mt-10">
+                <ButtonLink href={project.liveUrl} external variant="primary">
+                  Visit {project.title}
+                  <ArrowOut />
+                </ButtonLink>
+              </div>
+            ) : null}
           </div>
         </Reveal>
       </div>

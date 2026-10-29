@@ -65,7 +65,8 @@ export function CaseStudyHero({ project }: { project: Project }) {
           </dl>
         </Reveal>
 
-        {/* Live link */}
+        {/* Live link — only once a public address exists */}
+        {project.liveUrl ? (
         <Reveal delay={0.12}>
           <a
             href={project.liveUrl}
@@ -77,6 +78,7 @@ export function CaseStudyHero({ project }: { project: Project }) {
             <ArrowOut />
           </a>
         </Reveal>
+        ) : null}
 
         {/* Cover — tilts back and settles flat on scroll. Nothing sticky
             lives inside it, so the 3D transform is safe here. */}

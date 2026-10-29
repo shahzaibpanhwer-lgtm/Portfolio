@@ -6,7 +6,7 @@ import { WordPressWork } from "@/components/sections/WordPressWork";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Selected UI/UX, product and WordPress projects by Shahzaib Panhwer — Yemo, Parix.ai, Book Scraper and DevFlow.",
+    "Selected UI/UX, product and WordPress projects by Shahzaib Panhwer — AgentForce, HostelSplit, DevFlow, Yemo, Parix.ai and Book Scraper.",
 };
 
 export default function WorkPage() {

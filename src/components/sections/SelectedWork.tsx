@@ -198,15 +198,17 @@ function FeaturedProject({
             View Case Study
             <Arrow />
           </Link>
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/btn inline-flex items-center gap-2 text-sm text-ink-dim transition-colors duration-300 hover:text-ink"
-          >
-            Live site
-            <ArrowOut />
-          </a>
+          {project.liveUrl ? (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/btn inline-flex items-center gap-2 text-sm text-ink-dim transition-colors duration-300 hover:text-ink"
+            >
+              Live site
+              <ArrowOut />
+            </a>
+          ) : null}
         </div>
       </div>
     </Reveal>
