@@ -154,10 +154,10 @@ export const projects: Project[] = [
     categories: ["Web App", "Full-Stack", "Product Design"],
     role: "Designer & Full-Stack Developer",
     type: "Web App",
-    tools: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Supabase", "Claude API", "Vercel"],
+    tools: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Supabase", "Claude API"],
     year: "2026",
-    // No public address confirmed yet; the live-site links stay hidden
-    // until one is set here.
+    // Not deployed yet. The live-site links stay hidden until a public
+    // address is set here.
     liveUrl: "",
     cover: "/work/hostelsplit/cover.jpg",
     contributions: [
@@ -166,7 +166,7 @@ export const projects: Project[] = [
       "Database and row-level security",
       "Split and settle-up engine",
       "Notifications and reminders",
-      "Testing and deployment",
+      "Automated testing",
     ],
     caseStudy: [
       {
@@ -205,7 +205,7 @@ export const projects: Project[] = [
           "Money stored as whole paisa, never floats",
           "Unit tests for the split and simplification maths; browser tests for the main flows",
           "Installable app (PWA) with dark mode, checked at phone width",
-          "A daily scheduled job on Vercel for repeating expenses and reminders",
+          "A daily scheduled job for repeating expenses and reminders",
         ],
       },
       {
