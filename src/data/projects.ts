@@ -60,22 +60,45 @@ export const projects: Project[] = [
     description:
       "An AI team for small businesses: agents that read customer messages, check stock and draft quotations, with nothing sent to a customer until the owner approves it.",
     categories: ["AI Product", "Web App", "Dashboard"],
-    // Role, tools and contributions are left empty until confirmed by
-    // Shahzaib; the site hides empty fields rather than guessing.
-    role: "",
+    // Two-person team. Role and contributions follow the repository's
+    // commit history: Shahzaib built the frontend and UI, his teammate
+    // the backend (APIs, Appwrite and the agent logic).
+    role: "Frontend Developer & UI/UX Designer",
     type: "Web App",
-    tools: [],
+    tools: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Recharts", "Appwrite", "Gemini"],
     year: "2026",
     liveUrl: "https://agent-force.tech/",
     // Supplied manually — the public URL is a login wall.
     cover: "/work/agentforce/cover.jpg",
-    contributions: [],
+    contributions: [
+      "UI/UX design and design system",
+      "Login and owner dashboard",
+      "Customers, Activity log and Reports",
+      "Follow-up and auto-restock screens",
+      "Welcome tour and installable app",
+      "Frontend–backend integration",
+    ],
     caseStudy: [
       {
         kind: "text",
         heading: "Project Overview",
         body: [
           "AgentForce gives small businesses in Pakistan a team of AI agents for support, stock and sales. The agents read customer messages, check inventory and draft quotations, and the owner reviews everything from one dashboard before anything reaches a customer.",
+        ],
+      },
+      {
+        kind: "list",
+        heading: "My Role",
+        body: [
+          "AgentForce was built by a team of two. I designed the product and built the whole frontend; my teammate built the backend — the APIs, the Appwrite database and the agent logic.",
+        ],
+        items: [
+          "Designed the interface and its colour system, in light and dark mode",
+          "Built the login page with a live product preview, and the owner dashboard with its charts",
+          "Built the Customers, Activity log and Reports pages, and CSV product import",
+          "Added the Follow-up Agent and dealer auto-restock screens",
+          "Made it an installable app (PWA) with a guided welcome tour",
+          "Connected the frontend to the backend APIs",
         ],
       },
       {
@@ -122,8 +145,114 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "devflow",
+    slug: "hostelsplit",
     number: "02",
+    title: "HostelSplit",
+    tagline: "Hostel Expense Splitter / Web App",
+    description:
+      "A web app for hostel messes and shared flats: track meals, bazar and shared bills, see a live meal rate, and settle up at month end in the fewest payments.",
+    categories: ["Web App", "Full-Stack", "Product Design"],
+    role: "Designer & Full-Stack Developer",
+    type: "Web App",
+    tools: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Supabase", "Claude API", "Vercel"],
+    year: "2026",
+    // No public address confirmed yet; the live-site links stay hidden
+    // until one is set here.
+    liveUrl: "",
+    cover: "/work/hostelsplit/cover.jpg",
+    contributions: [
+      "Product and UI design",
+      "Full-stack development",
+      "Database and row-level security",
+      "Split and settle-up engine",
+      "Notifications and reminders",
+      "Testing and deployment",
+    ],
+    caseStudy: [
+      {
+        kind: "text",
+        heading: "Project Overview",
+        body: [
+          "HostelSplit replaces the notebook a hostel mess manager keeps. Room-mates log meals, bazar shopping and shared bills in one place, everyone sees the same numbers, and at month end each person gets one bill and the shortest list of who pays whom.",
+          "General bill splitters stop at shared expenses. The mess module — meals, a live meal rate, deposits and a month close — is the part they don't have.",
+        ],
+      },
+      {
+        kind: "list",
+        heading: "What It Does",
+        items: [
+          "Meal register for breakfast, lunch and dinner, with guests and days off",
+          "Bazar log and deposits, with a meal rate that updates with every entry",
+          "Rent, WiFi and other fixed bills split equally, by room or by exact amount",
+          "Month close: one bill per member, balances carried forward",
+          "Equal, exact, percentage and share splits, with several payers on one expense",
+          "Debt simplification, so the group settles in the fewest payments",
+          "Invite links, QR codes and join-by-code",
+          "Repeating expenses, a bazar duty roster, push notifications and payment reminders",
+          "Receipt scanning that reads the total and items from a photo",
+          "Bill PDFs, Excel export and JazzCash / Easypaisa payout details",
+        ],
+      },
+      {
+        kind: "list",
+        heading: "How I Built It",
+        body: [
+          "I designed and built HostelSplit myself, from the database to the screens.",
+        ],
+        items: [
+          "Next.js 16, TypeScript, Tailwind CSS 4 and shadcn/ui",
+          "Supabase Postgres with row-level security on every table",
+          "Money stored as whole paisa, never floats",
+          "Unit tests for the split and simplification maths; browser tests for the main flows",
+          "Installable app (PWA) with dark mode, checked at phone width",
+          "A daily scheduled job on Vercel for repeating expenses and reminders",
+        ],
+      },
+      {
+        kind: "gallery",
+        heading: "Key Screens",
+        shots: [
+          {
+            src: "/work/hostelsplit/cover.jpg",
+            label: "Landing page",
+            caption: "The mess register, explained on one screen",
+            ratio: "16/10",
+          },
+          {
+            src: "/work/hostelsplit/login.jpg",
+            label: "Sign in",
+            caption: "Email or Google sign-in beside a sample month-end bill",
+            ratio: "16/10",
+          },
+          {
+            src: "/work/hostelsplit/dashboard.jpg",
+            label: "Home",
+            caption: "Money left this month, quick add and spending by category",
+            ratio: "16/10",
+          },
+        ],
+      },
+      {
+        kind: "gallery",
+        heading: "On a Phone",
+        shots: [
+          {
+            src: "/work/hostelsplit/mobile-landing.jpg",
+            label: "Landing — mobile",
+            ratio: "9/16",
+          },
+          {
+            src: "/work/hostelsplit/mobile-login.jpg",
+            label: "Sign in — mobile",
+            ratio: "9/16",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "devflow",
+    number: "03",
     title: "DevFlow",
     tagline: "Developer Project, API & Deployment Management Platform",
     description:
@@ -200,7 +329,7 @@ export const projects: Project[] = [
 
   {
     slug: "yemo",
-    number: "03",
+    number: "04",
     title: "Yemo",
     tagline: "Restaurant Technology / Product Experience",
     description:
@@ -345,7 +474,7 @@ export const projects: Project[] = [
 
   {
     slug: "parix",
-    number: "04",
+    number: "05",
     title: "Parix.ai",
     tagline: "AI Automation / Website & Web Design",
     description:
@@ -467,7 +596,7 @@ export const projects: Project[] = [
 
   {
     slug: "book-scraper",
-    number: "05",
+    number: "06",
     title: "Book Scraper",
     tagline: "Web Product / Data Interface",
     description:
