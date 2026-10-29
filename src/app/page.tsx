@@ -20,7 +20,7 @@ export default function HomePage() {
     <>
       <Hero />
       <Capabilities />
-      <SelectedWork />
+      <SelectedWork limit={3} />
       <Contact />
     </>
   );

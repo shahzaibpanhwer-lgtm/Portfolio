@@ -6,10 +6,12 @@ import { BrowserFrame } from "@/components/ui/BrowserFrame";
 import { ScrollTiltCard } from "@/components/ui/ScrollTiltCard";
 import { Arrow, ArrowOut } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
+import { ExploreMore } from "@/components/sections/ExploreMore";
 
 export function SelectedWork({
   showAllLink = true,
   showHeading = true,
+  limit,
 }: {
   showAllLink?: boolean;
   /**
@@ -17,7 +19,13 @@ export function SelectedWork({
    * leaving it on repeated the title and its lead line word for word.
    */
   showHeading?: boolean;
+  /**
+   * Show only the first N projects, then an "Explore more" card that
+   * leads to /work. Unset on /work itself, which lists everything.
+   */
+  limit?: number;
 } = {}) {
+  const shown = limit ? projects.slice(0, limit) : projects;
   /* No section h2 means the project titles are the page's second level. */
   const titleAs = showHeading ? "h3" : "h2";
 
@@ -52,7 +60,7 @@ export function SelectedWork({
             showHeading && "mt-20 md:mt-28",
           )}
         >
-          {projects.map((project, i) => (
+          {shown.map((project, i) => (
             <FeaturedProject
               key={project.slug}
               project={project}
@@ -62,6 +70,7 @@ export function SelectedWork({
           ))}
         </div>
 
+        {limit && projects.length > limit ? <ExploreMore shown={limit} /> : null}
       </div>
     </section>
   );

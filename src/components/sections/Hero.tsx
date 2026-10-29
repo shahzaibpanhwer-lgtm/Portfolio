@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { motion } from "motion/react";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { ButtonLink, Arrow } from "@/components/ui/Button";
@@ -14,6 +15,29 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 /* The deck shows the first three projects that have a cover. */
 const deck = projects.filter((p) => p.cover).slice(0, 3);
+
+/* Where a card sits by its depth in the stack: front, middle, back.
+   Back cards peek out above the front one and are dimmed, never made
+   see-through, so the stack reads as solid. */
+const SLOTS = [
+  { y: "0%", scale: 1 },
+  { y: "-8%", scale: 0.93 },
+  { y: "-15%", scale: 0.86 },
+] as const;
+const DIM = [0, 0.5, 0.72];
+
+/* The card that just left the front drops down and away, then settles
+   into the back slot. Constant objects, so a re-render that does not
+   move the card does not replay it. */
+const TO_BACK = {
+  // null = start from wherever the card is now (front, or middle when a
+  // tab jumps the deck).
+  y: [null, "16%", SLOTS[2].y],
+  scale: [null, 0.95, SLOTS[2].scale],
+  opacity: [null, 0, 1],
+  transition: { duration: 0.9, times: [0, 0.45, 1], ease: EASE },
+};
+const SPRING = { type: "spring", stiffness: 170, damping: 24, mass: 0.9 } as const;
 
 /**
  * Statement on the left, a deck of real projects on the right that deals
@@ -99,9 +123,9 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.5, ease: EASE }}
-          className="relative mx-auto w-full max-w-[640px] pr-[18%] pt-[16%] lg:mr-0"
+          className="relative mx-auto w-full max-w-[600px] lg:mr-0"
         >
-          <ProjectDeck />
+          <ProjectDeck reduce={!!reduce} />
         </motion.div>
       </div>
 
@@ -113,39 +137,125 @@ export function Hero() {
 /* ------------------------------------------------------------------ */
 
 /**
- * Three stacked cards on one CSS loop, each offset by a third of it, so
- * the deck cycles with no JavaScript timer. Each card is a real link; the
- * front one is on top, so it is the one a click lands on, and hovering
- * the deck pauses it. Under reduced motion it rests as a static fan.
+ * A stack of real projects that turns over on its own. The front card
+ * drops away to the back while the others glide forward on a spring.
+ *
+ * The progress bar under the active tab is the clock: when its fill
+ * finishes, the deck advances. Pausing the bar (hover or focus) pauses
+ * the deck, so the two can never drift apart. Clicking a back card or a
+ * tab brings that project forward. Under reduced motion nothing turns on
+ * its own; the tabs still switch.
  */
-function ProjectDeck() {
+function ProjectDeck({ reduce }: { reduce: boolean }) {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const n = deck.length;
+
+  const advance = () => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    setActive((a) => (a + 1) % n);
+  };
+
   return (
-    <ul className="deck relative aspect-[3/2] w-full" aria-label="Featured projects">
-      {deck.map((project, i) => (
-        <li key={project.slug} className={`deck-card deck-card-${i} absolute inset-0`}>
-          <Link
-            href={`/work/${project.slug}`}
-            aria-label={`${project.title} — view case study`}
-            className="relative block h-full rounded-[22px] border border-white/10 bg-gradient-to-b from-white/[0.16] to-white/[0.03] p-2 shadow-[0_40px_90px_-30px_rgba(0,0,0,0.9)] focus-visible:outline-offset-4"
-          >
-            <span className="relative block h-full overflow-hidden rounded-[15px]">
-              <Image
-                src={project.cover!}
-                alt=""
-                fill
-                sizes="(max-width: 1024px) 80vw, 560px"
-                priority={i === 0}
-                className="object-cover object-top"
-              />
-            </span>
-            <span className="absolute bottom-5 left-5 rounded-full border border-white/10 bg-bg/80 px-3 py-1.5 text-[13px] font-medium text-ink backdrop-blur">
-              {project.title}
-              <span className="text-ink-faint"> · {project.categories[0]}</span>
-            </span>
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <div
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      <ul className="relative mt-[13%] aspect-[16/10] w-full" aria-label="Featured projects">
+        {deck.map((project, i) => {
+          const depth = (i - active + n) % n;
+          const front = depth === 0;
+          return (
+            <motion.li
+              key={project.slug}
+              className="absolute inset-0"
+              style={{ zIndex: n - depth, transformOrigin: "50% 0%" }}
+              initial={false}
+              animate={depth === n - 1 && n > 2 ? TO_BACK : SLOTS[depth]}
+              transition={SPRING}
+            >
+              <Link
+                href={`/work/${project.slug}`}
+                aria-label={`${project.title} — view case study`}
+                tabIndex={front ? 0 : -1}
+                onClick={(e) => {
+                  if (front) return;
+                  e.preventDefault();
+                  setActive(i);
+                }}
+                className="group/deck relative block h-full rounded-[22px] border border-white/10 bg-gradient-to-b from-white/[0.16] to-white/[0.03] p-2 shadow-[0_40px_90px_-30px_rgba(0,0,0,0.9)] focus-visible:outline-offset-4"
+              >
+                <span className="relative block h-full overflow-hidden rounded-[15px] bg-surface">
+                  <Image
+                    src={project.cover!}
+                    alt=""
+                    fill
+                    sizes="(max-width: 1024px) 90vw, 600px"
+                    priority={i === 0}
+                    className="object-cover object-top transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/deck:scale-[1.03]"
+                  />
+                  <motion.span
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-bg"
+                    initial={false}
+                    animate={{ opacity: DIM[depth] }}
+                    transition={{ duration: 0.6, ease: EASE }}
+                  />
+                </span>
+                <motion.span
+                  className="absolute bottom-5 left-5 rounded-full border border-white/10 bg-bg/80 px-3 py-1.5 text-[13px] font-medium text-ink backdrop-blur"
+                  initial={false}
+                  animate={{ opacity: front ? 1 : 0, y: front ? 0 : 6 }}
+                  transition={{ duration: 0.5, delay: front ? 0.25 : 0, ease: EASE }}
+                >
+                  {project.title}
+                  <span className="text-ink-faint"> · {project.categories[0]}</span>
+                </motion.span>
+              </Link>
+            </motion.li>
+          );
+        })}
+      </ul>
+
+      {/* tabs, each with its own progress line */}
+      <div className="mt-6 grid grid-cols-3 gap-3">
+        {deck.map((project, i) => {
+          const on = i === active;
+          return (
+            <button
+              key={project.slug}
+              type="button"
+              onClick={() => setActive(i)}
+              aria-label={`Show ${project.title}`}
+              aria-pressed={on}
+              className="group/tab min-h-11 text-left"
+            >
+              <span
+                className={`block truncate text-xs transition-colors duration-300 ${
+                  on ? "text-ink" : "text-ink-faint group-hover/tab:text-ink-dim"
+                }`}
+              >
+                {project.title}
+              </span>
+              <span className="mt-2 block h-[2px] overflow-hidden rounded-full bg-line">
+                {on ? (
+                  <span
+                    key={active}
+                    className={`block h-full origin-left rounded-full bg-accent ${
+                      reduce ? "" : "deck-progress"
+                    }`}
+                    style={{ animationPlayState: paused ? "paused" : "running" }}
+                    onAnimationEnd={advance}
+                  />
+                ) : null}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
@@ -174,7 +284,7 @@ function HeroBackdrop() {
         className="hero-beam absolute -top-52 left-[35%] h-[1400px] w-[1000px] blur-[20px]"
         style={{
           background:
-            "conic-gradient(from 160deg at 50% 0%, transparent 0deg, color-mix(in srgb, var(--color-accent) 14%, transparent) 20deg, transparent 40deg)",
+            "conic-gradient(from 160deg at 50% 0%, transparent 0deg, color-mix(in srgb, var(--color-accent) 10%, transparent) 20deg, transparent 40deg)",
         }}
       />
       <div

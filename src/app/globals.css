@@ -169,14 +169,13 @@
 
 /* ============================================================
    HERO
-   The beam sweeps; the project deck deals itself on one 10s loop,
-   each card a third of the loop behind the last. Offsets are in % of
-   the card so the fan scales with it. Transform and opacity only.
+   The beam sweeps slowly; the project deck itself is driven from
+   Hero.tsx and only borrows its progress line from here.
    ============================================================ */
 
 .hero-beam {
   transform-origin: 50% 0;
-  animation: hero-sweep 11s ease-in-out infinite alternate;
+  animation: hero-sweep 16s ease-in-out infinite alternate;
 }
 
 @keyframes hero-sweep {
@@ -184,26 +183,14 @@
   to   { rotate: 14deg; }
 }
 
-.deck-card {
-  transform-origin: 50% 100%;
-  animation: deal 10s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-}
-.deck-card-1 { animation-delay: -6.6s; }
-.deck-card-2 { animation-delay: -3.6s; }
-
-/* Hold still while someone is aiming at a card. */
-.deck:hover .deck-card,
-.deck:focus-within .deck-card {
-  animation-play-state: paused;
+/* The active deck tab's progress line. Its end advances the deck. */
+.deck-progress {
+  animation: deck-progress 4.8s linear forwards;
 }
 
-@keyframes deal {
-  0%, 25%  { transform: translate(0, 0) rotate(-3deg) scale(1); opacity: 1; z-index: 3; }
-  32%      { transform: translate(-17%, 17%) rotate(-12deg) scale(0.96); opacity: 0; z-index: 3; }
-  33%      { transform: translate(22%, -22%) rotate(10deg) scale(0.84); opacity: 0; z-index: 1; }
-  40%, 58% { transform: translate(22%, -22%) rotate(10deg) scale(0.84); opacity: 0.45; z-index: 1; }
-  66%, 91% { transform: translate(11%, -11%) rotate(4deg) scale(0.92); opacity: 0.75; z-index: 2; }
-  100%     { transform: translate(0, 0) rotate(-3deg) scale(1); opacity: 1; z-index: 3; }
+@keyframes deck-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
 }
 
 /* ============================================================
@@ -222,13 +209,4 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* Without motion the deck rests as a fan instead of collapsing into one
-   stack when its animation is cut short. */
-@media (prefers-reduced-motion: reduce) {
-  .deck-card { animation: none !important; }
-  .deck-card-0 { transform: rotate(-3deg); z-index: 3; }
-  .deck-card-1 { transform: translate(11%, -11%) rotate(4deg) scale(0.92); opacity: 0.75; z-index: 2; }
-  .deck-card-2 { transform: translate(22%, -22%) rotate(10deg) scale(0.84); opacity: 0.45; z-index: 1; }
 }

@@ -122,7 +122,9 @@ Confirm it by replying. Keep the hours honest and it stays reliable.
 - Word-by-word masked reveals on headings, a sweeping light beam in the
   hero, magnetic primary buttons
 - The hero's project deck (the first three projects with a cover in
-  `projects.ts`) deals itself on a CSS loop and pauses on hover
+  `projects.ts`): a stack that turns over on a spring, timed by the
+  active tab's progress line, pausing on hover; tabs and back cards
+  switch it by hand
 - Project frames that tilt flat as they scroll in
 - Navbar that tucks away while reading down
 
